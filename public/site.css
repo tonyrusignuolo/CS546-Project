@@ -1,0 +1,12 @@
+/* CSS for styling the website */
+
+body {
+    background: #fefefe;
+    font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
+    font-size: 15pt;
+}
+
+input, label {
+    display: block;
+    padding: 5px;
+}

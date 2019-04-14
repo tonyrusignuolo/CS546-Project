@@ -1,24 +1,21 @@
-const MongoClient = require("mongodb").MongoClient;
+const MongoClient = require("mongodb").MongoClient
 
 const settings = {
-  mongoConfig: {
-    serverUrl: "mongodb://localhost:27017/",
-    database: "advancedApiBasedBlog"
-  }
-};
+	mongoConfig: {
+		serverUrl: "mongodb://localhost:27017/",
+    	database: "project_heartbeat"
+	}
+}
 
-let fullMongoUrl =
-  settings.mongoConfig.serverUrl + settings.mongoConfig.database;
-let _connection = undefined;
+let _connection = undefined
+let _db = undefined
 
-let connectDb = () => {
-  if (!_connection) {
-    _connection = MongoClient.connect(fullMongoUrl).then(db => {
-      return db;
-    });
-  }
-
-  return _connection;
-};
-
-module.exports = connectDb;
+// Exports the function that obtains the connection and creates the data base with the above settings
+module.exports = async () => {
+    if(!_connection){
+        _connection = await MongoClient.connect(settings.mongoConfig.serverUrl, { useNewUrlParser: true })
+        _db = await _connection.db(settings.mongoConfig.database)
+    }
+    // Return an instance of the database
+    return(_db)
+}
