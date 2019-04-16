@@ -46,5 +46,10 @@ module.exports = {
 			deleted: true,
 			data: appointment
 		};
-	}
+	},
+
+	async deleteAll() {
+        const appointmentsCollection = await appointments();
+        await appointmentsCollection.deleteMany({});
+    },
 };
