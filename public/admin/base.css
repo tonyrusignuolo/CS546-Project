@@ -1,0 +1,129 @@
+body {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+
+    margin: 0;
+    background: #fff;
+}
+
+button {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    font-family: 'Consolas', serif;
+    color: #000;
+    font-size: 20px;
+    background: #fff;
+    margin: 15px 15px;
+    border: solid #000 1px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #000;
+    color: #fff;
+    text-decoration: none;
+}
+
+input {
+    width: 5em;
+}
+
+label {
+    padding: 10px;
+    font-family: 'Raleway', sans-serif;
+}
+
+ol {
+    padding-left: 0;
+    list-style-position: inside;
+}
+
+.bad {
+    color: #7f231c;
+}
+
+.baseline {
+    align-items: baseline !important;
+}
+
+.disabled {
+    display: none !important;
+}
+
+.flex-column {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+
+    margin: 0;
+}
+
+.flex-row {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+
+    margin: 0;
+}
+
+.good {
+    color: #1b5e20;
+}
+
+.info-text {
+    font-family: 'Raleway', sans-serif;
+}
+
+.unset-size {
+    font-size: unset !important;
+}
+
+.small {
+    font-size: small !important;
+}
+
+.title-text {
+    font-size: xx-large;
+    font-family: 'Consolas', serif;
+    text-align: center;
+
+    white-space: nowrap;
+    overflow-x: hidden;
+
+    color: #000;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px inset #000;
+
+    margin-bottom: 15px;
+}
+
+.wide-input {
+    width: 10em;
+}
+
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/public/font/Raleway/raleway-v12-latin-regular.eot');
+    src: local('Raleway'), local('Raleway-Regular'),
+    url('/public/font/Raleway/raleway-v12-latin-regular.eot?#iefix') format('embedded-opentype'),
+    url('/public/font/Raleway/raleway-v12-latin-regular.woff2') format('woff2'),
+    url('/public/font/Raleway/raleway-v12-latin-regular.woff') format('woff'),
+    url('/public/font/Raleway/raleway-v12-latin-regular.ttf') format('truetype'),
+    url('/public/font/Raleway/raleway-v12-latin-regular.svg#Raleway') format('svg');
+}

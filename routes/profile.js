@@ -5,7 +5,7 @@ const data = require('../data')
 const profileData = data.profiles
 
 router.get('/create-profile', async (req, res) => {
-    res.render("profile/createprofile.handlebars")
+	res.render("profile/createprofile.handlebars")
 })
 
 router.post('/create-profile', async (req, res) => {

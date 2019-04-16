@@ -18,5 +18,7 @@ let getCollectionFn = collection => {
 
 /* Collections get listed here */
 module.exports = {
-	profiles: getCollectionFn("profiles")
-}
+	profiles: getCollectionFn("profiles"),
+	appointments: getCollectionFn("appointments"),
+    practitioners: getCollectionFn("practitioners"),
+};

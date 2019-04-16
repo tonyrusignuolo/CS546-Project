@@ -1,7 +1,9 @@
 // Database for handling profiles
 const collections = require("../config/mongoCollections")
 // Gets profile collection from db
-const profiles = collections.profiles
+const profiles = collections.profiles;
+const helper = require("./helper");
+
 
 // Exports methods for creating updating and inserting
 const exportedMethods = {
@@ -15,13 +17,21 @@ const exportedMethods = {
         
         const insertInfo = await profileCollection.insertOne(profileJSON)
 
-        if(insertInfo.insertedCount === 0){
-            throw("Error profile.createProf: Could not add the profile to collection")
-        }
+		const insertInfo = await profileCollection.insertOne(profileJSON)
 
-        return
+		if (insertInfo.insertedCount === 0) {
+			throw ("Error profile.createProf: Could not add the profile to collection")
+		}
+		return this.read(insertInfo.insertedId);
+	},
 
-    }
+	async read(id) {
+		id = await helper.convertId(id);
+		let profileCollection = await profiles();
+		return profileCollection.findOne({
+			_id: id
+		});
+	}
 }
 
-module.exports = exportedMethods
+module.exports = exportedMethods;
