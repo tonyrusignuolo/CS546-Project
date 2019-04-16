@@ -2,8 +2,10 @@
 
 const profileData = require("./profiles");
 const appointmentsData = require("./appointments");
+const practitionerData = require("./practitioners");
 
 module.exports = {
 	profiles: profileData,
-	appointments: appointmentsData
-}
+	appointments: appointmentsData,
+	practitioners: practitionerData,
+};
