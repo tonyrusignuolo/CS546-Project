@@ -35,6 +35,10 @@ module.exports = {
     },
 
     async update(id, update_) {
+        /**
+         * @param {Object|String} id - The document ID to update
+         * @param update_ - field:value expressions or update operators. See 'create()' for document structure
+         */
         if (!id || typeof update_ !== 'object') throw 'Invalid parameter: update_';
 
         const practitionerCollection = await practitioners();
@@ -56,8 +60,8 @@ module.exports = {
          * @returns {ObjectId}
          */
         if (!data) throw 'Missing required parameter: data';
-        if (!data.name || typeof data.name !== 'string' ||
-            !data.location || typeof data.location !== 'object' ||
+        if (!data.name || typeof data.name !== 'string') throw 'Invalid parameter: data.name';
+        if (!data.location || typeof data.location !== 'object' ||
             !data.location.lat || typeof data.location.lat != 'number' ||
             !data.location.long || typeof data.location.long != 'number') throw 'Invalid parameter: data.location';
 

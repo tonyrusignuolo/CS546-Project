@@ -35,6 +35,8 @@ const main = async () => {
     console.log(await practitioners.get(officeA_ID));
     console.log(await practitioners.get(officeB_ID));
 
+    await practitioners.removeAll();
+
     const db = await conn();
     db.serverConfig.close();
 };
