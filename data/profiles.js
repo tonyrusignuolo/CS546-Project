@@ -17,8 +17,6 @@ const exportedMethods = {
         
         const insertInfo = await profileCollection.insertOne(profileJSON)
 
-		const insertInfo = await profileCollection.insertOne(profileJSON)
-
 		if (insertInfo.insertedCount === 0) {
 			throw ("Error profile.createProf: Could not add the profile to collection")
 		}
