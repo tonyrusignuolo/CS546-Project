@@ -10,7 +10,7 @@ router.get('/create-profile', async (req, res) => {
 
 router.post('/create-profile', async (req, res) => {
     try{
-        const newProfile = await profileData.createProf(req.body)
+        const newProfile = await profileData.create(req.body)
     }
     catch(e){
         console.log(e)

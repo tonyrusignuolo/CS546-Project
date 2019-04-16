@@ -7,7 +7,7 @@ const profiles = collections.profiles
 const exportedMethods = {
 
     // Function to create and add a new user profile to the collection
-    async createProf(profileJSON){
+    async create(profileJSON){
         console.log(profileJSON)
         
         // Insert new profile into collection

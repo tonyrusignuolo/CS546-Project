@@ -2,7 +2,7 @@ const dbConnection = require("./mongoConnection");
 
 /* This will allow to have one reference to each collection per app */
 let getCollectionFn = collection => {
-	let _col = undefined;
+	let _col = undefined
 
 	return async () => {
         if(!_col){
