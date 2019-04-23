@@ -15,14 +15,14 @@ document.addEventListener('DOMContentLoaded', function (event) {
             let keyHTML = '';
             let dataID = '';
             if (keyType === 'key-value') {
-                keyHTML = '<span class="bold ' + keyClass + '" data-key="' + keyFor + '" data-id="' + timestamp + '" contenteditable>[Key]</span>\n';
+                keyHTML = '<span class="' + keyClass + '" data-key="' + keyFor + '" data-id="' + timestamp + '" contenteditable>[Key]</span>\n';
                 dataID = 'data-id="' + timestamp + '"'
             }
 
             outerContainer.insertAdjacentHTML('beforeend',
                 '<div class="info-text element">\n' +
                 keyHTML +
-                '<span class="' + valueClass + ' consolas" ' + dataID + ' data-value-for="' + keyFor + '" contenteditable>[value]</span>\n' +
+                '<span class="' + valueClass + '" ' + dataID + ' data-value-for="' + keyFor + '" contenteditable>[value]</span>\n' +
                 '</div>'
             );
         });
