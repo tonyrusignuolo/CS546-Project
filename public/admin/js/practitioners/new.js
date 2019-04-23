@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
             .catch(error => {
                 msg.classList.remove('good');
                 if (!msg.classList.contains('bad')) msg.classList.add('bad');
-                msg.innerText = 'There was an error creating the practitioner.';
+                msg.innerText = error;
 
                 console.error(error);
             });
