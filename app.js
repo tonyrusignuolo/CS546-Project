@@ -12,11 +12,30 @@ const exphbs = require("express-handlebars");
 const handlebarsInstance = exphbs.create({
     defaultLayout: "main",
     helpers: {
+        // Get amount of keys in an object
+        size: (obj) => {
+            let size = 0, key;
+            for (key in obj) {
+                if (obj.hasOwnProperty(key)) size++;
+            }
+            return size;
+        },
         asJSON: (obj, spacing) => {
             if (typeof spacing === "number")
                 return new Handlebars.SafeString(JSON.stringify(obj, null, spacing));
 
             return new Handlebars.SafeString(JSON.stringify(obj));
+        },
+        debug: (value) => {
+            console.log("Current Context");
+            console.log("====================");
+            console.log(this);
+
+            if (value) {
+                console.log("Value");
+                console.log("====================");
+                console.log(value);
+            }
         }
     },
 });

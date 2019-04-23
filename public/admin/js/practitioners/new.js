@@ -1,19 +1,4 @@
 document.addEventListener('DOMContentLoaded', function (event) {
-    function postData(url = ``, data = {}) {
-        return fetch(url, {
-            method: "POST",
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            redirect: "follow",
-            referrer: "no-referrer",
-            body: JSON.stringify(data),
-        }).then(response => response.json());
-    }
-
     const procedures = document.getElementById('procedures');
     const providers = document.getElementById('providers');
     const form = document.getElementById('create-practitioner-form');
@@ -52,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
     document.getElementById('submit').addEventListener('click', function (e) {
         e.preventDefault();
 
-
         const formData = new FormData(form);
 
         const providers = formData.getAll('providers[]');
@@ -81,6 +65,8 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
         postData(`/admin/practitioners/create`, newPractitioner)
             .then(data => {
+                if(data.error) throw Error(data.error);
+
                 msg.classList.remove('bad');
                 if (!msg.classList.contains('good')) msg.classList.add('good');
                 msg.innerText = 'Practitioner was created successfully.';
