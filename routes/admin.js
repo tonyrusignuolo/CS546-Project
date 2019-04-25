@@ -13,7 +13,7 @@ router.get('/practitioners', async (req, res) => {
         return;
     }
 
-    res.render('admin/practitioners/index.handlebars',
+    res.render('admin/practitioners/index.hbs',
         {
             layout: false,
             practitioners: allPractitioners

@@ -18,7 +18,7 @@ const constructorMethod = (app) => {
 			// }
 			options = {
 				title: "Testing!",
-				pageType: "dashboard-page",
+				pageType: "dashboard-page"
 				// user: user
 			}
 			res.render("partials/pages/landing.hbs", options);
