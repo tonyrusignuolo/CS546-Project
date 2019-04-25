@@ -1,6 +1,6 @@
 body{
-    background-color: #eee;
-    color: $black-color;
+    background-color: $white;
+    color: $black;
     font-weight: 300;
 }
 
@@ -481,6 +481,10 @@ label{
   }
 
   .index-page {
+    overflow-x: hidden;
+  }
+
+  .dashboard-page {
     overflow-x: hidden;
   }
 

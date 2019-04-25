@@ -904,6 +904,11 @@ mark,
   content: "\2014 \00A0";
 }
 
+.nav-img {
+	width:32px;
+	height:32px;
+}
+
 .img-fluid {
   max-width: 100%;
   height: auto;
@@ -17286,7 +17291,7 @@ footer .pull-center {
 
 .dashboard-page .main {
   position: relative;
-  top: 10vh;
+  top: 9.25vh;
 }
 
 .dashboard-page .brand {
