@@ -51,6 +51,7 @@ Handlebars.registerHelper('ifEqual', function (arg1, arg2, options) {
 
 Handlebars.registerHelper('ifOr', function (arg1, arg2, options) {
 	return (arg1 || arg2) ? options.fn(this) : options.inverse(this);
+});
 
 // Gets our CSS and makes it available in express under the directory public
 // Otherwise public is only local to the machine, hence the need for the express.static
