@@ -1,0 +1,93 @@
+<nav class="navbar fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
+	<div class="container">
+		<div class="navbar-translate">
+			<a class="navbar-brand" href="/">
+				<img src="/assets/img/hbLogoNav.png" alt="heartbeat">
+			</a>
+			{{#if user}}
+			Welcome back, {{user.firstName}}!
+			{{else}}
+			{{#if userEmail}}
+			Welcome back, {{userEmail}}!
+			{{else}}
+			Welcome!
+			{{/if}}
+			{{/if}}
+			<button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="navbar-toggler-icon"></span>
+				<span class="navbar-toggler-icon"></span>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		</div>
+		<div class="collapse navbar-collapse">
+			<ul class="navbar-nav ml-auto">
+				<li class="dropdown nav-item">
+					<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+						Random Links
+					</a>
+					<div class="dropdown-menu dropdown-with-icons">
+						<a href="" class="dropdown-item">
+							<i class="material-icons">mic</i> RL1
+						</a>
+						<a href="" class="dropdown-item">
+							<i class="material-icons">attach_money</i> RL2
+						</a>
+					</div>
+				</li>
+				<li class="dropdown nav-item">
+					<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+						About
+					</a>
+					<div class="dropdown-menu dropdown-with-icons">
+						<a href="" class="dropdown-item">
+							<i class="material-icons">info</i> What We're About
+						</a>
+						<a href="" class="dropdown-item">
+							<i class="material-icons">people</i> Who We Are
+						</a>
+						<a href="" class="dropdown-item">
+							<i class="material-icons">library_books</i> Things
+						</a>
+						<a href="" class="dropdown-item">
+							<i class="material-icons">whatshot</i> Stuff
+						</a>
+					</div>
+				</li>
+				{{#unless user}}
+				<li class="nav-item">
+					<a class="nav-link btn-info" rel="tooltip" title="" data-placement="bottom" href="/profile/login">
+						Login
+					</a>
+				</li>
+				{{else}}
+				{{#ifOr user userEmail}}
+				<li class="dropdown nav-item">
+					<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+						{{#if userPhotoURL}}
+						<img src="{{userPhotoURL}}" alt="Circle Image" class="rounded-circle nav-img">
+						{{else}}
+						<img src="/assets/img/account_circle.svg" alt="Circle Image" class="img-raised rounded-circle nav-img">
+						{{/if}}
+					</a>
+					<div class="dropdown-menu dropdown-with-icons">
+						<a href="/user" class="dropdown-item">
+							<i class="material-icons">account_box</i> My Profile
+						</a>
+						{{#ifEqual user.role 2}}
+						<a href="/admin/main" class="dropdown-item">
+							<i class="material-icons">supervisor_account</i> Admin
+						</a>
+						{{/ifEqual}}
+						<a href="{{logout_url}}" class="dropdown-item">
+							<i class="material-icons">exit_to_app</i> Sign Out
+						</a>
+					</div>
+				</li>
+				{{/ifOr}}
+				{{/unless}}
+			</ul>
+		</div>
+	</div>
+</nav>

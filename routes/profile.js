@@ -8,14 +8,39 @@ router.get('/create-profile', async (req, res) => {
 	res.render("profile/createprofile.handlebars")
 })
 
-router.post('/create-profile', async (req, res) => {
+router.get('/signup', async (req, res) => {
+	try {
+		let options = {
+
+		}
+		res.render("partials/pages/signup.hbs", options);
+	} catch (error) {
+		res.status(404);
+		res.send(error);
+	}
+})
+
+router.post('/signup', async (req, res) => {
     try{
-        const newProfile = await profileData.create(req.body)
+		const newProfile = await profileData.create(req.body)
+		res.redirect("/");
     }
-    catch(e){
-        console.log(e)
-        return
+    catch(eroor){
+		res.status(400);
+		res.send(error);
     }
+})
+
+router.get('/login', async (req, res) => {
+	try {
+		let options = {
+
+		}
+		res.render("partials/pages/login.hbs", options);
+	} catch (error) {
+		res.status(404);
+		res.send(error);
+	}
 })
 
 module.exports = router

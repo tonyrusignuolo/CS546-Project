@@ -10,30 +10,63 @@ const exphbs = require("express-handlebars");
 
 // Sets up handlebars handling
 const handlebarsInstance = exphbs.create({
+	extname: 'hbs',
     defaultLayout: "main",
     helpers: {
+        // Get amount of keys in an object
+        size: (obj) => {
+            let size = 0, key;
+            for (key in obj) {
+                if (obj.hasOwnProperty(key)) size++;
+            }
+            return size;
+        },
         asJSON: (obj, spacing) => {
             if (typeof spacing === "number")
                 return new Handlebars.SafeString(JSON.stringify(obj, null, spacing));
 
             return new Handlebars.SafeString(JSON.stringify(obj));
+        },
+        debug: (value) => {
+            console.log("Current Context");
+            console.log("====================");
+            console.log(this);
+
+            if (value) {
+                console.log("Value");
+                console.log("====================");
+                console.log(value);
+            }
         }
     },
+});
+
+Handlebars.registerHelper('not', function (option, options) {
+	return !option;
+});
+
+Handlebars.registerHelper('ifEqual', function (arg1, arg2, options) {
+	return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+});
+
+Handlebars.registerHelper('ifOr', function (arg1, arg2, options) {
+    return (arg1 || arg2) ? options.fn(this) : options.inverse(this);
 });
 
 // Gets our CSS and makes it available in express under the directory public
 // Otherwise public is only local to the machine, hence the need for the express.static
 app.use("/public", express.static(__dirname + "/public"));
+app.use("/assets", express.static(__dirname + "/assets"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended: true
+	extended: true
 }));
 
-app.engine('handlebars', handlebarsInstance.engine);
-app.set('view engine', 'handlebars');
+app.engine('hbs', handlebarsInstance.engine);
+app.set('view engine', 'hbs');
 
 configRoutes(app);
 
 app.listen(3000, () => {
-    console.log("Listening on port 3000")
+	console.log("Listening on port 3000")
 });
