@@ -11,16 +11,34 @@ const exphbs = require("express-handlebars");
 // Sets up handlebars handling
 const handlebarsInstance = exphbs.create({
 	extname: 'hbs',
-	defaultLayout: "main",
-	partialsDir: __dirname + '/views/partials/',
-	helpers: {
-		asJSON: (obj, spacing) => {
-			if (typeof spacing === "number")
-				return new Handlebars.SafeString(JSON.stringify(obj, null, spacing));
+    defaultLayout: "main",
+    helpers: {
+        // Get amount of keys in an object
+        size: (obj) => {
+            let size = 0, key;
+            for (key in obj) {
+                if (obj.hasOwnProperty(key)) size++;
+            }
+            return size;
+        },
+        asJSON: (obj, spacing) => {
+            if (typeof spacing === "number")
+                return new Handlebars.SafeString(JSON.stringify(obj, null, spacing));
 
-			return new Handlebars.SafeString(JSON.stringify(obj));
-		}
-	},
+            return new Handlebars.SafeString(JSON.stringify(obj));
+        },
+        debug: (value) => {
+            console.log("Current Context");
+            console.log("====================");
+            console.log(this);
+
+            if (value) {
+                console.log("Value");
+                console.log("====================");
+                console.log(value);
+            }
+        }
+    },
 });
 
 Handlebars.registerHelper('not', function (option, options) {
@@ -33,7 +51,6 @@ Handlebars.registerHelper('ifEqual', function (arg1, arg2, options) {
 
 Handlebars.registerHelper('ifOr', function (arg1, arg2, options) {
 	return (arg1 || arg2) ? options.fn(this) : options.inverse(this);
-});
 
 // Gets our CSS and makes it available in express under the directory public
 // Otherwise public is only local to the machine, hence the need for the express.static

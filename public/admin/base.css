@@ -48,18 +48,55 @@ ol {
     list-style-position: inside;
 }
 
+ul {
+    padding: 0;
+    margin: 0;
+    list-style-position: inside;
+}
+
+/* COLORS */
 .bad {
     color: #7f231c;
 }
 
-.baseline {
-    align-items: baseline !important;
+.good {
+    color: #1b5e20;
+}
+
+.post-it {
+    background-color: #FFFFA5;
+}
+
+/* END COLORS */
+
+/* MISC */
+.clickable {
+    cursor: pointer;
+}
+
+.clickable::selection {
+    background-color: transparent;
+    color: #000;
 }
 
 .disabled {
     display: none !important;
 }
 
+.key::after {
+    content: ':\a0';
+}
+
+.money::before {
+    content: '$';
+}
+
+.shadow {
+    box-shadow: 7px 7px 5px #bbb;
+}
+/* END MISC */
+
+/* FLEX */
 .flex-column {
     display: flex;
     flex-flow: column wrap;
@@ -78,20 +115,78 @@ ol {
     margin: 0;
 }
 
-.good {
-    color: #1b5e20;
+.space-around {
+    justify-content: space-around;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+/* END FLEX */
+
+/* POSITION & ALIGNMENT */
+
+.baseline {
+    align-items: baseline !important;
+}
+
+.start {
+    justify-content: flex-start !important;
+}
+
+.indented {
+    margin-left: 10px;
+}
+
+.spaced {
+    margin: 20px;
+    padding: 20px;
+}
+
+.sticky {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+}
+/* END POSITION & ALIGNMENT */
+
+/* SIZE */
+.unset-size {
+    font-size: unset !important;
+}
+
+.large {
+    font-size: large !important;
+}
+
+.small {
+    font-size: small !important;
+}
+
+.wide {
+    width: 100%;
+}
+
+.wide-input {
+    width: 10em;
+}
+/* END SIZE */
+
+/* TEXT STYLES */
+.bold {
+    font-weight: bold;
+}
+
+.consolas {
+    font-family: 'Consolas', serif !important;
 }
 
 .info-text {
     font-family: 'Raleway', sans-serif;
 }
 
-.unset-size {
-    font-size: unset !important;
-}
-
-.small {
-    font-size: small !important;
+.raleway {
+    font-family: 'Raleway', sans-serif !important;
 }
 
 .title-text {
@@ -110,10 +205,8 @@ ol {
 
     margin-bottom: 15px;
 }
+/* END TEXT STYLES */
 
-.wide-input {
-    width: 10em;
-}
 
 @font-face {
     font-family: 'Raleway';
