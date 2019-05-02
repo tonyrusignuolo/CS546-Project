@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const practitioners = require('../data/practitioners');
 const profiles = require('../data/profiles');
+const appointments = require('../data/appointments');
 const {ObjectID} = require("mongodb");
 
 // Start Practitioners
@@ -121,5 +122,50 @@ router.post('/profiles/delete', async (req, res) => {
     res.send({result: 'success'});
 });
 // End Profiles
+
+// Start Appointments
+router.get('/appointments', async (req, res) => {
+    let allAppointments;
+    try {
+        allAppointments = await appointments.readAll();
+    } catch (e) {
+        res.status(500);
+        res.send(e);
+        return;
+    }
+
+    res.render('admin/appointments/index.hbs',
+        {
+            layout: false,
+            profiles: allAppointments
+        });
+});
+
+router.post('/appointments/update', async (req, res) => {
+    try {
+        await appointments.update(ObjectID(req.body._id), req.body.update_);
+    } catch (e) {
+        res.status(400);
+        res.send({error: e});
+        return;
+    }
+
+    res.status(200);
+    res.send({result: 'success'});
+});
+
+router.post('/appointments/delete', async (req, res) => {
+    try {
+        await appointments.delete(ObjectID(req.body._id));
+    } catch (e) {
+        res.status(400);
+        res.send({error: e});
+        return;
+    }
+
+    res.status(200);
+    res.send({result: 'success'});
+});
+// End Appointments
 
 module.exports = router;
