@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
         providers.insertAdjacentHTML('beforeend', '<label>Provider <input type="text" name="providers[]"></label>');
     });
 
-    document.getElementById('submit').addEventListener('click', function (e) {
+    document.getElementById('submit').addEventListener('click', async function (e) {
         e.preventDefault();
 
         const formData = new FormData(form);
@@ -63,22 +63,13 @@ document.addEventListener('DOMContentLoaded', function (event) {
                 newPractitioner.procedures[procedures[a]] = prices[a];
         }
 
-        postData(`/admin/practitioners/create`, newPractitioner)
-            .then(data => {
-                if(data.error) throw Error(data.error);
+        const responseData = await postData(`/admin/practitioners/create`, newPractitioner);
+        if(!responseData.error) {
+            updateInfoText(msg, 'Practitioner was created successfully');
+        } else {
+            updateInfoText(msg, responseData.error, true);
 
-                msg.classList.remove('bad');
-                if (!msg.classList.contains('good')) msg.classList.add('good');
-                msg.innerText = 'Practitioner was created successfully.';
-
-                console.log(JSON.stringify(data));
-            })
-            .catch(error => {
-                msg.classList.remove('good');
-                if (!msg.classList.contains('bad')) msg.classList.add('bad');
-                msg.innerText = error;
-
-                console.error(error);
-            });
+            console.error(responseData.error);
+        }
     });
 });

@@ -7,7 +7,7 @@ module.exports = {
 
         const practitionerCollection = await practitioners();
         const practitioner = await practitionerCollection.findOne({'_id': id});
-        if (practitioner === null) throw 'Unable to find a practitioner with the given id: ' + id;
+        if (practitioner === null) throw 'Unable to find a practitioner with the given ID';
 
         return practitioner;
     },
@@ -23,7 +23,7 @@ module.exports = {
 
         const practitionerCollection = await practitioners();
         const res = await practitionerCollection.findOneAndDelete({'_id': id});
-        if (res === null) throw 'Unable to find a practitioner with the given id: ' + id;
+        if (!res.value) throw 'Unable to find a practitioner with the given ID';
 
         return {deleted: true, data: res.value};
     },

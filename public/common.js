@@ -1,5 +1,5 @@
-function postData(url = ``, data = {}) {
-    return fetch(url, {
+async function postData(url = ``, data = {}) {
+    const res = await fetch(url, {
         method: "POST",
         mode: "cors",
         cache: "no-cache",
@@ -10,7 +10,8 @@ function postData(url = ``, data = {}) {
         redirect: "follow",
         referrer: "no-referrer",
         body: JSON.stringify(data),
-    }).then(response => response.json());
+    });
+    return await res.json();
 }
 
 function extractModifiedData(outerContainer) {
@@ -44,4 +45,15 @@ function extractModifiedData(outerContainer) {
     });
 
     return keys;
+}
+
+function updateInfoText(elem, text, error = false) {
+    if (error) {
+        elem.classList.remove('good');
+        if (!elem.classList.contains('bad')) elem.classList.add('bad');
+    } else {
+        elem.classList.remove('bad');
+        if (!elem.classList.contains('good')) elem.classList.add('good');
+    }
+    elem.innerText = text;
 }
