@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
         const responseData = await postData(`/admin/profiles/create`, newProfile);
         if (!responseData.error) {
-            updateInfoText(msg, 'Profile was created successfully.');
+            updateInfoText(msg, 'Profile was created successfully');
         } else {
             updateInfoText(msg, responseData.error, true);
 

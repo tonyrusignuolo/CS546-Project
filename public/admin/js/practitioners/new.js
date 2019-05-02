@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
         const responseData = await postData(`/admin/practitioners/create`, newPractitioner);
         if(!responseData.error) {
-            updateInfoText(msg, 'Practitioner was created successfully.');
+            updateInfoText(msg, 'Practitioner was created successfully');
         } else {
             updateInfoText(msg, responseData.error, true);
 

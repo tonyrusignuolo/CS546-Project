@@ -1,4 +1,25 @@
 document.addEventListener('DOMContentLoaded', function (event) {
+    Array.from(document.getElementsByClassName('delete-btn')).forEach(function (elem) {
+        elem.addEventListener('click', async function (e) {
+            e.preventDefault();
+
+            const outerContainer = e.target.parentElement.parentElement.parentElement;
+
+            const msg = outerContainer.getElementsByClassName('msg')[0];
+            const responseData = await postData(`/admin/profiles/delete`, {_id: e.target.id});
+            if (!responseData.error) {
+                updateInfoText(msg, 'Profile was deleted successfully');
+
+                console.log(JSON.stringify(responseData));
+            } else {
+                updateInfoText(msg, responseData.error, true);
+
+                console.error(responseData.error);
+            }
+
+        });
+    });
+
     Array.from(document.getElementsByClassName('done-btn')).forEach(function (elem) {
         elem.addEventListener('click', async function (e) {
             e.preventDefault();
@@ -21,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
             const msg = outerContainer.getElementsByClassName('msg')[0];
             const responseData = await postData(`/admin/profiles/update`, updateData);
             if(!responseData.error) {
-                updateInfoText(msg, 'Profile was updated successfully.');
+                updateInfoText(msg, 'Profile was updated successfully');
             } else {
                 updateInfoText(msg, responseData.error, true);
 

@@ -2,8 +2,9 @@
     {{# each profiles }}
         <li class="post-it spaced shadow flex-column baseline">
             <div class="flex-row wide space-between">
-                <h2 class="title-text large">User</h2>
+                <h2 class="title-text large">{{firstName}} {{lastName}}</h2>
                 <div>
+                    <i class="clickable material-icons delete-btn" id="{{_id}}">delete</i>
                     <i class="clickable material-icons done-btn" id="{{_id}}">done</i>
                 </div>
             </div>

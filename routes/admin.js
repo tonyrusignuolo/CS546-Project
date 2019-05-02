@@ -48,6 +48,19 @@ router.post('/practitioners/update', async (req, res) => {
     res.status(200);
     res.send({result: 'success'});
 });
+
+router.post('/practitioners/delete', async (req, res) => {
+    try {
+        await practitioners.remove(ObjectID(req.body._id));
+    } catch (e) {
+        res.status(400);
+        res.send({error: e});
+        return;
+    }
+
+    res.status(200);
+    res.send({result: 'success'});
+});
 // End Practitioners
 
 // Start Profiles
@@ -85,6 +98,19 @@ router.post('/profiles/create', async (req, res) => {
 router.post('/profiles/update', async (req, res) => {
     try {
         await profiles.update(ObjectID(req.body._id), req.body.update_);
+    } catch (e) {
+        res.status(400);
+        res.send({error: e});
+        return;
+    }
+
+    res.status(200);
+    res.send({result: 'success'});
+});
+
+router.post('/profiles/delete', async (req, res) => {
+    try {
+        await profiles.remove(ObjectID(req.body._id));
     } catch (e) {
         res.status(400);
         res.send({error: e});
