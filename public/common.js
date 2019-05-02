@@ -46,3 +46,14 @@ function extractModifiedData(outerContainer) {
 
     return keys;
 }
+
+function updateInfoText(elem, text, error = false) {
+    if (error) {
+        elem.classList.remove('good');
+        if (!elem.classList.contains('bad')) elem.classList.add('bad');
+    } else {
+        elem.classList.remove('bad');
+        if (!elem.classList.contains('good')) elem.classList.add('good');
+    }
+    elem.innerText = text;
+}

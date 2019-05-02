@@ -72,21 +72,17 @@ document.addEventListener('DOMContentLoaded', function (event) {
             };
 
             const msg = outerContainer.getElementsByClassName('msg')[0];
-                const response_data = await postData(`/admin/practitioners/update`, updateData);
-                if (!response_data.error) {
-                    msg.classList.remove('bad');
-                    if (!msg.classList.contains('good')) msg.classList.add('good');
-                    msg.innerText = 'Practitioner was updated successfully.';
+            const responseData = await postData(`/admin/practitioners/update`, updateData);
+            if (!responseData.error) {
+                updateInfoText(msg, 'Practitioner was updated successfully.');
 
-                    console.log(JSON.stringify(response_data));
-                }
-                else {
-                    msg.classList.remove('good');
-                    if (!msg.classList.contains('bad')) msg.classList.add('bad');
-                    msg.innerText = response_data.error;
+                console.log(JSON.stringify(responseData));
+            }
+            else {
+                updateInfoText(msg, responseData.error, true);
 
-                    console.error(response_data.error);
-                }
+                console.error(responseData.error);
+            }
         });
     });
 });

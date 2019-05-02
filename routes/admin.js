@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const practitioners = require('../data/practitioners');
+const profiles = require('../data/profiles');
 const {ObjectID} = require("mongodb");
 
+// Start Practitioners
 router.get('/practitioners', async (req, res) => {
     let allPractitioners;
     try {
@@ -46,5 +48,52 @@ router.post('/practitioners/update', async (req, res) => {
     res.status(200);
     res.send({result: 'success'});
 });
+// End Practitioners
+
+// Start Profiles
+router.get('/profiles', async (req, res) => {
+    let allProfiles;
+    try {
+        allProfiles = await profiles.getAll();
+    } catch (e) {
+        res.status(500);
+        res.send(e);
+        return;
+    }
+
+    res.render('admin/profiles/index.hbs',
+        {
+            layout: false,
+            profiles: allProfiles
+        });
+});
+
+router.post('/profiles/create', async (req, res) => {
+    let id;
+    try {
+        id = await profiles.create(req.body);
+    } catch (e) {
+        res.status(400);
+        res.send({error: e});
+        return;
+    }
+
+    res.status(200);
+    res.send({result: 'success', id: id});
+});
+
+router.post('/profiles/update', async (req, res) => {
+    try {
+        await profiles.update(ObjectID(req.body._id), req.body.update_);
+    } catch (e) {
+        res.status(400);
+        res.send({error: e});
+        return;
+    }
+
+    res.status(200);
+    res.send({result: 'success'});
+});
+// End Profiles
 
 module.exports = router;
