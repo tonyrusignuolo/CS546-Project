@@ -3,7 +3,6 @@
 var map;
 // Function to initialize the google maps
 async function initMap() {
-    console.log("Jello Man")
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 40.743991, lng: -74.032363},
         zoom: 12
@@ -20,6 +19,7 @@ function addMarker(coords, name){
         map: map
     });
 
+    // Function to add animation to map marker
     function toggleBounce(){
         if(marker.getAnimation() !== null){
             marker.setAnimation(null)
@@ -33,12 +33,11 @@ function addMarker(coords, name){
 
 
 (async function($){
-    // var locObj = JSON.parse($("#t1").val())
-    // console.log(locObj)
-    // setTimeout(function()) 
-    // }, 2000);
-
+    
+    // Disabled inate map functionality so the google API loads the map, and the AJAX request to server can be called to populate the map after object creation
+    // Call to google map API for map generation
     await initMap()
+
     // Var marker = new google.maps.Marker({position: {lat: 40.743991, lng: -74.032363}, map: map});
 
     // Configuration for ajax request to server
@@ -49,38 +48,22 @@ function addMarker(coords, name){
     }
     
     $.ajax(requestConfig).then(function(response){
-
+        const allPractitioners = response;
         for(let i=0; i < response.length; i++){
-            addMarker({lat: response[i].location.lat, lng: response[i].location.long}, response[i].name)
+            addMarker({lat: response[i].location[0], lng: response[i].location[1]}, response[i].name)
         }
         
-        // let ll = 40.743991;
-        // let ln = -74.032363
-        // for(let i=0; i < 20; i++){
-        //     addMarker({lat: ll, lng: ln})
-        //     ll += 0.001
-        //     ln += 0.001
-        // }
-        // addMarker({lat: 40.743991, lng: -74.032363})
-        //var marker = new google.maps.Marker({position: {lat: 40.743991, lng: -74.032363}, map: map})
     })
 
-    // $.ajax(requestConfig).then(function(response){
-    //     console.log(response)
-    // })
-    // var requestConfig = {
-    //     method: "GET",
-    //     url: "/map/all",
-    //     dataType: "json",
-    // }
+    // Set event listener for submission form
+    $("#search_params").submit(function(event){
+        
+        console.log($("#insurance").val())
+        console.log($("#procedure").val())
 
-    // $.ajax(requestConfig).then(function(response){
-    //     console.log(response)
-    // })
 
-    // //console.log("Hello World")
-    // tacoSalad = "Set in the jQuery"
 
-//    var marker = new google.maps.Marker({position: {lat: 40.743991, lng: -74.032363}, map: map});
+        event.preventDefault();
+    })
 
 })(jQuery)

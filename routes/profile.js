@@ -4,10 +4,8 @@ const router = express.Router()
 const data = require('../data')
 const profileData = data.profiles
 
-router.get('/create-profile', async (req, res) => {
-	res.render("profile/createprofile.handlebars")
-})
 
+// New route for profile creation
 router.get('/signup', async (req, res) => {
 	try {
 		let options = {
@@ -41,6 +39,11 @@ router.get('/login', async (req, res) => {
 		res.status(404);
 		res.send(error);
 	}
+})
+
+router.post('/login', async (req, res) => {
+	// Test
+	console.log("I like trains")
 })
 
 module.exports = router

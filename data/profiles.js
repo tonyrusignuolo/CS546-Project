@@ -10,8 +10,6 @@ const exportedMethods = {
 
     // Function to create and add a new user profile to the collection
     async create(profileJSON){
-        console.log(profileJSON)
-        
         // Insert new profile into collection
         const profileCollection = await profiles()
         

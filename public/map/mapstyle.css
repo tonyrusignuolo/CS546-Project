@@ -1,10 +1,16 @@
 /* Quick simple style sheet for the map*/
 #map {
     height: 100%;
+    margin-top: 10px;
 }
 
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+}
+
+input, label {
+    display: block;
+    padding: 5px;
 }

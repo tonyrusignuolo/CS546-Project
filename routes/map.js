@@ -19,4 +19,5 @@ router.get('/all', async(req, res) => {
     res.send(allPractitioners)
 })
 
+
 module.exports = router;

@@ -13,9 +13,16 @@
 
 <body>
     
-    <h1>MAP</h1>
-    <div id="map"></div>
+    <h1>Google Map Service</h1>
+    <form id="search_params">
+        <label for="insurance">Enter insurance provider</label>
+        <input name="insurance" id="insurance" type="text" placeholder="Enter Insurance Provider">
+        <label for="procedure">Enter procedure</label>
+        <input name="procedure" id="procedure" type="text" placeholder="Enter Procedure or leave blank">
+        <input type="submit" value="Submit">
+    </form>
 
+    <div id="map"></div>
 
     {{> map/apikey}}
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
