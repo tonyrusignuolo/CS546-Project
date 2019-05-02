@@ -1,5 +1,5 @@
-function postData(url = ``, data = {}) {
-    return fetch(url, {
+async function postData(url = ``, data = {}) {
+    const res = await fetch(url, {
         method: "POST",
         mode: "cors",
         cache: "no-cache",
@@ -10,7 +10,8 @@ function postData(url = ``, data = {}) {
         redirect: "follow",
         referrer: "no-referrer",
         body: JSON.stringify(data),
-    }).then(response => response.json());
+    });
+    return await res.json();
 }
 
 function extractModifiedData(outerContainer) {

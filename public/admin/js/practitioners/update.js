@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     });
 
     Array.from(document.getElementsByClassName('done-btn')).forEach(function (elem) {
-        elem.addEventListener('click', function (e) {
+        elem.addEventListener('click', async function (e) {
             e.preventDefault();
             /*
              * Note that this "outerContainer" references a different container than the "outerContainer" in the callback above.
@@ -72,24 +72,21 @@ document.addEventListener('DOMContentLoaded', function (event) {
             };
 
             const msg = outerContainer.getElementsByClassName('msg')[0];
-
-            postData(`/admin/practitioners/update`, updateData)
-                .then(data => {
-                    if (data.error) throw Error(data.error);
-
+                const response_data = await postData(`/admin/practitioners/update`, updateData);
+                if (!response_data.error) {
                     msg.classList.remove('bad');
                     if (!msg.classList.contains('good')) msg.classList.add('good');
                     msg.innerText = 'Practitioner was updated successfully.';
 
-                    console.log(JSON.stringify(data));
-                })
-                .catch(error => {
+                    console.log(JSON.stringify(response_data));
+                }
+                else {
                     msg.classList.remove('good');
                     if (!msg.classList.contains('bad')) msg.classList.add('bad');
-                    msg.innerText = error;
+                    msg.innerText = response_data.error;
 
-                    console.error(error);
-                });
+                    console.error(response_data.error);
+                }
         });
     });
 });
