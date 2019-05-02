@@ -20,7 +20,6 @@ function addMarker(coords, name){
         map: map
     });
 
-
     function toggleBounce(){
         if(marker.getAnimation() !== null){
             marker.setAnimation(null)
@@ -29,11 +28,7 @@ function addMarker(coords, name){
             marker.setAnimation(google.maps.Animation.BOUNCE)
         }
     }
-
-
     marker.addListener('click', toggleBounce)
-
-    
 }
 
 
