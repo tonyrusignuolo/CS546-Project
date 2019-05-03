@@ -18,7 +18,9 @@ module.exports = {
         const practitionerCollection = await practitioners();
         //const res = await practitionerCollection.find({providers: "Delta"}).toArray();
         //const res = await practitionerCollection.find({"procedures": "Cleaning"}).toArray();
-        const res = await practitionerCollection.find({procedures : {where: {"X-Ray": {$exists: true}}}}).toArray();
+
+        // Checks if the property of an object exists in a nested object array of Mongo DB
+        const res = await practitionerCollection.find({procedures : {$exists: true, $ne: [], $elemMatch: {"X-Ray": {$exists: true}}}}).toArray();
         return(res);
     },
 
