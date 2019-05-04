@@ -50,20 +50,20 @@ function addMarker(coords, name){
     $.ajax(requestConfig).then(function(response){
         const allPractitioners = response;
         for(let i=0; i < response.length; i++){
-            addMarker({lat: response[i].location[0], lng: response[i].location[1]}, response[i].name)
+            addMarker({lat: response[i].location[0].lat, lng: response[i].location[1].long}, response[i].name)
         }
         
     })
 
     // Set event listener for submission form
-    $("#search_params").submit(function(event){
+    // $("#search_params").submit(function(event){
         
-        console.log($("#insurance").val())
-        console.log($("#procedure").val())
+    //     console.log($("#insurance").val())
+    //     console.log($("#procedure").val())
 
 
 
-        event.preventDefault();
-    })
+    //     event.preventDefault();
+    // })
 
 })(jQuery)
