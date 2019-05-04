@@ -43,7 +43,8 @@ router.get('/login', async (req, res) => {
 
 router.post('/login', async (req, res) => {
 	// Test
-	console.log("I like trains")
+	console.log("I like trains");
+	return;
 })
 
 module.exports = router
