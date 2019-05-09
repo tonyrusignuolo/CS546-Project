@@ -7,7 +7,7 @@ const Handlebars = require('handlebars');
 
 const configRoutes = require("./routes");
 const exphbs = require("express-handlebars");
-
+const session = require("express-session")
 // Sets up handlebars handling
 const handlebarsInstance = exphbs.create({
 	extname: 'hbs',
@@ -64,6 +64,13 @@ app.use(bodyParser.urlencoded({
 
 app.engine('hbs', handlebarsInstance.engine);
 app.set('view engine', 'hbs');
+
+app.use(session({
+    name: "AuthCookie",
+    secret: "I am batman",
+    resave: false,
+    saveUninitialized: true
+}))
 
 configRoutes(app);
 

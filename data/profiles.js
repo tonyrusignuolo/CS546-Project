@@ -21,6 +21,17 @@ const exportedMethods = {
 		return this.get(insertInfo.insertedId);
 	},
 
+	async getbyEmail(usremail){
+		// Get the profiles
+		const profileCollection = await profiles()
+
+		const user = await profileCollection.findOne({email: usremail})
+
+		return(user)
+
+	},
+
+
 	async get(id) {
 
 		if (!id) throw 'Error profiles.get: Invalid parameter: id';

@@ -32,9 +32,9 @@ const main = async () => {
     let prof2;
     if(await bcrypt.compare(prof2password, prof2hash)){
         prof2 = await profiles.create({
-            email: "jamie_lanister@yahoo.com",
+            email: "jaime_lannister@yahoo.com",
             hashedPassword: prof2hash,
-            firstName: "Jamie",
+            firstName: "Jaime",
             lastName: "Lannister",
             isAdmin: false,
             insuranceProvider: "Blue Cross"

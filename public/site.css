@@ -1,6 +1,6 @@
 /* CSS for styling the website */
 
-body {
+/* body {
     background: #fefefe;
     font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
     font-size: 15pt;
@@ -9,4 +9,12 @@ body {
 input, label {
     display: block;
     padding: 5px;
+} */
+
+.error {
+    color: #FF3D00;
+    font-weight: bold;
+    margin-left: 25px;
+    text-align: center;
+    font-size: 10pt;
 }
