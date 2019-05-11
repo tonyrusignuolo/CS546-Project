@@ -11,7 +11,8 @@
 	{{> templates/navbar}}
 	{{!-- main --}}
 	<main>
-		{{{body}}}
+		{{#> main-block}}
+		{{/main-block}}
 	</main>
 	{{!-- footer --}}
 	{{> templates/scripts}}
