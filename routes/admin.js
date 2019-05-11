@@ -3,6 +3,7 @@ const router = express.Router();
 const practitioners = require('../data/practitioners');
 const profiles = require('../data/profiles');
 const appointments = require('../data/appointments');
+const bcrypt = require("bcrypt");
 const {ObjectID} = require("mongodb");
 
 // Start Practitioners
@@ -85,6 +86,7 @@ router.get('/profiles', async (req, res) => {
 router.post('/profiles/create', async (req, res) => {
     let id;
     try {
+        req.body.password = await bcrypt.hash(req.body.password, 16);
         id = await profiles.create(req.body);
     } catch (e) {
         res.status(400);
@@ -98,6 +100,9 @@ router.post('/profiles/create', async (req, res) => {
 
 router.post('/profiles/update', async (req, res) => {
     try {
+        if (req.body.update_['$set'].password) {
+            req.body.update_['$set'].password = await bcrypt.hash(req.body.update_['$set'].password, 16);
+        }
         await profiles.update(ObjectID(req.body._id), req.body.update_);
     } catch (e) {
         res.status(400);

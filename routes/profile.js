@@ -20,10 +20,11 @@ router.get('/signup', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
     try{
-		const newProfile = await profileData.create(req.body)
-		res.redirect("/");
+    	req.body.password = await bcrypt.hash(req.body.password, 16);
+		const newProfile = await profileData.create(req.body);
+		res.redirect("/login");
     }
-    catch(eroor){
+    catch(error){
 		res.status(400);
 		res.send(error);
     }
@@ -41,8 +42,7 @@ router.get('/login', async (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-	// Test
-	console.log("I really like trains")
+
 	
 	if(req.body.email === undefined || req.body.email === '' || req.body.password === undefined || req.body.password === ''){
 		res.status(401).render("partials/pages/login.hbs", {error: "Please enter email and password"})
@@ -57,7 +57,7 @@ router.post('/login', async (req, res) => {
 	}
 
 	// Compare the password input to the hashed password under the user to authenticate login
-	let hashcmp = await bcrypt.compare(req.body.password, user.hashedPassword)
+	let hashcmp = await bcrypt.compare(req.body.password, user.password)
 
 	if(hashcmp){
 		console.log("SUCCESS LOGIN AUTHENTICATED")

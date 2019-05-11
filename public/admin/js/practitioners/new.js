@@ -48,19 +48,19 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
         let newPractitioner = {
             name: (name.length > 0) ? name : null,
-            location: {
-                lat: (lat.length > 0) ? Number(lat) : null,
-                long: (long.length > 0) ? Number(long) : null,
-            },
+            location: [
+                {lat: (lat.length > 0) ? Number(lat) : null},
+                {long: (long.length > 0) ? Number(long) : null},
+            ],
         };
 
         if (providers.length > 0)
             newPractitioner.providers = providers;
 
         if (procedures.length > 0) {
-            newPractitioner.procedures = {};
+            newPractitioner.procedures = [];
             for (let a = 0; a < procedures.length; a++)
-                newPractitioner.procedures[procedures[a]] = prices[a];
+                newPractitioner.procedures.push({ [procedures[a]]: prices[a] });
         }
 
         const responseData = await postData(`/admin/practitioners/create`, newPractitioner);

@@ -4,6 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const Handlebars = require('handlebars');
+const profiles = require('./data/profiles');
 
 const configRoutes = require("./routes");
 const exphbs = require("express-handlebars");
@@ -76,4 +77,12 @@ configRoutes(app);
 
 app.listen(3000, () => {
 	console.log("Listening on port 3000")
+});
+
+const cfg = async () => {
+    await profiles.configureIndex();
+};
+
+cfg().catch(error => {
+    console.log(error);
 });
