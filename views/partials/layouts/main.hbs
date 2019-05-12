@@ -1,0 +1,23 @@
+<!-- Handlebars for the primary template in rendering the page -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	{{> templates/head}}
+</head>
+
+<body class={{pageType}}>
+	{{!-- navbar --}}
+	{{> templates/navbar}}
+	{{!-- main --}}
+	{{#> page-header}}
+	{{/page-header}}
+	<main>
+		{{#> main-block}}
+		{{/main-block}}
+	</main>
+	{{!-- footer --}}
+	{{> templates/scripts}}
+</body>
+
+</html>

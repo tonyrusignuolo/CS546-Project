@@ -22,7 +22,7 @@ function extractModifiedData(outerContainer) {
     values.forEach(function (elem) {
         const dataId = elem.getAttribute('data-id');
         const key = elem.getAttribute('data-value-for');
-        const value = elem.innerHTML;
+        const value = (elem.tagName.toLowerCase() === 'input') ? elem.value : elem.innerHTML;
         if (dataId)
             dictValues[dataId] = value;
         else if (!keys[key])
@@ -48,6 +48,7 @@ function extractModifiedData(outerContainer) {
 }
 
 function updateInfoText(elem, text, error = false) {
+    if (text.errmsg) text = text.errmsg;
     if (error) {
         elem.classList.remove('good');
         if (!elem.classList.contains('bad')) elem.classList.add('bad');

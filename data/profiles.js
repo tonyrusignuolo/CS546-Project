@@ -3,7 +3,7 @@ const collections = require("../config/mongoCollections")
 // Gets profile collection from db
 const profiles = collections.profiles;
 const helper = require("./helper");
-
+const ObjectID = require("mongodb").ObjectID;
 
 // Exports methods for creating updating and inserting
 const exportedMethods = {
@@ -12,7 +12,7 @@ const exportedMethods = {
     async create(profileJSON){
         // Insert new profile into collection
         const profileCollection = await profiles()
-        
+
         const insertInfo = await profileCollection.insertOne(profileJSON)
 
 		if (insertInfo.insertedCount === 0) {
@@ -42,17 +42,17 @@ const exportedMethods = {
 		}
 
 		const profileCollection = await profiles();
-		
+
 		// Handling for the id being a string OR mongo Object if ID is valid or not
 		let newId;
 		if(typeof(id) !== 'object'){
 			try{
-				newId = new mongo.ObjectID(id)
+				newId = new ObjectID(id)
 			}
 			catch(e){
 				throw("Error profiles.get: Invalid ID")
 			}
-			
+
 		}
 		else{
 			newId = id;
@@ -69,7 +69,7 @@ const exportedMethods = {
         if (profile === null) throw 'Unable to find a profile with the given id: ' + id;
 
 		return profile;
-		
+
 	},
 
 	async getAll() {
@@ -77,18 +77,18 @@ const exportedMethods = {
 
         return profileCollection.find({}).toArray();
 	},
-	
+
 	async remove(id) {
         if (!id) throw 'Invalid parameter: id';
 
         const profileCollection = await profiles();
         const res = await profileCollection.findOneAndDelete({'_id': id});
-		
+
 		if (res === null) throw 'Unable to find a profile with the given id: ' + id;
 
         return {deleted: true, data: res.value};
 	},
-	
+
 	async removeAll() {
         const profileCollection = await profiles();
 
@@ -100,7 +100,7 @@ const exportedMethods = {
          * @param {Object|String} id - The document ID to update
          * @param update_ - field:value expressions or update operators. See 'create()' for document structure
          */
-		
+
 		 if (!id || typeof update_ !== 'object') throw 'Invalid parameter: update_';
 
         const profileCollection = await profiles();
@@ -108,7 +108,12 @@ const exportedMethods = {
 
 		if (res.modifiedCount === 0) throw 'Unable to update profile';
 		return;
-    }
+    },
+
+    async configureIndex() {
+    	const profileCollection = await profiles();
+    	const res = await profileCollection.createIndex({'email': 1}, {unique: true});
+	}
 
 }
 

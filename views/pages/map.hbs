@@ -1,0 +1,34 @@
+<!-- Quick map handlebars --> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name= "viewport" content="initial-scale=1.0">
+    
+    <title>Map Service</title>
+
+    <link rel='stylesheet' href="/public/map/mapstyle.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    
+    <h1>Google Map Service</h1>
+    <form id="search_params">
+        <label for="insurance">Enter insurance provider</label>
+        <input name="insurance" id="insurance" type="text" placeholder="Enter Insurance Provider">
+        <label for="procedure">Enter procedure</label>
+        <input name="procedure" id="procedure" type="text" placeholder="Enter Procedure or leave blank">
+        <input type="submit" value="Submit">
+    </form>
+
+    <div id="map"></div>
+
+    {{> map/apikey}}
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+    
+    <script src="/public/map/js/healthmap.js"></script>
+    
+</body>
+</html>

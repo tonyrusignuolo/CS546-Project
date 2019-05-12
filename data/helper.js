@@ -1,3 +1,5 @@
+const ObjectID = require("mongodb").ObjectID;
+
 module.exports = {
 	async convertId(id) {
 		if (typeof id === "string") {

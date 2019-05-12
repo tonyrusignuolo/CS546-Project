@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const {ObjectID} = require("mongodb");
 const practitioners = require('../data/practitioners');
 
 router.get('/', async (req, res) => {
-    res.render('map/map.hbs', {layout: false});
+    res.render('pages/map.hbs', {layout: false});
 });
 
 router.get('/all', async(req, res) => {

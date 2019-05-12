@@ -1,0 +1,43 @@
+{{#> layouts/main}}
+{{#*inline "page-header"}}
+<div class="page-header header-filter"
+	style="background-image: url(''); background-size: cover; background-position: top center;"></div>
+{{/inline}}
+{{#*inline "main-block"}}
+<div class="main main-raised">
+	<div class="profile-content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 ml-auto mr-auto">
+					<div class="profile">
+						<div class="avatar">
+							{{#if userPhotoURL }}
+							<img src="{{userPhotoURL}}" alt="Circle Image" class="img-raised rounded-circle img-fluid">
+							{{else}}
+							<img src="../assets/img/Stevens/Attila.png" alt="Circle Image" class="img-fluid">
+							{{/if}}
+						</div>
+						<div class="name">
+							<h3 class="title">
+								{{user.firstName}} {{user.lastName}}
+							</h3>
+						</div>
+						<br>
+						<button class="btn btn-primary btn-round" data-toggle="modal" data-target="#profileEdit">
+							<i class="material-icons">edit</i> Edit Profile
+						</button>
+						<h6>{{user.major}} {{user.gradYear}}</h6>
+					</div>
+				</div>
+			</div>
+			<div class="description text-center">
+				<p>
+					{{user.bio}}
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+{{> modals/profile/edit}}
+{{/inline}}
+{{/layouts/main}}
