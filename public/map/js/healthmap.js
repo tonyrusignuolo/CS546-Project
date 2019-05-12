@@ -44,11 +44,11 @@ function addMarker(coords, name){
     // Var marker = new google.maps.Marker({position: {lat: 40.743991, lng: -74.032363}, map: map});
 
     // Configuration for ajax request to server
-    var requestConfig = {
-        method: "GET",
-        url: "/map/all",
-        dataType: "json",
-    }
+    // var requestConfig = {
+    //     method: "GET",
+    //     url: "/map/all",
+    //     dataType: "json",
+    // }
     
     // const tmp
     // $.ajax(requestConfig).then(function(response){
@@ -77,50 +77,18 @@ function addMarker(coords, name){
         return tmp;
     }();
 
-
-    var insuranceList = []
-    var procedureList = []
-
-
     for(let i=0; i < p.length; i++){
         addMarker({lat: p[i].location[0].lat, lng: p[i].location[1].long}, p[i].name)
-        
-        for(let j=0; j < p[i].procedures.length; j++){
-            let zz = p[i].procedures[j]
-            for (let name in zz){
-                if(!procedureList.includes(name)){
-                    procedureList.push(name)
-                }
-            }
-        }
-
-        for(let j=0; j < p[i].providers.length; j++){
-            let zz = p[i].providers[j]
-            if(!insuranceList.includes(zz)){
-                insuranceList.push(zz)
-            }
-        }
     }
-    // console.log(insuranceList)
-    // console.log(procedureList)
-
-    for(let i=0; i < insuranceList.length; i++){
-        var n = "<option>" + String(insuranceList[i]) + "</option>"
-        $("#insurance-drop").append(n)
-    }
-
-    for(let i=0; i < procedureList.length; i++){
-        var n = "<option>" + String(procedureList[i]) + "</option>"
-        $("#procedure-drop").append(n)
-    }
-
+    
+    
 
     // Set event listener for submission form
     $("#search-params").submit(function(event){
         
         console.log($("#insurance-drop").val())
         console.log($("#procedure-drop").val())
-        
+
         event.preventDefault();
     })
 

@@ -62,12 +62,26 @@
                         <div class="form-group">
                             <label for="insurance-drop">Select an insurance provider</label>
                             <select class="form-control selectpicker" data-style="btn btn-link" id="insurance-drop">
+                                {{#if options.insurance.length}}
+                                {{#each options.insurance}}
+                                <option>
+                                    {{this}}
+                                </option>
+                                {{/each}}
+                                {{/if}}
                             </select>
                         </div>
                         
                         <div class="form-group">
                             <label for="procedure-drop">Select a procedure</label>
                             <select class="form-control selectpicker" data-style="btn btn-link" id="procedure-drop">
+                                {{#if options.procedures.length}}
+                                {{#each options.procedures}}
+                                <option>
+                                    {{this}}
+                                </option>
+                                {{/each}}
+                                {{/if}}
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
