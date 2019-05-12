@@ -4,6 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const Handlebars = require('handlebars');
+const profiles = require('./data/profiles');
 
 const configRoutes = require("./routes");
 const exphbs = require("express-handlebars");
@@ -79,6 +80,7 @@ app.use(bodyParser.urlencoded({
 app.engine('hbs', handlebarsInstance.engine);
 app.set('view engine', 'hbs');
 
+// session
 app.use(session({
     name: "AuthCookie",
     secret: "I am batman",
@@ -90,7 +92,7 @@ app.use(session({
 app.use(async function (req, res, next) {
 	// output the log to the console
 	var date = new Date().toUTCString();
-	var auth = (req.session.loggedIn) ? 'Authenticated' : 'Non-Authenticated';
+	var auth = (req.session.userid) ? 'Authenticated' : 'Non-Authenticated';
 	console.log(`[${date}]: ${req.method} ${req.originalUrl} (${auth} User)`);
 
 	next()
@@ -100,4 +102,12 @@ configRoutes(app);
 
 app.listen(3000, () => {
 	console.log("Listening on port 3000")
+});
+
+const cfg = async () => {
+    await profiles.configureIndex();
+};
+
+cfg().catch(error => {
+    console.log(error);
 });

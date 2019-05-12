@@ -20,19 +20,10 @@ router.get('/signup', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
 	try {
-		console.log(1);
-
-		let newProfile;
-		await bcrypt.genSalt(10, function (err, salt) {
-			bcrypt.hash(req.body.password, salt, function (err, hash) {
-				// Store hash in your password DB.
-				req.body.password = hash;
-				newProfile = profileData.create(req.body);
-				console.log(2);
-			});
-		});
-		req.session.userid = newProfile._id;
-		res.redirect("/");
+		req.body.password = await bcrypt.hash(req.body.password, 16);
+		let newProfile = await profileData.create(req.body);
+		// req.session.userid = newProfile._id;
+		res.redirect("/login");
 	}
 	catch (error) {
 		res.status(400);
@@ -55,7 +46,6 @@ router.get('/login', async (req, res) => {
 router.post('/login', async (req, res) => {
 	// Test
 	try {
-		console.log("I really like trains")
 
 		if (req.body.email === undefined || req.body.email === '' || req.body.password === undefined || req.body.password === '') {
 			res.status(401).render("pages/login.hbs", { error: "Please enter email and password" })
@@ -63,14 +53,15 @@ router.post('/login', async (req, res) => {
 		}
 
 		// See if the user email exists in the data base
-		const user = await profileData.getbyEmail(req.body.email)
+		let user = await profileData.getbyEmail(req.body.email)
 		if (user === null || user === undefined) {
-			res.status(401).render("partials/pages/login.hbs", { error: "Invalid email or password" })
+			res.status(401).render("pages/login.hbs", { error: "Invalid email or password" })
 			return;
 		}
+		console.log("I really like trains")
 
 		// Compare the password input to the hashed password under the user to authenticate login
-		let hashcmp = await bcrypt.compare(req.body.password, user.hashedPassword);
+		let hashcmp = await bcrypt.compare(req.body.password, user.password);
 
 		if (hashcmp) {
 			console.log("SUCCESS LOGIN AUTHENTICATED")
@@ -88,7 +79,26 @@ router.post('/login', async (req, res) => {
 		return;
 	} catch (error) {
 		res.status(400);
-		res.sned(error);
+		res.send(error);
+	}
+})
+
+router.get('', async (req, res) => {
+	try {
+		let user;
+		if (req.session.userid) {
+			user = await profileData.get(req.session.userid);
+		}
+		options = {
+			layout: false,
+			title: "User",
+			pageType: "profile-page",
+			user: user
+		}
+		res.render("pages/user", options);
+	} catch (error) {
+		res.status(400);
+		res.send(error);
 	}
 })
 

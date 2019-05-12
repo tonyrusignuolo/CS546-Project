@@ -14,7 +14,6 @@ const constructorMethod = (app) => {
 	app.use("/map", map);
 	app.get("*", async (req, res) => {
 		try {
-			// get user if authenticated
 			let user;
 			if (req.session.userid) {
 				user = await profileData.get(req.session.userid);

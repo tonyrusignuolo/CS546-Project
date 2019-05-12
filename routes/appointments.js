@@ -6,7 +6,7 @@ const appointmentsData = require('../data/appointments')
 // 
 router.get('/create-appointment', async (req, res) => {
 	try {
-		res.render("appointments/createAppointment.handlebars");
+		res.render("pages/appointments/createAppointment.hbs");
 	} catch (error) {
 		res.status(400);
 		res.send(error);
