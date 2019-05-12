@@ -3,6 +3,25 @@
     height: 75%;
     width: 75%;
 }
+
+
+#wrapper {
+    width: 100%;
+    overflow: hidden;
+}
+
+#first {
+    background-color: white;
+    width: 45%;
+    float: left;
+}
+
+#second{
+    overflow: hidden;
+}
+
+
+
 /* 
 html, body {
     height: 100%;

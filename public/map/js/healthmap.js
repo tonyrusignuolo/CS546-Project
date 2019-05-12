@@ -1,6 +1,7 @@
 // JS and JQuery to manipulate google maps API
 // Creates a variable for our map object
 var map;
+var markers = [];
 // Function to initialize the google maps
 async function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -27,13 +28,25 @@ function addMarker(coords, name){
         else {
             marker.setAnimation(google.maps.Animation.BOUNCE)
         }
-
-        console.log(p)
-
     }
     marker.addListener('click', toggleBounce)
+    markers.push(marker);
 }
 
+function setMapOnAll(map){
+    for(let i=0; i < markers.length; i++){
+        markers[i].setMap(map)
+    }
+}
+
+function clearMarkers(){
+    setMapOnAll(null)
+}
+
+function deleteMarkers(){
+    clearMarkers();
+    markers = [];
+}
 
 (async function($){
     
@@ -81,11 +94,11 @@ function addMarker(coords, name){
         addMarker({lat: p[i].location[0].lat, lng: p[i].location[1].long}, p[i].name)
     }
     
-    
-
     // Set event listener for submission form
     $("#search-params").submit(function(event){
         
+        deleteMarkers();
+
         console.log($("#insurance-drop").val())
         console.log($("#procedure-drop").val())
 
