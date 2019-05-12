@@ -18,7 +18,7 @@ const main = async () => {
     if(await bcrypt.compare(prof1password, prof1hash)){
         prof1 = await profiles.create({
             email: "lieutenant_dan@gmail.com",
-            hashedPassword: prof1hash,
+            password: prof1hash,
             firstName: "Lieutenant",
             lastName: "Dan",
             isAdmin: true,
@@ -33,7 +33,7 @@ const main = async () => {
     if(await bcrypt.compare(prof2password, prof2hash)){
         prof2 = await profiles.create({
             email: "jaime_lannister@yahoo.com",
-            hashedPassword: prof2hash,
+            password: prof2hash,
             firstName: "Jaime",
             lastName: "Lannister",
             isAdmin: false,
@@ -43,11 +43,6 @@ const main = async () => {
 
     
     // Run the seed, console.log should return the two profiles above in the database
-    console.log(await profiles.getAll())
-
-
-
-
 
     // Comments below were for testing, everything currently works::::::::::::
 

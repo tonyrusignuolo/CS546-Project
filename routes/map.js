@@ -2,8 +2,11 @@ const express = require("express");
 const router = express.Router();
 const practitioners = require('../data/practitioners');
 
+
 router.get('/', async (req, res) => {
-    res.render('pages/map.hbs', {layout: false});
+    //res.render('pages/map.hbs', {layout: false});
+    
+    res.render('pages/map.hbs');
 });
 
 router.get('/all', async(req, res) => {

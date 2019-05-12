@@ -27,6 +27,9 @@ function addMarker(coords, name){
         else {
             marker.setAnimation(google.maps.Animation.BOUNCE)
         }
+
+        console.log(p)
+
     }
     marker.addListener('click', toggleBounce)
 }
@@ -47,23 +50,78 @@ function addMarker(coords, name){
         dataType: "json",
     }
     
-    $.ajax(requestConfig).then(function(response){
-        const allPractitioners = response;
-        for(let i=0; i < response.length; i++){
-            addMarker({lat: response[i].location[0].lat, lng: response[i].location[1].long}, response[i].name)
-        }
+    // const tmp
+    // $.ajax(requestConfig).then(function(response){
+    //     tmp = response;
+    //     for(let i=0; i < response.length; i++){
+    //         addMarker({lat: response[i].location[0].lat, lng: response[i].location[1].long}, response[i].name)
+    //     }
         
-    })
+    // })
+
+    // console.log(tmp)
+
+
+    // Alternate method for ajax request stores allPractitioners in variable p
+    var p = function () {
+        var tmp = null;
+        $.ajax({
+            'async': false,
+            'type': "GET",
+            'dataType': 'json',
+            'url': "/map/all",
+            'success': function (data) {
+                tmp = data;
+            }
+        });
+        return tmp;
+    }();
+
+
+    var insuranceList = []
+    var procedureList = []
+
+
+    for(let i=0; i < p.length; i++){
+        addMarker({lat: p[i].location[0].lat, lng: p[i].location[1].long}, p[i].name)
+        
+        for(let j=0; j < p[i].procedures.length; j++){
+            let zz = p[i].procedures[j]
+            for (let name in zz){
+                if(!procedureList.includes(name)){
+                    procedureList.push(name)
+                }
+            }
+        }
+
+        for(let j=0; j < p[i].providers.length; j++){
+            let zz = p[i].providers[j]
+            if(!insuranceList.includes(zz)){
+                insuranceList.push(zz)
+            }
+        }
+    }
+    // console.log(insuranceList)
+    // console.log(procedureList)
+
+    for(let i=0; i < insuranceList.length; i++){
+        var n = "<option>" + String(insuranceList[i]) + "</option>"
+        $("#insurance-drop").append(n)
+    }
+
+    for(let i=0; i < procedureList.length; i++){
+        var n = "<option>" + String(procedureList[i]) + "</option>"
+        $("#procedure-drop").append(n)
+    }
+
 
     // Set event listener for submission form
-    // $("#search_params").submit(function(event){
+    $("#search-params").submit(function(event){
         
-    //     console.log($("#insurance").val())
-    //     console.log($("#procedure").val())
-
-
-
-    //     event.preventDefault();
-    // })
+        console.log($("#insurance-drop").val())
+        console.log($("#procedure-drop").val())
+        
+        event.preventDefault();
+    })
 
 })(jQuery)

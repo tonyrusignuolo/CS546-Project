@@ -64,8 +64,6 @@ router.post('/login', async (req, res) => {
 		let hashcmp = await bcrypt.compare(req.body.password, user.password);
 
 		if (hashcmp) {
-			console.log("SUCCESS LOGIN AUTHENTICATED")
-
 			// Set the cookie 
 			req.session.userid = user._id
 			// REDIRECT TO PROFILE and CHANGE OPTIONS landing page etc.

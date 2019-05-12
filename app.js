@@ -56,20 +56,7 @@ const handlebarsInstance = exphbs.create({
     },
 });
 
-// Handlebars.registerHelper('not', function (option, options) {
-// 	return !option;
-// });
 
-// Handlebars.registerHelper('ifEqual', function (arg1, arg2, options) {
-// 	return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
-// });
-
-// Handlebars.registerHelper('ifOr', function (arg1, arg2, options) {
-//     return (arg1 || arg2) ? options.fn(this) : options.inverse(this);
-// });
-
-// Gets our CSS and makes it available in express under the directory public
-// Otherwise public is only local to the machine, hence the need for the express.static
 app.use("/public", express.static(__dirname + "/public"));
 app.use("/assets", express.static(__dirname + "/assets"));
 app.use(bodyParser.json());

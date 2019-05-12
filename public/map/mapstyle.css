@@ -1,9 +1,9 @@
 /* Quick simple style sheet for the map*/
 #map {
-    height: 100%;
-    margin-top: 10px;
+    height: 75%;
+    width: 75%;
 }
-
+/* 
 html, body {
     height: 100%;
     margin: 0;
@@ -13,4 +13,4 @@ html, body {
 input, label {
     display: block;
     padding: 5px;
-}
+} */
