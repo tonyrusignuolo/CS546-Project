@@ -41,7 +41,6 @@ router.get('/login', async (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-	// Test
 	console.log("I really like trains")
 	
 	if(req.body.email === undefined || req.body.email === '' || req.body.password === undefined || req.body.password === ''){
@@ -68,6 +67,7 @@ router.post('/login', async (req, res) => {
 		// Temp. Redirects home
 		res.redirect("/");
 	}
+
 	else {
 		res.status(401).render("partials/pages/login.hbs", {error: "Invalid email or password"})
 		
