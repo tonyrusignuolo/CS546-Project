@@ -78,11 +78,11 @@
 						<a href="/profile" class="dropdown-item">
 							<i class="material-icons">account_box</i> My Profile
 						</a>
-						{{#ifEqual user.role 2}}
+						{{#if user.isAdmin}}
 						<a href="/admin/main" class="dropdown-item">
 							<i class="material-icons">supervisor_account</i> Admin
 						</a>
-						{{/ifEqual}}
+						{{/if}}
 						<a href="{{logout_url}}" class="dropdown-item">
 							<i class="material-icons">exit_to_app</i> Sign Out
 						</a>

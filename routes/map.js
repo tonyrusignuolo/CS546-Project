@@ -39,6 +39,7 @@ router.get('/', async (req, res) => {
 
     // Sets the options to populate the insurance and procedure dropdown
     let options = {
+		layout: false,
         insurance: insuranceList,
         procedures: procedureList
     }  
