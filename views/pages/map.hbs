@@ -67,6 +67,7 @@
                                 <div class="form-group">
                                     <label for="insurance-drop">Select an insurance provider</label>
                                     <select class="form-control selectpicker" data-style="btn btn-link" id="insurance-drop">
+                                        <option>-</option>
                                         {{#if options.insurance.length}}
                                         {{#each options.insurance}}
                                         <option>
@@ -80,6 +81,7 @@
                                 <div class="form-group">
                                     <label for="procedure-drop">Select a procedure</label>
                                     <select class="form-control selectpicker" data-style="btn btn-link" id="procedure-drop">
+                                        <option>-</option>
                                         {{#if options.procedures.length}}
                                         {{#each options.procedures}}
                                         <option>

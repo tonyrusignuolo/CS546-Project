@@ -1,5 +1,6 @@
 const collections = require("../config/mongoCollections");
 const practitioners = collections.practitioners;
+const ObjectID = require("mongodb").ObjectID;
 
 module.exports = {
     async get(id) {
@@ -16,20 +17,23 @@ module.exports = {
     async getMatch(insurance, procedure){
         
         const practitionerCollection = await practitioners();
+        console.log(procedure)
 
+        let res;
+        
         if((procedure === undefined || procedure === '') && (insurance !== undefined && insurance !== '')){
             // Finds if a value exists in the providers array of DB
-            const res = await practitionerCollection.find({providers: "Delta"}).toArray();  
+            res = await practitionerCollection.find({providers: insurance}).toArray();  
         }
 
         if((procedure !== undefined && procedure !== '') && (insurance === undefined || insurance === '')){
-            // Checks if the property of an object exists in a nested object array of Mongo DB
-            const res = await practitionerCollection.find({procedures : {$exists: true, $ne: [], $elemMatch: {"X-Ray": {$exists: true}}}}).toArray();
+            // Checks if the property of an object exists in a nested object array of Mongo
+            res = await practitionerCollection.find({procedures : {$exists: true, $ne: [], $elemMatch: {[procedure]: {$exists: true}}}}).toArray();
         }
 
         if(procedure !== undefined && procedure !== '' && insurance !== undefined && insurance !== ''){
             // Checks that both conditions searching for a procedure and an insurance provider are satisfied
-            const res = await practitionerCollection.find({$and: [{procedures : {$exists: true, $ne: [], $elemMatch: {"X-Ray": {$exists: true}}}}, {providers: "Blue Cross"}]}).toArray();
+            res = await practitionerCollection.find({$and: [{procedures : {$exists: true, $ne: [], $elemMatch: {[procedure]: {$exists: true}}}}, {providers: insurance}]}).toArray();
         }
 
         return(res);
