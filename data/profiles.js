@@ -114,7 +114,6 @@ const exportedMethods = {
     	const profileCollection = await profiles();
     	const res = await profileCollection.createIndex({'email': 1}, {unique: true});
 	}
-
 }
 
 module.exports = exportedMethods;

@@ -18,6 +18,7 @@ const constructorMethod = (app) => {
 			if (req.session.userid) {
 				user = await profileData.get(req.session.userid);
 			}
+			
 			options = {
 				layout: false,
 				title: "Testing!",

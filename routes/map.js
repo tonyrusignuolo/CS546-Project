@@ -8,7 +8,9 @@ router.get('/', async (req, res) => {
     let allPractitioners;
     try {
         allPractitioners = await practitioners.getAll();
-    } catch (e) {
+    }
+    
+    catch (e) {
         res.status(500);
         res.send(e);
         return;
