@@ -12,7 +12,7 @@ async function isAdmin(req, res,  next) {
 		let user;
 		if (req.session.userid) {
 			user = await profileData.get(req.session.userid);
-			if (user.admin) {
+			if (user.isAdmin) {
 				next();
 				return;
 			}

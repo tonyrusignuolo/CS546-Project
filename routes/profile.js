@@ -33,10 +33,16 @@ router.post('/signup', async (req, res) => {
 
 router.get('/login', async (req, res) => {
 	try {
-		let options = {
-			layout: false
+		let user;
+		if (req.session.userid) {
+			res.redirect("/");
 		}
-		res.render("pages/login.hbs", options);
+		else {
+			let options = {
+				layout: false
+			}
+			res.render("pages/login.hbs", options);
+		}
 	} catch (error) {
 		res.status(404);
 		res.send(error);
@@ -93,7 +99,7 @@ router.get('/', async (req, res) => {
 			pageType: "profile-page",
 			user: user
 		}
-		res.render("pages/user", options);
+		res.render("pages/profile", options);
 	} catch (error) {
 		res.status(400);
 		res.send(error);
