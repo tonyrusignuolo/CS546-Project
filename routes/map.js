@@ -50,6 +50,23 @@ router.get('/', async (req, res) => {
     res.render('pages/map.hbs', {options});
 });
 
+// Route for map matching to practitioner filter input
+router.get('/match', async(req,res)=> {
+    // Request from ajax data gets set in query
+    let matchPractitioners
+    try{
+        matchPractitioners = await practitioners.getMatch(req.query.insurance, req.query.procedure)
+    }
+    catch(e){
+        res.status(500);
+        res.send(e);
+        return;
+    }
+    // Sends the object back for new map markers
+    res.send(matchPractitioners)
+})
+
+// Route for ajax request to get all practitioners
 router.get('/all', async(req, res) => {
     let allPractitioners;
     try {
@@ -61,6 +78,7 @@ router.get('/all', async(req, res) => {
     }
     res.send(allPractitioners)
 })
+
 
 
 module.exports = router;

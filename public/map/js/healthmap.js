@@ -54,28 +54,7 @@ function deleteMarkers(){
     // Call to google map API for map generation
     await initMap()
 
-    // Var marker = new google.maps.Marker({position: {lat: 40.743991, lng: -74.032363}, map: map});
-
-    // Configuration for ajax request to server
-    // var requestConfig = {
-    //     method: "GET",
-    //     url: "/map/all",
-    //     dataType: "json",
-    // }
-    
-    // const tmp
-    // $.ajax(requestConfig).then(function(response){
-    //     tmp = response;
-    //     for(let i=0; i < response.length; i++){
-    //         addMarker({lat: response[i].location[0].lat, lng: response[i].location[1].long}, response[i].name)
-    //     }
-        
-    // })
-
-    // console.log(tmp)
-
-
-    // Alternate method for ajax request stores allPractitioners in variable p
+    // Ajax request to get all from server
     var p = function () {
         var tmp = null;
         $.ajax({
@@ -97,11 +76,66 @@ function deleteMarkers(){
     // Set event listener for submission form
     $("#search-params").submit(function(event){
         
-        deleteMarkers();
+        // Clear error message
+        $("#errmess").text("")
+        // ins variable to get insurance selection
+        var ins = $("#insurance-drop").val()
+        // prc variable to get procedure selection
+        var prc = $("#procedure-drop").val()
+        
+        if(ins !== '-' || prc !== '-'){
+            var adata = {insurance: ins, procedure: prc}
+            // Ajax request to load matches
+            var r = function(){
+                var tmp = null;
+                $.ajax({
+                    'async': false,
+                    'type': "GET",
+                    'data': adata,
+                    'dataType': 'json',
+                    'url': "/map/match",
+                    'success': function (data) {
+                        tmp = data;
+                    }
+                });
+                return tmp;
+            }();
+            
 
-        console.log($("#insurance-drop").val())
-        console.log($("#procedure-drop").val())
-
+            deleteMarkers();
+            // If there are search results then we add the corresponding markers to the map
+            if(r !== undefined && r !== null && r.length > 0){
+                for(let i=0; i < r.length; i++){
+                    addMarker({lat: r[i].location[0].lat, lng: r[i].location[1].long}, r[i].name)
+                }
+            }
+            // Otherwise we display a message that says there were no search results
+            else{
+                // Set error message if there are no results
+                $("#errmess").text("Sorry, there weren't any results for that search")
+            }
+        }
+        // Otherwise reload all
+        else{
+            var p = function () {
+                var tmp = null;
+                $.ajax({
+                    'async': false,
+                    'type': "GET",
+                    'dataType': 'json',
+                    'url': "/map/all",
+                    'success': function (data) {
+                        tmp = data;
+                    }
+                });
+                return tmp;
+            }();
+            deleteMarkers();
+            for(let i=0; i < p.length; i++){
+                addMarker({lat: p[i].location[0].lat, lng: p[i].location[1].long}, p[i].name)
+            }
+        }
+        
         event.preventDefault();
     })
 

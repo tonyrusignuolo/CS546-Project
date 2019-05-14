@@ -20,6 +20,10 @@
     overflow: hidden;
 }
 
+#errmess{
+    color: red;
+    font-weight: bold;
+}
 
 
 /* 
