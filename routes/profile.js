@@ -81,7 +81,7 @@ router.post('/login', async (req, res) => {
 	}
 })
 
-router.get('', async (req, res) => {
+router.get('/', async (req, res) => {
 	try {
 		let user;
 		if (req.session.userid) {
