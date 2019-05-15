@@ -42,7 +42,24 @@ const main = async () => {
         });
     }
 
+    let prof3password = "dangernoodle";
+    let prof3hash = await bcrypt.hash(prof3password, saltRounds);
+
+    let prof3;
+    if(await bcrypt.compare(prof3password, prof3hash)){
+        prof3 = await profiles.create({
+            email: "pbaressi@stevens.edu",
+            password: prof3hash,
+            firstName: "Phillip",
+            lastName: "Baressi",
+            isAdmin: true,
+            insuranceProvider: "Delta",
+            photo: "../assets/img/Stevens/phil.jpg"
+        });
+    }
     
+
+
     // Run the seed, console.log should return the two profiles above in the database
 
     // Comments below were for testing, everything currently works::::::::::::
