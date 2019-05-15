@@ -62,7 +62,6 @@ router.get('/', async (req, res) => {
         }
     }  
     
-
     res.render('pages/map.hbs', {options});
 });
 
