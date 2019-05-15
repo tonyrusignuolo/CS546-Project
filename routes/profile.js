@@ -21,9 +21,10 @@ router.get('/signup', async (req, res) => {
 router.post('/signup', async (req, res) => {
 	try {
 		req.body.password = await bcrypt.hash(req.body.password, 16);
+		req.body.isAdmin = false;
 		let newProfile = await profileData.create(req.body);
-		// req.session.userid = newProfile._id;
-		res.redirect("/login");
+		
+		res.redirect("profile/login");
 	}
 	catch (error) {
 		res.status(400);
@@ -87,6 +88,12 @@ router.post('/login', async (req, res) => {
 })
 
 router.get('/', async (req, res) => {
+	// When there is no session, redirect to login
+	if(!req.session.userid){
+		res.redirect("profile/login")
+		return;
+	}
+
 	try {
 		let user;
 		if (req.session.userid) {
