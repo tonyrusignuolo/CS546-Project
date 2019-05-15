@@ -52,7 +52,9 @@
 
 
 <div class="page-header header-filter" data-parallax="true"
-	style="background-image: url('../assets/img/city-profile.jpg');"></div>
+	style="background-image: url('../assets/img/city-profile.jpg');">
+</div>
+
 <div class="main main-raised">
 	<div class="profile-content">
 		<div class="container">
@@ -74,70 +76,80 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="description text-center">
-				<p>Description Example YYEHHHEHHH</p>
+				<p>Insurance Provider: {{user.insuranceProvider}}</p>
 			</div>
+
 			<div class="row">
 				<div class="col-md-6 ml-auto mr-auto">
 					<div class="profile-tabs">
 						<ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
+
+							{{#if user.isAdmin}}
 							<li class="nav-item">
-								<a class="nav-link active" href="#studio" role="tab" data-toggle="tab">
-									<i class="material-icons">camera</i> Studio
+								<a class="nav-link active" href="#admin" role="tab" data-toggle="tab">
+									<i class="material-icons">sd_storage</i> Admin
 								</a>
 							</li>
+							{{/if}}
+
 							<li class="nav-item">
-								<a class="nav-link" href="#works" role="tab" data-toggle="tab">
-									<i class="material-icons">palette</i> Work
+								<a class="nav-link" href="#edit" role="tab" data-toggle="tab">
+									<i class="material-icons">edit</i> Edit Profile
 								</a>
 							</li>
+
+
 							<li class="nav-item">
-								<a class="nav-link" href="#favorite" role="tab" data-toggle="tab">
-									<i class="material-icons">favorite</i> Favorite
+								<a class="nav-link" href="#appointments" role="tab" data-toggle="tab">
+									<i class="material-icons">schedule</i> Appointments
 								</a>
 							</li>
 						</ul>
 					</div>
 				</div>
 			</div>
+
+
+
+			{{!-- Content to show when icons are selected based on id. Made clear seperation --}}
+
 			<div class="tab-content tab-space">
-				<div class="tab-pane active text-center gallery" id="studio">
+
+				{{#if user.isAdmin}}
+				<div class="tab-pane active text-center gallery" id="admin">
 					<div class="row">
 						<div class="col-md-3 ml-auto">
-							<img src="../assets/img/examples/studio-1.jpg" class="rounded">
-							<img src="../assets/img/examples/studio-2.jpg" class="rounded">
+							<p>This only shows up if admin</p>
 						</div>
 						<div class="col-md-3 mr-auto">
-							<img src="../assets/img/examples/studio-5.jpg" class="rounded">
-							<img src="../assets/img/examples/studio-4.jpg" class="rounded">
+							<p>Oh yeah, mad nice</p>
+						</div>
+					</div>
+				</div>
+				{{/if}}
+
+
+				<div class="tab-pane text-center gallery" id="edit">
+					<div class="row">
+						<div class="col-md-3 ml-auto">
+							<p>Should be where profile edit form goes, maybe show button to modal, or just place form and reload page after form submission</p>
+						</div>
+						<div class="col-md-3 mr-auto">
+							<p>Just playing with columns and SHEEEETTT</p>
 						</div>
 					</div>
 				</div>
 
-				{{!-- Content to show when icons are selected based on id --}}
-				<div class="tab-pane text-center gallery" id="works">
+
+				<div class="tab-pane text-center gallery" id="appointments">
 					<div class="row">
 						<div class="col-md-3 ml-auto">
-							<img src="../assets/img/examples/olu-eletu.jpg" class="rounded">
-							<img src="../assets/img/examples/clem-onojeghuo.jpg" class="rounded">
-							<img src="../assets/img/examples/cynthia-del-rio.jpg" class="rounded">
+							<p>This is where appointments should show up</p>
 						</div>
 						<div class="col-md-3 mr-auto">
-							<img src="../assets/img/examples/mariya-georgieva.jpg" class="rounded">
-							<img src="../assets/img/examples/clem-onojegaw.jpg" class="rounded">
-						</div>
-					</div>
-				</div>
-				<div class="tab-pane text-center gallery" id="favorite">
-					<div class="row">
-						<div class="col-md-3 ml-auto">
-							<img src="../assets/img/examples/mariya-georgieva.jpg" class="rounded">
-							<img src="../assets/img/examples/studio-3.jpg" class="rounded">
-						</div>
-						<div class="col-md-3 mr-auto">
-							<img src="../assets/img/examples/clem-onojeghuo.jpg" class="rounded">
-							<img src="../assets/img/examples/olu-eletu.jpg" class="rounded">
-							<img src="../assets/img/examples/studio-1.jpg" class="rounded">
+							<p>If no appointments, just display no appointments</p>
 						</div>
 					</div>
 				</div>
