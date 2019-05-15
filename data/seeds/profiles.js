@@ -22,7 +22,8 @@ const main = async () => {
             firstName: "Lieutenant",
             lastName: "Dan",
             isAdmin: true,
-            insuranceProvider: "Delta"
+            insuranceProvider: "Delta",
+            photo: "../assets/img/Stevens/lut_dan.jpg"
         });
     }
 
