@@ -96,8 +96,8 @@ router.post('/login', async (req, res) => {
 	if (hashcmp) {
 		// Set the cookie 
 		req.session.userid = user._id
-		res.redirect("/");
-		
+		res.redirect("/profile");
+		return;
 	}
 	else {
 		res.status(401).render("pages/login.hbs", { error: "Invalid email or password" });
