@@ -102,7 +102,6 @@ router.post('/login', async (req, res) => {
 	else {
 		res.status(401).render("pages/login.hbs", { error: "Invalid email or password" });
 	}
-
 	return;
 	
 })
@@ -130,6 +129,13 @@ router.get('/', async (req, res) => {
 		res.status(400);
 		res.send(error);
 	}
+})
+
+// New route for profile creation
+router.get('/logout', async (req, res) => {
+	res.clearCookie("AuthCookie")
+	res.redirect("/")
+	return;
 })
 
 module.exports = router
