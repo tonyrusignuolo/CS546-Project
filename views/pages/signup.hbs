@@ -58,6 +58,14 @@
 							<div class="input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text">
+										<i class="material-icons">lock_outline</i>
+									</span>
+								</div>
+								<input type="password" class="form-control" id="passwordconfirm" name="passwordconfirm" placeholder="Confirm Password...">
+							</div>
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">
 										<i class="material-icons">local_hospital</i>
 										{{!-- <i class="material-icons">healing</i> --}}
 									</span>
@@ -68,6 +76,11 @@
 									<option>United</option>
 									<option>Blue Cross</option>
 								</select>
+							</div>
+							<div class="error">
+								{{#if error}}
+								<p>{{error}}</p>
+								{{/if}}
 							</div>
 						</div>
 						<div class="footer text-center">

@@ -19,17 +19,41 @@ router.get('/signup', async (req, res) => {
 })
 
 router.post('/signup', async (req, res) => {
-	try {
-		req.body.password = await bcrypt.hash(req.body.password, 16);
-		req.body.isAdmin = false;
-		let newProfile = await profileData.create(req.body);
-		
-		res.redirect("profile/login");
+	// Check fields are filled out correctly
+	if (req.body.email === undefined || req.body.email === '' || req.body.password === undefined || req.body.password === '' || req.body.firstName === undefined || req.body.firstName === '' || req.body.lastName === undefined || req.body.lastName === '') {
+		res.status(401).render("pages/signup.hbs", { error: "Error: Missing fields" })
+		return;
 	}
-	catch (error) {
-		res.status(400);
-		res.send(error);
+
+	// See if the user email exists in the data base
+	let user = await profileData.getbyEmail(req.body.email)
+	if (user !== null) {
+		res.status(401).render("pages/signup.hbs", { error: "Error: That email is already in use." })
+		return;
 	}
+
+	// Error for non-matching passwords on sign up
+	if(req.body.password !== req.body.passwordconfirm){
+		res.status(401).render("pages/signup.hbs", { error: "Error: Passwords dont match." })
+		return;
+	}
+
+	// Creates the new object to be stored into the DB
+	req.body.password = await bcrypt.hash(req.body.password, 16);
+	req.body.firstName = req.body.firstName.charAt(0).toUpperCase() + req.body.firstName.slice(1);
+	req.body.lastName = req.body.lastName.charAt(0).toUpperCase() + req.body.lastName.slice(1);
+	let newbody = {
+		email: req.body.email,
+		password: req.body.password,
+		firstName: req.body.firstName,
+		lastName: req.body.lastName,
+		isAdmin: false,
+		insuranceProvider: req.body.insuranceProvider
+	}
+	let newProfile = await profileData.create(newbody);
+	req.session.userid = newProfile._id
+	res.redirect("/")
+	
 })
 
 router.get('/login', async (req, res) => {
@@ -37,6 +61,7 @@ router.get('/login', async (req, res) => {
 		let user;
 		if (req.session.userid) {
 			res.redirect("/");
+			return;
 		}
 		else {
 			let options = {
@@ -51,9 +76,7 @@ router.get('/login', async (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-	// Test
 	
-
 	if (req.body.email === undefined || req.body.email === '' || req.body.password === undefined || req.body.password === '') {
 		res.status(401).render("pages/login.hbs", { error: "Please enter email and password" })
 		return;
@@ -81,10 +104,7 @@ router.post('/login', async (req, res) => {
 	}
 
 	return;
-	// } catch (error) {
-	// 	res.status(400);
-	// 	res.send(error);
-	//}
+	
 })
 
 router.get('/', async (req, res) => {

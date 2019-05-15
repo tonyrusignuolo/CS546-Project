@@ -7,7 +7,7 @@ const profileData = data.profiles;
 const Handlebars = require('handlebars');
 const map = require('./map');
 
-async function isAdmin(req, res,  next) {
+async function isAdmin(req, res, next) {
 	try {
 		let user;
 		if (req.session.userid) {
