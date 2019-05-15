@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const practitioners = require('../data/practitioners');
+const profiles = require('../data/profiles');
 
 
 router.get('/', async (req, res) => {
@@ -40,10 +41,25 @@ router.get('/', async (req, res) => {
     }
 
     // Sets the options to populate the insurance and procedure dropdown
-    let options = {
-		layout: false,
-        insurance: insuranceList,
-        procedures: procedureList
+    let options;
+    if(req.session.userid){
+        let profile = await profiles.get(req.session.userid)
+        
+        
+        options = {
+            layout: false,
+            insurance: insuranceList,
+            procedures: procedureList,
+            userIns: profile.insuranceProvider
+        }
+    }
+    else {
+        options = {
+            layout: false,
+            insurance: insuranceList,
+            procedures: procedureList,
+            userIns: null
+        }
     }  
     
 
