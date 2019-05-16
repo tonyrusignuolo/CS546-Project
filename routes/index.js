@@ -1,6 +1,6 @@
 // Index constructor sets views to the app engine
 const profile = require('./profile');
-const appointments = require('./appointments');
+const appointments = require('./appointment');
 const admin = require('./admin');
 const data = require('../data');
 const profileData = data.profiles;
@@ -47,7 +47,7 @@ const constructorMethod = (app) => {
 			res.status(400);
 			res.send(error);
 		}
-	})
+	});
 };
 
 // Exports our constructor

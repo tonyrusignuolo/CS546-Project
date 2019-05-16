@@ -23,7 +23,7 @@ const main = async () => {
             lastName: "Dan",
             isAdmin: true,
             insuranceProvider: "Delta",
-            photo: "../assets/img/Stevens/lut_dan.jpg"
+            photo: "/assets/img/Stevens/lut_dan.jpg"
         });
     }
 

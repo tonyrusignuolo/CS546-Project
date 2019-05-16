@@ -32,24 +32,21 @@
 			</div>
 
 			<div class="row">
-				<div class="col-md-6 ml-auto mr-auto">
+				<div class="col-md-12 ml-auto mr-auto">
 					<div class="profile-tabs">
 						<ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
 
-							{{#if user.isAdmin}}
 							<li class="nav-item">
 								<a class="nav-link active" href="#admin" role="tab" data-toggle="tab">
-									<i class="material-icons">sd_storage</i> Admin
+									<i class="material-icons">people</i> Profiles
 								</a>
 							</li>
-							{{/if}}
 
 							<li class="nav-item">
 								<a class="nav-link" href="#edit" role="tab" data-toggle="tab">
-									<i class="material-icons">edit</i> Edit Profile
+									<i class="material-icons">local_hospital</i> Practitioners
 								</a>
 							</li>
-
 
 							<li class="nav-item">
 								<a class="nav-link" href="#appointments" role="tab" data-toggle="tab">
@@ -61,34 +58,22 @@
 				</div>
 			</div>
 
-
-
 			{{!-- Content to show when icons are selected based on id. Made clear seperation --}}
 
 			<div class="tab-content tab-space">
-
-				{{#if user.isAdmin}}
-				<div class="tab-pane active text-center gallery" id="admin">
+				<div class="tab-pane active text-center gallery" id="profiles">
 					<div class="row">
-						<div class="col-md-3 ml-auto">
-							<p>This only shows up if admin</p>
-						</div>
-						<div class="col-md-3 mr-auto">
-							<p>Oh yeah, mad nice</p>
+						<div class="col-md-12 mr-auto">
+							<p>Show profiles here</p>
 						</div>
 					</div>
 				</div>
-				{{/if}}
 
 
-				<div class="tab-pane text-center gallery" id="edit">
+				<div class="tab-pane text-center gallery" id="practitioners">
 					<div class="row">
-						<div class="col-md-3 ml-auto">
-							<p>Should be where profile edit form goes, maybe show button to modal, or just place form
-								and reload page after form submission</p>
-						</div>
-						<div class="col-md-3 mr-auto">
-							<p>Just playing with columns and SHEEEETTT</p>
+						<div class="col-md-12 ml-auto">
+							<p>show practitioners here</p>
 						</div>
 					</div>
 				</div>
