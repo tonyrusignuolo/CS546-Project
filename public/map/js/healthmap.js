@@ -57,25 +57,66 @@ function addMarker(coords, name, markerinfo){
         }
     }
 
-    
+    // Adds listener for bounce toggle and info box
     marker.addListener('click', toggleBounce)
     markers.push(marker);
 }
 
+// Function to set map markers on all
 function setMapOnAll(map){
     for(let i=0; i < markers.length; i++){
         markers[i].setMap(map)
     }
 }
 
+// Function to clear all map markers
 function clearMarkers(){
     setMapOnAll(null)
 }
 
+// Function to remove all map markers
 function deleteMarkers(){
     clearMarkers();
     markers = [];
 }
+
+// Function to format out html string for the info window
+function formatHTMLString(prac){
+    let heading = "<h5>" + prac.name + "</h5>"
+    let ins = "<p><b>Accepted Insurance</b></p><p>"
+    for(let i=0; i < prac.providers.length; i++){
+        if(i === prac.providers.length-1){
+            ins = ins + prac.providers[i]
+        }
+        else{
+            ins = ins + prac.providers[i] + ", "    
+        }
+    }
+    ins = ins + "</p>"
+
+    let procs = "<p><b>Services</b></p><p>"
+    for(let i=0; i < prac.procedures.length; i++){
+        let obj = prac.procedures[i]
+        let key = Object.keys(obj)
+        let val = Object.values(obj)
+        for(let j=0; j < key.length; j++){
+            if(i === prac.procedures.length-1){
+                procs = procs + key[j] + ": $" + String(val[j])
+            }
+            else{
+                procs = procs + key[j] + ": $" + String(val[j]) + ", "
+            }
+        }
+    }
+    procs = procs + "</p>"
+    
+    // let booking = "<p>Would you like to book an appointment?</p>"
+    // let button = ""
+
+    return(heading + ins + procs)
+
+}
+
 
 (async function($){
     // Disabled inate map functionality so the google API loads the map, and the AJAX request to server can be called to populate the map after object creation
@@ -97,9 +138,14 @@ function deleteMarkers(){
     }();
 
     for(let i=0; i < p.length; i++){
-        let infoString = p[i].name + "\n" + "Info Info Info"
+        
+        
+        let contentString = formatHTMLString(p[i])
 
-        addMarker({lat: p[i].location[0].lat, lng: p[i].location[1].long}, p[i].name, infoString)
+        
+
+
+        addMarker({lat: p[i].location[0].lat, lng: p[i].location[1].long}, p[i].name, contentString)
 
     }
     
@@ -145,6 +191,7 @@ function deleteMarkers(){
                 $("#errmess").text("Sorry, there weren't any results for that search")
             }
         }
+
         // Otherwise reload all
         else{
             var p = function () {

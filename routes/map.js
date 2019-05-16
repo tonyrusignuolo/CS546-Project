@@ -41,30 +41,14 @@ router.get('/', async (req, res) => {
     }
 
     // Sets the options to populate the insurance and procedure dropdown
-    let options;
-    if(req.session.userid){
-        let profile = await profiles.get(req.session.userid)
-        
-        
-        options = {
-			layout: false,
-			pageType: "dashboard-page",			
-            insurance: insuranceList,
-            procedures: procedureList,
-            userIns: profile.insuranceProvider
-        }
+    let options = {
+        layout: false,
+        pageType: "dashboard-page",
+        insurance: insuranceList,
+        procedures: procedureList
     }
-    else {
-        options = {
-			layout: false,
-			pageType: "dashboard-page",
-            insurance: insuranceList,
-            procedures: procedureList,
-            userIns: null
-        }
-    }  
-    
-    res.render('pages/map.hbs', options);
+
+    res.render('pages/map.hbs', {options});
 });
 
 // Route for map matching to practitioner filter input
