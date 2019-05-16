@@ -16252,7 +16252,7 @@ footer .pull-center {
 }
 
 .card .card-footer {
-  display: flex;
+  /* display: flex; */
   align-items: center;
   background-color: transparent;
   border: 0;

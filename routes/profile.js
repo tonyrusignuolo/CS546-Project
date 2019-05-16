@@ -9,7 +9,8 @@ const bcrypt = require("bcrypt");
 router.get('/signup', async (req, res) => {
 	try {
 		let options = {
-			layout: false
+			layout: false,
+			pageType: "login-page"
 		};
 		res.render("pages/signup.hbs", options);
 	} catch (error) {
@@ -33,7 +34,7 @@ router.post('/signup', async (req, res) => {
 	}
 
 	// Error for non-matching passwords on sign up
-	if(req.body.password !== req.body.passwordconfirm){
+	if (req.body.password !== req.body.passwordconfirm) {
 		res.status(401).render("pages/signup.hbs", { error: "Error: Passwords dont match." })
 		return;
 	}
@@ -53,7 +54,7 @@ router.post('/signup', async (req, res) => {
 	let newProfile = await profileData.create(newbody);
 	req.session.userid = newProfile._id
 	res.redirect("/")
-	
+
 })
 
 router.get('/login', async (req, res) => {
@@ -65,7 +66,8 @@ router.get('/login', async (req, res) => {
 		}
 		else {
 			let options = {
-				layout: false
+				layout: false,
+				pageType: "login-page"
 			}
 			res.render("pages/login.hbs", options);
 		}
@@ -76,7 +78,7 @@ router.get('/login', async (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-	
+
 	if (req.body.email === undefined || req.body.email === '' || req.body.password === undefined || req.body.password === '') {
 		res.status(401).render("pages/login.hbs", { error: "Please enter email and password" })
 		return;
@@ -91,7 +93,7 @@ router.post('/login', async (req, res) => {
 
 	// Compare the password input to the hashed password under the user to authenticate login
 	let hashcmp = await bcrypt.compare(req.body.password, user.password);
-	
+
 
 	if (hashcmp) {
 		// Set the cookie 
@@ -103,12 +105,12 @@ router.post('/login', async (req, res) => {
 		res.status(401).render("pages/login.hbs", { error: "Invalid email or password" });
 	}
 	return;
-	
+
 })
 
 router.get('/', async (req, res) => {
 	// When there is no session, redirect to login
-	if(!req.session.userid){
+	if (!req.session.userid) {
 		res.redirect("profile/login")
 		return;
 	}

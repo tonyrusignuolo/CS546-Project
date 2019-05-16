@@ -4,10 +4,27 @@ const ObjectID = require("mongodb").ObjectID;
 
 module.exports = {
     async get(id) {
-        if (!id) throw 'Invalid parameter: id';
+		if (!id) throw 'Invalid parameter: id';
+		
+		if(typeof id !== 'string' && typeof id !== 'object'){
+			throw("Error profile.get: Invalid id type passed");
+		}
+
+		let newId;
+		if(typeof(id) !== 'object'){
+			try{
+				newId = new ObjectID(id)
+			}
+			catch(e){
+				throw("Error profiles.get: Invalid ID")
+			}
+		}
+		else{
+			newId = id;
+		}
 
         const practitionerCollection = await practitioners();
-        const practitioner = await practitionerCollection.findOne({'_id': id});
+        const practitioner = await practitionerCollection.findOne({'_id': newId});
         if (practitioner === null) throw 'Unable to find a practitioner with the given ID';
 
         return practitioner;

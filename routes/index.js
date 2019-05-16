@@ -39,7 +39,7 @@ const constructorMethod = (app) => {
 			options = {
 				layout: false,
 				title: "Testing!",
-				pageType: "dashboard-page",
+				pageType: "login-page",
 				user: user
 			}
 			res.render("pages/landing", options);
