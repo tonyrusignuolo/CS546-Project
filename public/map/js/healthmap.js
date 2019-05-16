@@ -2,34 +2,62 @@
 // Creates a variable for our map object
 var map;
 var markers = [];
-
+var prevMarker;
+var infoWindow;
 // Function to initialize the google maps
 async function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 40.743991, lng: -74.032363},
         zoom: 12
     });
+    infoWindow = new google.maps.InfoWindow({
+        content: "None Set"
+    })
 }
 
 
 // Function to add map marker to map
-function addMarker(coords, name){
+function addMarker(coords, name, markerinfo){
     var marker = new google.maps.Marker({
         position: coords,
         title: name,
         animation: google.maps.Animation.DROP,
-        map: map
+        map: map,
+        info: markerinfo
     });
-
+    
     // Function to add animation to map marker
     function toggleBounce(){
-        if(marker.getAnimation() !== null){
-            marker.setAnimation(null)
-        }
-        else {
+
+        // Set animation of any other marker to off when another is pressed
+        if(prevMarker && prevMarker.getAnimation() !== null && prevMarker !== marker){
+            prevMarker.setAnimation(null)
             marker.setAnimation(google.maps.Animation.BOUNCE)
+            
+            infoWindow.setContent(marker.info)
+            infoWindow.open(map, marker)
+
+            prevMarker = marker
+        }
+        else{
+            if(marker.getAnimation() !== null){
+                marker.setAnimation(null)
+
+                infoWindow.close()
+
+            }
+            else{
+                marker.setAnimation(google.maps.Animation.BOUNCE)
+                
+                infoWindow.setContent(marker.info)
+                infoWindow.open(map, marker)
+
+                prevMarker = marker
+            }
         }
     }
+
+    
     marker.addListener('click', toggleBounce)
     markers.push(marker);
 }
@@ -50,11 +78,9 @@ function deleteMarkers(){
 }
 
 (async function($){
-    
     // Disabled inate map functionality so the google API loads the map, and the AJAX request to server can be called to populate the map after object creation
     // Call to google map API for map generation
     await initMap()
-
     // Ajax request to get all from server
     var p = function () {
         var tmp = null;
@@ -71,7 +97,10 @@ function deleteMarkers(){
     }();
 
     for(let i=0; i < p.length; i++){
-        addMarker({lat: p[i].location[0].lat, lng: p[i].location[1].long}, p[i].name)
+        let infoString = p[i].name + "\n" + "Info Info Info"
+
+        addMarker({lat: p[i].location[0].lat, lng: p[i].location[1].long}, p[i].name, infoString)
+
     }
     
     // Set event listener for submission form
@@ -107,7 +136,7 @@ function deleteMarkers(){
             // If there are search results then we add the corresponding markers to the map
             if(r !== undefined && r !== null && r.length > 0){
                 for(let i=0; i < r.length; i++){
-                    addMarker({lat: r[i].location[0].lat, lng: r[i].location[1].long}, r[i].name)
+                    addMarker({lat: r[i].location[0].lat, lng: r[i].location[1].long}, r[i].name, r[i].name)
                 }
             }
             // Otherwise we display a message that says there were no search results
