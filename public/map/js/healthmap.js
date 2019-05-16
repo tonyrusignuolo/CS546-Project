@@ -138,20 +138,15 @@ function formatHTMLString(prac){
     }();
 
     for(let i=0; i < p.length; i++){
-        
-        
+        // Formats a content string for the info window
         let contentString = formatHTMLString(p[i])
-
-        
-
-
         addMarker({lat: p[i].location[0].lat, lng: p[i].location[1].long}, p[i].name, contentString)
 
     }
     
     // Set event listener for submission form
     $("#search-params").submit(function(event){
-        
+        event.preventDefault();
         // Clear error message
         $("#errmess").text("")
         // ins variable to get insurance selection
@@ -182,7 +177,8 @@ function formatHTMLString(prac){
             // If there are search results then we add the corresponding markers to the map
             if(r !== undefined && r !== null && r.length > 0){
                 for(let i=0; i < r.length; i++){
-                    addMarker({lat: r[i].location[0].lat, lng: r[i].location[1].long}, r[i].name, r[i].name)
+                    let contentString = formatHTMLString(r[i])
+                    addMarker({lat: r[i].location[0].lat, lng: r[i].location[1].long}, r[i].name, contentString)
                 }
             }
             // Otherwise we display a message that says there were no search results
@@ -209,7 +205,8 @@ function formatHTMLString(prac){
             }();
             deleteMarkers();
             for(let i=0; i < p.length; i++){
-                addMarker({lat: p[i].location[0].lat, lng: p[i].location[1].long}, p[i].name)
+                let contentString = formatHTMLString(p[i])
+                addMarker({lat: p[i].location[0].lat, lng: p[i].location[1].long}, p[i].name, contentString)
             }
         }
         
