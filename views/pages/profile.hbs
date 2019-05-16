@@ -1,60 +1,10 @@
-{{!-- {{#> layouts/main}}
-{{#*inline "page-header"}}
-<div class="page-header header-filter"
-	style="background-image: url(''); background-size: cover; background-position: top center;"></div>
-{{/inline}}
-{{#*inline "main-block"}}
-<div class="main main-raised">
-	<div class="profile-content">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 ml-auto mr-auto">
-					<div class="profile">
-						<div class="avatar">
-							{{#if userPhotoURL }}
-							<img src="{{userPhotoURL}}" alt="Circle Image" class="img-raised rounded-circle img-fluid">
-							{{else}}
-							<img src="../assets/img/Stevens/Attila.png" alt="Circle Image" class="img-fluid">
-							{{/if}}
-						</div>
-						<div class="name">
-							<h3 class="title">
-								{{user.firstName}} {{user.lastName}}
-							</h3>
-						</div>
-						<br>
-						<button class="btn btn-primary btn-round" data-toggle="modal" data-target="#profileEdit">
-							<i class="material-icons">edit</i> Edit Profile
-						</button>
-						<h6>{{user.major}} {{user.gradYear}}</h6>
-					</div>
-				</div>
-			</div>
-			<div class="description text-center">
-				<p>
-					{{user.bio}}
-				</p>
-			</div>
-		</div>
-	</div>
-</div>
-{{> modals/profile/edit}}
-{{/inline}}
-{{/layouts/main}} --}}
-
-
-
-
-{{!-- Found a better profile page template --}}
-
 {{#> layouts/main}}
-{{#*inline "page-header"}} --}}
-
-
-<div class="page-header header-filter" data-parallax="true"
-	style="background-image: url('../assets/img/city-profile.jpg');">
+{{#*inline "page-header"}}
+<div class="page-header header-filter" data-parallax="true" style="background-image: url('../assets/img/bg3.jpg');">
 </div>
+{{/inline}}
 
+{{#*inline "main-block"}}
 <div class="main main-raised">
 	<div class="profile-content">
 		<div class="container">
@@ -85,7 +35,7 @@
 				<div class="col-md-6 ml-auto mr-auto">
 					<div class="profile-tabs">
 						<ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
-							
+
 							{{#if user.isAdmin}}
 							<li class="nav-item">
 								<a class="nav-link active" href="#admin" role="tab" data-toggle="tab">
@@ -134,7 +84,8 @@
 				<div class="tab-pane text-center gallery" id="edit">
 					<div class="row">
 						<div class="col-md-3 ml-auto">
-							<p>Should be where profile edit form goes, maybe show button to modal, or just place form and reload page after form submission</p>
+							<p>Should be where profile edit form goes, maybe show button to modal, or just place form
+								and reload page after form submission</p>
 						</div>
 						<div class="col-md-3 mr-auto">
 							<p>Just playing with columns and SHEEEETTT</p>
@@ -157,45 +108,5 @@
 		</div>
 	</div>
 </div>
-
-
-{{!-- <footer class="footer footer-default">
-    <div class="container">
-      <nav class="float-left">
-        <ul>
-          <li>
-            <a href="https://www.creative-tim.com">
-              Creative Tim
-            </a>
-          </li>
-          <li>
-            <a href="https://creative-tim.com/presentation">
-              About Us
-            </a>
-          </li>
-          <li>
-            <a href="http://blog.creative-tim.com">
-              Blog
-            </a>
-          </li>
-          <li>
-            <a href="https://www.creative-tim.com/license">
-              Licenses
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <div class="copyright float-right">
-        &copy;
-        <script>
-			document.write(new Date().getFullYear())
-		</script>, made with <i class="material-icons">favorite</i> by
-        <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
-      </div>
-    </div>
-  </footer> --}}
-
-
-
 {{/inline}}
-{{/layouts/main}} --}}
+{{/layouts/main}}

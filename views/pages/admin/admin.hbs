@@ -1,0 +1,162 @@
+{{#> layouts/main}}
+{{#*inline "page-header"}}
+<div class="page-header header-filter" data-parallax="true" style="background-image: url('../assets/img/bg3.jpg');">
+</div>
+{{/inline}}
+
+{{#*inline "main-block"}}
+<div class="main main-raised">
+	<div class="profile-content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 ml-auto mr-auto">
+					<div class="profile">
+						<div class="avatar">
+							{{#if user.photo }}
+							<img src="{{user.photo}}" alt="Circle Image" class="img-raised rounded-circle img-fluid">
+							{{else}}
+							<img src="../assets/img/Stevens/Attila.png" alt="Circle Image" class="img-fluid">
+							{{/if}}
+						</div>
+
+						<div class="name">
+							<h3 class="title">{{user.firstName}} {{user.lastName}}</h3>
+							<h6>{{user.email}}</h6>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="description text-center">
+				<p>Insurance Provider: {{user.insuranceProvider}}</p>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12 ml-auto mr-auto">
+					<div class="profile-tabs">
+						<ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
+
+							<li class="nav-item">
+								<a class="nav-link active" href="#admin" role="tab" data-toggle="tab">
+									<i class="material-icons">people</i> Profiles
+								</a>
+							</li>
+
+							<li class="nav-item">
+								<a class="nav-link" href="#edit" role="tab" data-toggle="tab">
+									<i class="material-icons">local_hospital</i> Practitioners
+								</a>
+							</li>
+
+							<li class="nav-item">
+								<a class="nav-link" href="#appointments" role="tab" data-toggle="tab">
+									<i class="material-icons">schedule</i> Appointments
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			{{!-- Content to show when icons are selected based on id. Made clear seperation --}}
+
+			<div class="tab-content tab-space">
+				<div class="tab-pane active text-center gallery" id="profiles">
+					<div class="row">
+						<div class="col-md-12 mr-auto">
+							{{!-- <p>Show profiles here</p> --}}
+							<table class="table">
+								<thead>
+									<tr>
+										<th class="text-center">#</th>
+										<th>Name</th>
+										<th>Job Position</th>
+										<th>Since</th>
+										<th class="text-right">Salary</th>
+										<th class="text-right">Actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="text-center">1</td>
+										<td>Andrew Mike</td>
+										<td>Develop</td>
+										<td>2013</td>
+										<td class="text-right">&euro; 99,225</td>
+										<td class="td-actions text-right">
+											<button type="button" rel="tooltip" class="btn btn-info">
+												<i class="material-icons">person</i>
+											</button>
+											<button type="button" rel="tooltip" class="btn btn-success">
+												<i class="material-icons">edit</i>
+											</button>
+											<button type="button" rel="tooltip" class="btn btn-danger">
+												<i class="material-icons">close</i>
+											</button>
+										</td>
+									</tr>
+									<tr>
+										<td class="text-center">2</td>
+										<td>John Doe</td>
+										<td>Design</td>
+										<td>2012</td>
+										<td class="text-right">&euro; 89,241</td>
+										<td class="td-actions text-right">
+											<button type="button" rel="tooltip" class="btn btn-info btn-round">
+												<i class="material-icons">person</i>
+											</button>
+											<button type="button" rel="tooltip" class="btn btn-success btn-round">
+												<i class="material-icons">edit</i>
+											</button>
+											<button type="button" rel="tooltip" class="btn btn-danger btn-round">
+												<i class="material-icons">close</i>
+											</button>
+										</td>
+									</tr>
+									<tr>
+										<td class="text-center">3</td>
+										<td>Alex Mike</td>
+										<td>Design</td>
+										<td>2010</td>
+										<td class="text-right">&euro; 92,144</td>
+										<td class="td-actions text-right">
+											<button type="button" rel="tooltip" class="btn btn-info btn-simple">
+												<i class="material-icons">person</i>
+											</button>
+											<button type="button" rel="tooltip" class="btn btn-success btn-simple">
+												<i class="material-icons">edit</i>
+											</button>
+											<button type="button" rel="tooltip" class="btn btn-danger btn-simple">
+												<i class="material-icons">close</i>
+											</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="tab-pane text-center gallery" id="practitioners">
+					<div class="row">
+						<div class="col-md-12 ml-auto">
+							<p>show practitioners here</p>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="tab-pane text-center gallery" id="appointments">
+					<div class="row">
+						<div class="col-md-12 ml-auto">
+							<p>This is where appointments should show up</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{/inline}}
+{{/layouts/main}}

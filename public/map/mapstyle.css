@@ -1,8 +1,8 @@
 /* Quick simple style sheet for the map*/
-#map {
+/* #map {
     height: 75%;
     width: 75%;
-}
+} */
 
 
 #wrapper {
@@ -12,7 +12,8 @@
 
 #first {
     background-color: white;
-    width: 45%;
+	width: 45%;
+	height: 88.305vh;
     float: left;
 }
 

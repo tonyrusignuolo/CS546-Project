@@ -47,7 +47,8 @@ router.get('/', async (req, res) => {
         
         
         options = {
-            layout: false,
+			layout: false,
+			pageType: "dashboard-page",			
             insurance: insuranceList,
             procedures: procedureList,
             userIns: profile.insuranceProvider
@@ -55,14 +56,15 @@ router.get('/', async (req, res) => {
     }
     else {
         options = {
-            layout: false,
+			layout: false,
+			pageType: "dashboard-page",
             insurance: insuranceList,
             procedures: procedureList,
             userIns: null
         }
     }  
     
-    res.render('pages/map.hbs', {options});
+    res.render('pages/map.hbs', options);
 });
 
 // Route for map matching to practitioner filter input
