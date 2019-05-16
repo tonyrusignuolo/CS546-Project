@@ -1,4 +1,4 @@
-{{#> layouts/main}}
+{{#> layouts/map}}
 
 {{#*inline "style-block"}}
 <link rel='stylesheet' href="/public/map/mapstyle.css">
@@ -7,7 +7,7 @@
 {{/inline}}
 
 {{#*inline "main-block"}}
-<div id="wrapper">
+{{!-- <div id="wrapper">
 	<div id="first">
 		<div class="main">
 			<div class="section">
@@ -49,11 +49,11 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> --}}
 	<div id="second">
 		<div id="map"></div>
 	</div>
-</div>
+{{!-- </div> --}}
 {{/inline}}
 
 {{#*inline "scripts-block"}}
@@ -63,4 +63,4 @@
 <script src="/public/map/js/healthmap.js"></script>
 {{/inline}}
 
-{{/layouts/main}}
+{{/layouts/map}}

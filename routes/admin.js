@@ -7,6 +7,32 @@ const bcrypt = require("bcrypt");
 const {ObjectID} = require("mongodb");
 
 // Start Practitioners
+router.get("/main", async (req, res) => {
+	try {
+		let allPractitioners;
+		let allProfiles;
+		let allAppointments;	
+		let user = await profiles.get(req.session.userid);
+		allPractitioners = await practitioners.getAll();
+        allProfiles = await profiles.getAll();
+		// allAppointments = await appointments.getAll();
+		let options = {
+			layout: false,
+			title: "Admin",
+			pageType: "profile-page",
+			user: user
+			// appointments: allAppointments,
+			// practitioners: allPractitioners,
+			// profiles: allProfiles
+		};
+		res.render("pages/admin/admin.hbs", options);
+	} catch (error) {
+		res.status(400);
+		console.log(error);
+		res.send(error);
+	}
+});
+
 router.get('/practitioners', async (req, res) => {
     let allPractitioners;
     try {
