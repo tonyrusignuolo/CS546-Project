@@ -13,23 +13,45 @@ router.get("/main", async (req, res) => {
 		let allProfiles;
 		let allAppointments;	
 		let user = await profiles.get(req.session.userid);
+		// allAppointments = await appointments.getAll();
 		allPractitioners = await practitioners.getAll();
         allProfiles = await profiles.getAll();
-		// allAppointments = await appointments.getAll();
 		let options = {
 			layout: false,
 			title: "Admin",
 			pageType: "profile-page",
-			user: user
+			user: user,
 			// appointments: allAppointments,
-			// practitioners: allPractitioners,
-			// profiles: allProfiles
+			practitioners: allPractitioners,
+			profiles: allProfiles
 		};
 		res.render("pages/admin/admin.hbs", options);
 	} catch (error) {
 		res.status(400);
 		console.log(error);
 		res.send(error);
+	}
+});
+
+router.get('/profile/:email', async (req, res) => {
+	try {
+		let profile = await profiles.getbyEmail(req.params.email);
+		res.json(profile);
+	} catch (error) {
+		console.log(error);
+		res.send("error");
+	}
+});
+
+router.get('/practitioner/:practitionerId', async (req, res) => {
+	try {
+		console.log(req.params.practitionerId);
+		let practitioner = await practitioners.get(req.params.practitionerId);
+		console.log(practitioner);
+		res.json(practitioner);
+	} catch (error) {
+		console.log(error);
+		res.send("error");
 	}
 });
 

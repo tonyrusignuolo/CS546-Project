@@ -1,34 +1,37 @@
-<div class="modal fade" id="profileEdit" tabindex="-1" role="dialog">
+<div class="modal fade" id="practitionerEdit" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h3 class="modal-title">Edit Profile</h3>
+				<h3 class="modal-title">Edit Practitioner</h3>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<i class="material-icons">clear</i>
 				</button>
 			</div>
 			<div class="modal-body">
-				<form action="/profile/edit" method="POST" enctype="multipart/form-data">
+				<form action="/practitioner/edit" method="POST" enctype="multipart/form-data">
 					<div class="form-row">
-						<div class="form-group col-md-6">
-							<label for="firstName">First Name</label>
-							<input type="text" class="form-control" id="firstName" name="firstName">
-						</div>
-						<div class="form-group col-md-6">
-							<label for="lastName">Last Name</label>
-							<input type="text" class="form-control" id="lastName" name="lastName">
+						<div class="form-group col-md-12">
+							<label for="name">Practitioner Name</label>
+							<input type="text" class="form-control" id="name" name="name">
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="form-group col-md-12">
-							<label for="email">Email Address</label>
-							<input type="email" class="form-control" id="email" name="email" readonly>
+						<div class="form-group col-md-6">
+							<label for="lat">Latitude</label>
+							<input type="number" step="0.001" class="form-control" id="lat" name="lat">
+						</div>
+						<div class="form-group col-md-6">
+							<label for="long">Longitude</label>
+							<input type="number" step="0.001" class="form-control" id="long" name="long">
 						</div>
 					</div>
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<label for="password">Reset Password</label>
-							<input type="password" class="form-control" id="password" name="password">
+					<b>Procedures</b>
+					<div id="procedures">
+						<div class="form-row">
+							<div id="procedures1" class="form-group col-md-6">
+							</div>
+							<div id="procedures2" class="form-group col-md-6">
+							</div>
 						</div>
 					</div>
 					<div class="form-row">

@@ -21,6 +21,10 @@
 
 						<div class="name">
 							<h3 class="title">{{user.firstName}} {{user.lastName}}</h3>
+							<br>
+							<button class="btn btn-primary btn-round" data-toggle="modal" data-target="#profileEdit">
+                                <i class="material-icons">edit</i>
+                            </button>
 							<h6>{{user.email}}</h6>
 						</div>
 					</div>
@@ -36,9 +40,15 @@
 					<div class="profile-tabs">
 						<ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
 
+							<li class="nav-item">
+								<a class="nav-link active" href="#appointments" role="tab" data-toggle="tab">
+									<i class="material-icons">schedule</i> Appointments
+								</a>
+							</li>
+
 							{{#if user.isAdmin}}
 							<li class="nav-item">
-								<a class="nav-link active" href="#admin" role="tab" data-toggle="tab">
+								<a class="nav-link" href="#admin" role="tab" data-toggle="tab">
 									<i class="material-icons">sd_storage</i> Admin
 								</a>
 							</li>
@@ -50,12 +60,6 @@
 								</a>
 							</li>
 
-
-							<li class="nav-item">
-								<a class="nav-link" href="#appointments" role="tab" data-toggle="tab">
-									<i class="material-icons">schedule</i> Appointments
-								</a>
-							</li>
 						</ul>
 					</div>
 				</div>
@@ -68,7 +72,7 @@
 			<div class="tab-content tab-space">
 
 				{{#if user.isAdmin}}
-				<div class="tab-pane active text-center gallery" id="admin">
+				<div class="tab-pane text-center gallery" id="admin">
 					<div class="row">
 						<div class="col-md-3 ml-auto">
 							<p>This only shows up if admin</p>
@@ -94,10 +98,11 @@
 				</div>
 
 
-				<div class="tab-pane text-center gallery" id="appointments">
+				<div class="tab-pane active text-center gallery" id="appointments">
 					<div class="row">
 						<div class="col-md-3 ml-auto">
 							<p>This is where appointments should show up</p>
+							<button class="btn btn-primary btn-round" data-toggle="modal" data-target="#appointmentCreate">Create Appointment</button>
 						</div>
 						<div class="col-md-3 mr-auto">
 							<p>If no appointments, just display no appointments</p>
@@ -109,4 +114,10 @@
 	</div>
 </div>
 {{/inline}}
+
+{{#*inline "modals-block"}}
+{{> modals/appointment/create}}
+{{> modals/profile/edit}}
+{{/inline}}
+
 {{/layouts/main}}

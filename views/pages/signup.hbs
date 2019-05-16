@@ -4,7 +4,7 @@
 	style="background-image: url('../assets/img/bg7.jpg'); background-size: cover; background-position: top center;">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-4 col-md-6 ml-auto mr-auto">
+			<div class="col-lg-6 col-md-8 ml-auto mr-auto">
 				<div class="card card-login">
 					<form class="form" method="POST" action="/profile/signup">
 						<div class="card-header card-header-primary text-center">
@@ -36,9 +36,6 @@
 									<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name...">
 								</div>
 							</div>
-							{{!-- <div class="input-group">
-								<input type="text" class="form-control" id="lastName" placeholder="Last Name...">
-							</div> --}}
 							<div class="input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text">
@@ -47,21 +44,18 @@
 								</div>
 								<input type="email" class="form-control" id="email" name="email" placeholder="Email...">
 							</div>
-							<div class="input-group">
+							<div class="form-row input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text">
 										<i class="material-icons">lock_outline</i>
 									</span>
 								</div>
-								<input type="password" class="form-control" id="password" name="password" placeholder="Password...">
-							</div>
-							<div class="input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text">
-										<i class="material-icons">lock_outline</i>
-									</span>
+								<div class="col">
+									<input type="password" class="form-control" id="password" name="password" placeholder="Password...">	
 								</div>
-								<input type="password" class="form-control" id="passwordconfirm" name="passwordconfirm" placeholder="Confirm Password...">
+								<div class="col">
+									<input type="password" class="form-control" id="passwordconfirm" name="passwordconfirm" placeholder="Confirm Password...">
+								</div>
 							</div>
 							<div class="input-group">
 								<div class="input-group-prepend">
@@ -83,9 +77,10 @@
 								{{/if}}
 							</div>
 						</div>
-						<div class="footer text-center">
+						<div class="card-footer text-center">
 							{{!-- <a href="#" class="btn btn-primary btn-link btn-wd btn-lg">Sign Up</a> --}}
 							<input type="submit" value="Sign Up" class="btn btn-primary btn-link btn-wd btn-lg">
+							<br>
 							<br>
 							<a href="/profile/login">Or Login?</a>
 						</div>
