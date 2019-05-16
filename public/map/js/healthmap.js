@@ -2,6 +2,7 @@
 // Creates a variable for our map object
 var map;
 var markers = [];
+
 // Function to initialize the google maps
 async function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
