@@ -31,6 +31,14 @@
 							<input type="password" class="form-control" id="password" name="password">
 						</div>
 					</div>
+
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="passwordconfirm">Confirm Password</label>
+							<input type="password" class="form-control" id="passwordconfirm" name="passwordconfirm">
+						</div>
+					</div>
+
 					<div class="form-row">
 						<div class="form-group col-md-12">
 							<label for="insuranceProvider" class="bmd-label-floating">Insurance Provider</label>
@@ -46,10 +54,18 @@
 							<input type="hidden" class="form-control" id="ip" name="ip" value="{{user.insuranceProvider}}">
 						</div>
 					</div>
+
+					<div class="error">
+						{{#if error}}
+						<p>{{error}}</p>
+						{{/if}}
+					</div>
+
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-link">Save</button>
 						<button type="button" class="btn btn-danger btn-link" data-dismiss="modal">Close</button>
 					</div>
+
 				</form>
 			</div>
 		</div>
