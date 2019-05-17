@@ -52,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
             if (!responseData.error) {
                 updateInfoText(msg, 'Practitioner was deleted successfully');
 
-                console.log(JSON.stringify(responseData));
             } else {
                 updateInfoText(msg, responseData.error, true);
 
@@ -104,7 +103,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
             if (!responseData.error) {
                 updateInfoText(msg, 'Practitioner was updated successfully');
 
-                console.log(JSON.stringify(responseData));
             } else {
                 updateInfoText(msg, responseData.error, true);
 

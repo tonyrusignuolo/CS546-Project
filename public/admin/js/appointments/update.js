@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
             if (!responseData.error) {
                 updateInfoText(msg, 'Appointment was deleted successfully');
 
-                console.log(JSON.stringify(responseData));
             } else {
                 updateInfoText(msg, responseData.error, true);
 

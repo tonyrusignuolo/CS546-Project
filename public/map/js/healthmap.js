@@ -276,7 +276,6 @@ function formatHTMLString(prac){
 
         // If the user is logged in
         if(login !== null && login !== undefined){
-            //console.log(currentprac)
             $("#useremail").val(login.email)
             $("#userId").val(login._id)
             $("#practitionerId").val(currentprac.id)

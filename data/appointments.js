@@ -3,6 +3,7 @@ const collections = require("../config/mongoCollections");
 // Gets appoitments collection from db
 const appointments = collections.appointments;
 const helper = require("./helper");
+const profiles = require("./profiles")
 
 // Exports methods for CRUD
 module.exports = {
@@ -62,4 +63,14 @@ module.exports = {
 		const appointmentsCollection = await appointments();
 		await appointmentsCollection.deleteMany({});
 	},
+
+	async getAllByUserId(id){
+
+		const appointmentsCollection = await appointments();
+		return;
+
+
+	}
+
+
 };

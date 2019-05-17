@@ -107,6 +107,9 @@ router.post('/login', async (req, res) => {
 
 })
 
+
+
+
 router.get('/', async (req, res) => {
 	// When there is no session, redirect to login
 	if (!req.session.userid) {
@@ -148,8 +151,6 @@ router.post('/edit', async (req, res) => {
 		error: "Base Error"
 	}
 
-
-
 	// Check fields are filled out correctly
 	if (req.body.email === undefined || req.body.email === '' || req.body.password === undefined || req.body.password === '' || req.body.firstName === undefined || req.body.firstName === '' || req.body.lastName === undefined || req.body.lastName === '') {
 		options.error = "Please enter email and password"
@@ -186,60 +187,10 @@ router.post('/edit', async (req, res) => {
 		insuranceProvider: req.body.insuranceProvider
 	}
 
-
 	await profileData.update(options.user._id, {$set: newbody})
-	res.redirect("/")
-
-
-	// try {
-	// 	let user;
-	// 	if (req.session.userid) {
-	// 		user = await profileData.get(req.session.userid);
-	// 	}
-	// 	options = {
-	// 		layout: false,
-	// 		title: "User",
-	// 		pageType: "profile-page",
-	// 		user: user
-	// 	}
-	// 	res.render("pages/profile", options);
-	// } catch (error) {
-	// 	res.status(400);
-	// 	res.send(error);
-	// }
+	res.redirect("/profile")
 })
 
-
-// router.post('/', async (req, res) => {
-// 	// When there is no session, redirect to login
-	
-// 	if(!req.session.userid) {
-// 		res.redirect("profile/login")
-// 		return;
-// 	}
-
-// 	try {
-// 		let user;
-// 		if (req.session.userid) {
-// 			user = await profileData.get(req.session.userid);
-// 		}
-// 		options = {
-// 			layout: false,
-// 			title: "User",
-// 			pageType: "profile-page",
-// 			user: user,
-// 			apt: req.body
-// 		}
-// 		res.render("pages/profile", options);
-// 	} catch (error) {
-// 		res.status(400);
-// 		res.send(error);
-// 	}
-
-
-// 	console.log(req.body)
-// 	return;
-// })
 
 // New route for profile creation
 router.get('/logout', async (req, res) => {
