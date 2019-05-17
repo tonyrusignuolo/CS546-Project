@@ -12,7 +12,7 @@ const session = require("express-session")
 // Sets up handlebars handling
 const handlebarsInstance = exphbs.create({
 	extname: 'hbs',
-    // defaultLayout: "main",
+    defaultLayout: false,
     helpers: {
         // Get amount of keys in an object
         size: (obj) => {

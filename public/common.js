@@ -74,3 +74,9 @@ function updateInfoText(elem, text, error = false) {
     }
     elem.innerText = text;
 }
+
+$("button.btn-profile-edit").click(function () {
+	let modal = $("#profileEdit");
+	modal.find('#insuranceProvider').val(modal.find("#ip").val());
+	modal.modal('show');
+});

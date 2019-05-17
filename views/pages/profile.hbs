@@ -22,9 +22,9 @@
 						<div class="name">
 							<h3 class="title">{{user.firstName}} {{user.lastName}}</h3>
 							<br>
-							<button class="btn btn-primary btn-round" data-toggle="modal" data-target="#profileEdit">
-                                <i class="material-icons">edit</i>
-                            </button>
+							<button class="btn btn-primary btn-round btn-profile-edit" data-toggle="modal" data-target="#profileEdit">
+								<i class="material-icons">edit</i>
+							</button>
 							<h6>{{user.email}}</h6>
 						</div>
 					</div>
@@ -39,27 +39,11 @@
 				<div class="col-md-6 ml-auto mr-auto">
 					<div class="profile-tabs">
 						<ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
-
 							<li class="nav-item">
 								<a class="nav-link active" href="#appointments" role="tab" data-toggle="tab">
 									<i class="material-icons">schedule</i> Appointments
 								</a>
 							</li>
-
-							{{#if user.isAdmin}}
-							<li class="nav-item">
-								<a class="nav-link" href="#admin" role="tab" data-toggle="tab">
-									<i class="material-icons">sd_storage</i> Admin
-								</a>
-							</li>
-							{{/if}}
-
-							<li class="nav-item">
-								<a class="nav-link" href="#edit" role="tab" data-toggle="tab">
-									<i class="material-icons">edit</i> Edit Profile
-								</a>
-							</li>
-
 						</ul>
 					</div>
 				</div>
@@ -69,44 +53,51 @@
 
 			{{!-- Content to show when icons are selected based on id. Made clear seperation --}}
 
-			<div class="tab-content tab-space">
-
-				{{#if user.isAdmin}}
-				<div class="tab-pane text-center gallery" id="admin">
-					<div class="row">
-						<div class="col-md-3 ml-auto">
-							<p>This only shows up if admin</p>
-						</div>
-						<div class="col-md-3 mr-auto">
-							<p>Oh yeah, mad nice</p>
-						</div>
-					</div>
-				</div>
-				{{/if}}
-
-
-				<div class="tab-pane text-center gallery" id="edit">
-					<div class="row">
-						<div class="col-md-3 ml-auto">
-							<p>Should be where profile edit form goes, maybe show button to modal, or just place form
-								and reload page after form submission</p>
-						</div>
-						<div class="col-md-3 mr-auto">
-							<p>Just playing with columns and SHEEEETTT</p>
-						</div>
-					</div>
-				</div>
-
-
-				<div class="tab-pane active text-center gallery" id="appointments">
-					<div class="row">
-						<div class="col-md-3 ml-auto">
-							<p>This is where appointments should show up</p>
-							<button class="btn btn-primary btn-round" data-toggle="modal" data-target="#appointmentCreate">Book appointment</button>
-						</div>
-						<div class="col-md-3 mr-auto">
-							<p>If no appointments, just display no appointments</p>
-						</div>
+			<div class="tab-pane active text-center gallery" id="appointments">
+				<div class="row">
+					<div class="col-md-12 ml-auto">
+						<a class="btn btn-primary btn-fab btn-fab-mini btn-round" href="/map">
+							<i class="material-icons">add</i>
+						</a>
+						<table class="table" id="appointmentsTable">
+							<thead>
+								<tr>
+									<th class="text-center">User Id</th>
+									<th>User Email</th>
+									<th>Practitioner Id</th>
+									<th>Practitioner Name</th>
+									<th>Insurance</th>
+									<th>Procedure</th>
+									<th>Cost Seen</th>
+									<th>Verification</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								{{#each appointments}}
+								<tr id="appointmentRow" name="{{this._id}}">
+									<td class="text-center">{{this.userId}}</td>
+									<td>{{this.useremail}}</td>
+									<td>{{this.practitionerId}}</td>
+									<td>{{this.practitionerName}}</td>
+									<td>{{this.insurance}}</td>
+									<td>{{this.procedureInterest}}</td>
+									<td>{{this.costSeen}}</td>
+									<td>{{this.verification}}</td>
+									<td class="td-actions text-right">
+										<button type="button" rel="tooltip"
+											class="btn btn-success btn-appointment-edit">
+											<i class="material-icons">edit</i>
+										</button>
+										<button type="button" rel="tooltip"
+											class="btn btn-danger btn-appointment-delete">
+											<i class="material-icons">close</i>
+										</button>
+									</td>
+								</tr>
+								{{/each}}
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
@@ -121,7 +112,7 @@
 {{/inline}}
 
 {{#*inline "scripts-block"}}
-
+<script src="/public/common.js" type="text/javascript"></script>
 {{#if error}}
 <script>
 	$("#profileEdit").modal('show')
