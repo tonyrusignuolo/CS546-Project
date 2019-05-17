@@ -8,7 +8,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form action="/profile/edit" method="POST" enctype="multipart/form-data">
+				<form action="/profile/edit" method="POST">
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="firstName">First Name</label>
@@ -22,7 +22,7 @@
 					<div class="form-row">
 						<div class="form-group col-md-12">
 							<label for="email">Email Address</label>
-							<input type="email" class="form-control" id="email" name="email" readonly>
+							<input type="email" class="form-control" id="email" name="email">
 						</div>
 					</div>
 					<div class="form-row">
@@ -36,7 +36,6 @@
 							<label for="insuranceProvider" class="bmd-label-floating">Insurance Provider</label>
 							<select class="form-control" data-style="btn btn-link" id="insuranceProvider"
 								name="insuranceProvider">
-								<option value="">Select Insurance Provider</option>
 								<option value="Blue Cross">Blue Cross</option>
 								<option value="Cigna">Cigna</option>
 								<option value="United">United</option>

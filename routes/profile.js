@@ -115,9 +115,6 @@ router.get('/', async (req, res) => {
 		return;
 	}
 
-	//console.log(req.params)
-
-
 	try {
 		let user;
 		if (req.session.userid) {
@@ -135,6 +132,35 @@ router.get('/', async (req, res) => {
 		res.send(error);
 	}
 })
+
+router.post('/edit', async (req, res) => {
+	// When there is no session, redirect to login
+	if (!req.session.userid) {
+		res.redirect("/profile/login")
+		return;
+	}
+
+	console.log(req.body)
+
+
+	// try {
+	// 	let user;
+	// 	if (req.session.userid) {
+	// 		user = await profileData.get(req.session.userid);
+	// 	}
+	// 	options = {
+	// 		layout: false,
+	// 		title: "User",
+	// 		pageType: "profile-page",
+	// 		user: user
+	// 	}
+	// 	res.render("pages/profile", options);
+	// } catch (error) {
+	// 	res.status(400);
+	// 	res.send(error);
+	// }
+})
+
 
 // router.post('/', async (req, res) => {
 // 	// When there is no session, redirect to login
