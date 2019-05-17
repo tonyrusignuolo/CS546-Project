@@ -51,10 +51,18 @@ function addMarker(coords, name, markerinfo){
                 
                 infoWindow.setContent(marker.info)
                 infoWindow.open(map, marker)
-
+                
                 prevMarker = marker
             }
         }
+
+        // const button = document.getElementById("book")
+        //     if(button){
+        //         button.addEventListener("click", function(){
+        //             console.log(marker.info)
+        //         });
+        //     }
+
     }
 
     // Adds listener for bounce toggle and info box
@@ -110,13 +118,13 @@ function formatHTMLString(prac){
     }
     procs = procs + "</p>"
     
-    // let booking = "<p>Would you like to book an appointment?</p>"
-    // let button = ""
-
-    return(heading + ins + procs)
-
+    let button = '<button class="btn btn-primary btn-sm" onClick=upload()>Book Appointment</button>'
+    return(heading + ins + procs + button)
 }
 
+function upload(){
+    console.log("Spiderman Sucks")
+}
 
 (async function($){
     // Disabled inate map functionality so the google API loads the map, and the AJAX request to server can be called to populate the map after object creation
@@ -141,7 +149,6 @@ function formatHTMLString(prac){
         // Formats a content string for the info window
         let contentString = formatHTMLString(p[i])
         addMarker({lat: p[i].location[0].lat, lng: p[i].location[1].long}, p[i].name, contentString)
-
     }
     
     // Set event listener for submission form
@@ -212,5 +219,6 @@ function formatHTMLString(prac){
         
         event.preventDefault();
     })
+
 
 })(jQuery)
