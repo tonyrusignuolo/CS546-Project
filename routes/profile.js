@@ -22,20 +22,20 @@ router.get('/signup', async (req, res) => {
 router.post('/signup', async (req, res) => {
 	// Check fields are filled out correctly
 	if (req.body.email === undefined || req.body.email === '' || req.body.password === undefined || req.body.password === '' || req.body.firstName === undefined || req.body.firstName === '' || req.body.lastName === undefined || req.body.lastName === '') {
-		res.status(401).render("pages/signup.hbs", { error: "Error: Missing fields" })
+		res.status(401).render("pages/signup.hbs", { layout: false, pageType: "login-page", error: "Please enter all fields" })
 		return;
 	}
 
 	// See if the user email exists in the data base
 	let user = await profileData.getbyEmail(req.body.email)
 	if (user !== null) {
-		res.status(401).render("pages/signup.hbs", { error: "Error: That email is already in use." })
+		res.status(401).render("pages/signup.hbs", {  layout: false, pageType: "login-page", error: "Email already in use" })
 		return;
 	}
 
 	// Error for non-matching passwords on sign up
 	if (req.body.password !== req.body.passwordconfirm) {
-		res.status(401).render("pages/signup.hbs", { error: "Error: Passwords dont match." })
+		res.status(401).render("pages/signup.hbs", { layout: false, pageType: "login-page", error: "Passwords don't match" })
 		return;
 	}
 
@@ -139,7 +139,56 @@ router.post('/edit', async (req, res) => {
 		return;
 	}
 
-	console.log(req.body)
+	let edituser = await profileData.get(req.session.userid)
+	let options = {
+		layout: false,
+		title: "User",
+		pageType: "profile-page",
+		user: edituser,
+		error: "Base Error"
+	}
+
+
+
+	// Check fields are filled out correctly
+	if (req.body.email === undefined || req.body.email === '' || req.body.password === undefined || req.body.password === '' || req.body.firstName === undefined || req.body.firstName === '' || req.body.lastName === undefined || req.body.lastName === '') {
+		options.error = "Please enter email and password"
+		res.status(401).render("pages/profile.hbs", options)
+		return;
+	}
+
+	// See if the user email exists in the data base
+	let user = await profileData.getbyEmail(req.body.email)
+	if (user !== null && String(user._id) !== req.session.userid) {
+		options.error = "Email already in use"
+		res.status(401).render("pages/profile.hbs", options)
+		return;
+	}
+
+	// Error for non-matching passwords on sign up
+	if (req.body.password !== req.body.passwordconfirm) {
+		options.error = "Passwords dont match"
+		res.status(401).render("pages/profile.hbs", options)
+		return;
+	}
+
+	// Creates the new object to be stored into the DB
+	req.body.password = await bcrypt.hash(req.body.password, 16);
+	req.body.firstName = req.body.firstName.charAt(0).toUpperCase() + req.body.firstName.slice(1);
+	req.body.lastName = req.body.lastName.charAt(0).toUpperCase() + req.body.lastName.slice(1);
+	
+	let newbody = {
+		email: req.body.email,
+		password: req.body.password,
+		firstName: req.body.firstName,
+		lastName: req.body.lastName,
+		isAdmin: false,
+		insuranceProvider: req.body.insuranceProvider
+	}
+
+
+	await profileData.update(options.user._id, {$set: newbody})
+	res.redirect("/")
 
 
 	// try {

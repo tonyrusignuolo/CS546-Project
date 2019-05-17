@@ -295,10 +295,6 @@ function formatHTMLString(prac){
 					}))	
 				})
 
-				// $("#procdrop").append($('<option/>', {
-				// 	value: key,
-				// 	text: key
-				// }))
 			})
 			
 			

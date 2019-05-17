@@ -120,4 +120,14 @@
 {{> modals/profile/edit}}
 {{/inline}}
 
+{{#*inline "scripts-block"}}
+
+{{#if error}}
+<script>
+	$("#profileEdit").modal('show')
+</script>
+{{/if}}
+
+{{/inline}}
+
 {{/layouts/main}}
