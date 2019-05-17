@@ -93,8 +93,7 @@ function getPracData(prac){
         id: prac._id,
 		name: prac.name,
 		providers: [],
-		service: [],
-		price: []
+		service: []
 	}
 
 	// Put insurance providers in an array
@@ -103,17 +102,9 @@ function getPracData(prac){
 	}
 
 	for(let i=0; i < prac.procedures.length; i++){
-        let obj = prac.procedures[i]
-        let key = Object.keys(obj)
-        let val = Object.values(obj)
-        for(let j=0; j < key.length; j++){
-			newObj.service.push(key[j])
-			newObj.price.push(val[j])
-        }
+        newObj.service.push(prac.procedures[i])
 	}
 	
-	// DO it the above way or just set the standard array of objects in, handlebars handling could be easier
-    
 
     return(newObj)
 
@@ -294,26 +285,39 @@ function formatHTMLString(prac){
 			// Removes all optinos from drop down to add new ones
 			$("#procdrop").find('option').remove().end()
 			$("#insurancedrop").find('option').remove().end()
-			// Adds all the services to the procedure drop down
-			$.each(currentprac.service, function(index, value){
 
-				$("#procdrop").append($('<option/>', {
-					value: index,
-					text: value
-				}))
+			// Adds all the services to the procedure drop down
+			$.each(currentprac.service, function(ind, obj){
+				$.each(obj, function(k, v){
+					$("#procdrop").append($('<option/>', {
+						value: k,
+						text: k
+					}))	
+				})
+
+				// $("#procdrop").append($('<option/>', {
+				// 	value: key,
+				// 	text: key
+				// }))
 			})
 			
+			
+
+
 			// Populates insurance drop down for current practitioner supported insurance
 			$.each(currentprac.providers, function(index, value){
 				$("#insurancedrop").append($('<option/>', {
-					value: index,
+					value: value,
 					text: value
 				}))
 			})
 
 			// Sets initial value for cost based on default selection
-			let pstring = "$" + String(currentprac.price[0])
+			let s = currentprac.service[0]
+			let kname = $("#procdrop").val()
+			let pstring = "$" + String(s[kname])
 			$("#cost").val(pstring)
+
 
         }
         else{
@@ -326,9 +330,18 @@ function formatHTMLString(prac){
 
 	// Listens for a change to the selector in order to change cost accordingly
 	$('body').on('change', "#procdrop", function(e){
-		let priceindex = this.options[e.target.selectedIndex].value
-		let price = "$" + String(currentprac.price[priceindex])
-		$("#cost").val(price)
+		// Serv is the procedure we are looking for so now we can grab the price and assign it to cost 
+		let serv = this.options[e.target.selectedIndex].value
+		for(let i=0; i < currentprac.service.length; i++){
+			let key = Object.keys(currentprac.service[i])
+			let val = Object.values(currentprac.service[i])
+			if(key[0] === serv){
+				let price = "$" + String(val[0])
+				$("#cost").val(price)
+				break
+			}
+		}
+
 	})
 
 })(jQuery)
