@@ -1,0 +1,55 @@
+<div class="modal fade" id="appointmentEdit" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title">Edit Appointment</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<i class="material-icons">clear</i>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action="/admin/appointment/edit" method="POST">
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="userId">User Id</label>
+							<input type="text" class="form-control" id="userId" name="userId">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="practitionerId">Practitioner Id</label>
+							<input type="text" class="form-control" id="practitionerId" name="practitionerId">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="procedure">Procedure</label>
+							<input type="text" class="form-control" id="procedure" name="procedure">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="cost">Cost</label>
+							<input type="number" step="0.01" min="0" class="form-control" id="cost" name="cost">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="verification">Verification</label>
+							<select class="form-control" data-style="btn btn-link" id="verification"
+								name="verification">
+								<option value=true>True</option>
+								<option value=false>False</option>
+							</select>
+						</div>
+					</div>
+					<input type="hidden" class="form-control" id="_id" name="_id">
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-link">Save</button>
+						<button type="button" class="btn btn-danger btn-link" data-dismiss="modal">Close</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

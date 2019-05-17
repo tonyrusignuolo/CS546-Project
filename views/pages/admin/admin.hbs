@@ -65,7 +65,9 @@
 					<div class="row">
 						<div class="col-md-12 mr-auto">
 							{{!-- <p>Show profiles here</p> --}}
-
+							<button class="btn btn-primary btn-fab btn-fab-mini btn-round" data-toggle="modal" data-target="#profileCreate">
+								<i class="material-icons">add</i>
+							</button>
 							<table class="table" id="profilesTable">
 								<thead>
 									<tr>
@@ -73,7 +75,7 @@
 										<th>Name</th>
 										<th>Insurance Provider</th>
 										<th>Administrator</th>
-										<th class="text-right">Actions</th>
+										<th>Actions</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -84,14 +86,11 @@
 										<td>{{this.insuranceProvider}}</td>
 										<td>{{this.isAdmin}}</td>
 										<td class="td-actions text-right">
-											<button type="button" rel="tooltip" class="btn btn-info">
-												<i class="material-icons">person</i>
-											</button>
 											<button type="button" rel="tooltip"
 												class="btn btn-success btn-profile-edit">
 												<i class="material-icons">edit</i>
 											</button>
-											<button type="button" rel="tooltip" class="btn btn-danger">
+											<button type="button" rel="tooltip" class="btn btn-danger btn-profile-delete">
 												<i class="material-icons">close</i>
 											</button>
 										</td>
@@ -108,6 +107,9 @@
 					<div class="row">
 						<div class="col-md-12 ml-auto">
 							{{!-- <p>show practitioners here</p> --}}
+							<button class="btn btn-primary btn-fab btn-fab-mini btn-round" data-toggle="modal" data-target="#practitionerCreate">
+								<i class="material-icons">add</i>
+							</button>
 							<table class="table" id="practitionersTable">
 								<thead>
 									<tr>
@@ -115,7 +117,7 @@
 										<th>Location</th>
 										<th>Procedures</th>
 										<th>Providers</th>
-										<th class="text-right">Actions</th>
+										<th>Actions</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -140,14 +142,11 @@
 											{{/each}}
 										</td>
 										<td class="td-actions text-right">
-											<button type="button" rel="tooltip" class="btn btn-info">
-												<i class="material-icons">person</i>
-											</button>
 											<button type="button" rel="tooltip"
 												class="btn btn-success btn-practitioner-edit">
 												<i class="material-icons">edit</i>
 											</button>
-											<button type="button" rel="tooltip" class="btn btn-danger">
+											<button type="button" rel="tooltip" class="btn btn-danger btn-practitioner-delete">
 												<i class="material-icons">close</i>
 											</button>
 										</td>
@@ -164,7 +163,42 @@
 				<div class="tab-pane text-center gallery" id="appointments">
 					<div class="row">
 						<div class="col-md-12 ml-auto">
-							<p>This is where appointments should show up</p>
+							{{!-- <p>This is where appointments should show up</p> --}}
+							<button class="btn btn-primary btn-fab btn-fab-mini btn-round" data-toggle="modal" data-target="#appointmentCreate">
+								<i class="material-icons">add</i>
+							</button>
+							<table class="table" id="appointmentsTable">
+								<thead>
+									<tr>
+										<th class="text-center">User Id</th>
+										<th>Practitioner Id</th>
+										<th>Procedure</th>
+										<th>Cost</th>
+										<th>Verification</th>
+										<th>Actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									{{#each appointments}}
+									<tr id="appointmentRow" name="{{this._id}}">
+										<td class="text-center">{{this.userId}}</td>
+										<td>{{this.practitionerId}}</td>
+										<td>{{this.procedure}}</td>
+										<td>{{this.cost}}</td>
+										<td>{{this.verification}}</td>
+										<td class="td-actions text-right">
+											<button type="button" rel="tooltip"
+												class="btn btn-success btn-appointment-edit">
+												<i class="material-icons">edit</i>
+											</button>
+											<button type="button" rel="tooltip" class="btn btn-danger btn-appointment-delete">
+												<i class="material-icons">close</i>
+											</button>
+										</td>
+									</tr>
+									{{/each}}
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>
@@ -175,8 +209,12 @@
 {{/inline}}
 
 {{#*inline "modals-block"}}
-{{> modals/profile/edit}}
-{{> modals/practitioner/edit}}
+{{> modals/admin/profile/create}}
+{{> modals/admin/profile/edit}}
+{{> modals/admin/practitioner/create}}
+{{> modals/admin/practitioner/edit}}
+{{> modals/admin/appointment/create}}
+{{> modals/admin/appointment/edit}}
 {{/inline}}
 
 {{#*inline "scripts-block"}} --}}
