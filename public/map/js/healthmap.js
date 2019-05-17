@@ -4,6 +4,7 @@ var map;
 var markers = [];
 var prevMarker;
 var infoWindow;
+
 // Function to initialize the google maps
 async function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -122,9 +123,34 @@ function formatHTMLString(prac){
     return(heading + ins + procs + button)
 }
 
-function upload(){
+async function upload(){
     console.log("Spiderman Sucks")
+    // let res = await sendapt("/profile", {"Fish": "Salad"})
+
+    //window.location = "/profile?dragon=poopoo"
+
+    return;
 }
+
+
+// Function to send data from appointment set map button
+async function sendapt(url = ``, data = {}) {
+    const res = await fetch(url, {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        redirect: "follow",
+        referrer: "no-referrer",
+        body: JSON.stringify(data),
+    });
+    window.location = res.url
+    return;
+}
+
 
 (async function($){
     // Disabled inate map functionality so the google API loads the map, and the AJAX request to server can be called to populate the map after object creation

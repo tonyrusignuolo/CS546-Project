@@ -11,7 +11,11 @@
 				<form action="/appointments/create" method="POST">
 					<div class="form-row">
 						<div class="form-group col-md-12">
+							{{#if apt}}
+							<label for="userId" class="bmd-label-floating">Appointment Info</label>
+							{{else}}
 							<label for="userId" class="bmd-label-floating">User ID</label>
+							{{/if}}
 							<input type="text" class="form-control" id="userId" name="userId">
 						</div>
 					</div>
