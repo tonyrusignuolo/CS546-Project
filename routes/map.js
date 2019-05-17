@@ -80,6 +80,21 @@ router.get('/all', async(req, res) => {
     res.send(allPractitioners)
 })
 
+// Route for ajax request to get user info for healthmap booking and autofill
+router.get('/checklogin', async(req, res) => {
+    if(!req.session.userid) {
+        res.send(null)
+        return;
+    }
+    else{
+        let user;
+        
+        user = await profiles.get(req.session.userid)
+        
+        res.send(user)
+        return;
+    }
 
+})
 
 module.exports = router;

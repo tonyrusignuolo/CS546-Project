@@ -4,6 +4,7 @@ var map;
 var markers = [];
 var prevMarker;
 var infoWindow;
+var currentprac = {};
 
 // Function to initialize the google maps
 async function initMap() {
@@ -18,16 +19,18 @@ async function initMap() {
 
 
 // Function to add map marker to map
-function addMarker(coords, name, markerinfo){
+function addMarker(coords, name, markerinfo, p){
     var marker = new google.maps.Marker({
         position: coords,
         title: name,
         animation: google.maps.Animation.DROP,
         map: map,
+        pinfo: p,
         info: markerinfo
     });
-    
-    // Function to add animation to map marker
+
+
+    // Function to add animation to map marker. Also updates current practitioner variable and sets the content of the info window
     function toggleBounce(){
 
         // Set animation of any other marker to off when another is pressed
@@ -35,6 +38,7 @@ function addMarker(coords, name, markerinfo){
             prevMarker.setAnimation(null)
             marker.setAnimation(google.maps.Animation.BOUNCE)
             
+            currentprac = marker.pinfo
             infoWindow.setContent(marker.info)
             infoWindow.open(map, marker)
 
@@ -50,20 +54,14 @@ function addMarker(coords, name, markerinfo){
             else{
                 marker.setAnimation(google.maps.Animation.BOUNCE)
                 
+                currentprac = marker.pinfo
                 infoWindow.setContent(marker.info)
                 infoWindow.open(map, marker)
                 
                 prevMarker = marker
             }
         }
-
-        // const button = document.getElementById("book")
-        //     if(button){
-        //         button.addEventListener("click", function(){
-        //             console.log(marker.info)
-        //         });
-        //     }
-
+        
     }
 
     // Adds listener for bounce toggle and info box
@@ -88,6 +86,39 @@ function deleteMarkers(){
     clearMarkers();
     markers = [];
 }
+
+// Function to get the practitioner data
+function getPracData(prac){
+    let newObj = {
+        id: prac._id,
+		name: prac.name,
+		providers: [],
+		service: [],
+		price: []
+	}
+
+	// Put insurance providers in an array
+	for(let i=0; i < prac.providers.length; i++){
+        newObj.providers.push(prac.providers[i])
+	}
+
+	for(let i=0; i < prac.procedures.length; i++){
+        let obj = prac.procedures[i]
+        let key = Object.keys(obj)
+        let val = Object.values(obj)
+        for(let j=0; j < key.length; j++){
+			newObj.service.push(key[j])
+			newObj.price.push(val[j])
+        }
+	}
+	
+	// DO it the above way or just set the standard array of objects in, handlebars handling could be easier
+    
+
+    return(newObj)
+
+}
+
 
 // Function to format out html string for the info window
 function formatHTMLString(prac){
@@ -119,36 +150,10 @@ function formatHTMLString(prac){
     }
     procs = procs + "</p>"
     
-    let button = '<button class="btn btn-primary btn-sm" onClick=upload()>Book Appointment</button>'
+    //<button class="btn btn-primary btn-round" data-toggle="modal" data-target="#appointmentCreate">Create Appointment</button>
+    let button = '<button class="btn btn-primary btn-sm" id="book-it" data-toggle="modal" data-target="#appointmentCreate">Book Appointment</button>'
+
     return(heading + ins + procs + button)
-}
-
-async function upload(){
-    console.log("Spiderman Sucks")
-    // let res = await sendapt("/profile", {"Fish": "Salad"})
-
-    //window.location = "/profile?dragon=poopoo"
-
-    return;
-}
-
-
-// Function to send data from appointment set map button
-async function sendapt(url = ``, data = {}) {
-    const res = await fetch(url, {
-        method: "POST",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        redirect: "follow",
-        referrer: "no-referrer",
-        body: JSON.stringify(data),
-    });
-    window.location = res.url
-    return;
 }
 
 
@@ -174,7 +179,11 @@ async function sendapt(url = ``, data = {}) {
     for(let i=0; i < p.length; i++){
         // Formats a content string for the info window
         let contentString = formatHTMLString(p[i])
-        addMarker({lat: p[i].location[0].lat, lng: p[i].location[1].long}, p[i].name, contentString)
+
+        // Function call to update the current practitioner for form fill
+        let pracData = getPracData(p[i])
+
+        addMarker({lat: p[i].location[0].lat, lng: p[i].location[1].long}, p[i].name, contentString, pracData)
     }
     
     // Set event listener for submission form
@@ -210,8 +219,14 @@ async function sendapt(url = ``, data = {}) {
             // If there are search results then we add the corresponding markers to the map
             if(r !== undefined && r !== null && r.length > 0){
                 for(let i=0; i < r.length; i++){
+                    
+                    // Formats a content string for the info window
                     let contentString = formatHTMLString(r[i])
-                    addMarker({lat: r[i].location[0].lat, lng: r[i].location[1].long}, r[i].name, contentString)
+
+                    // Function call to update the current practitioner for form fill
+                    let pracData = getPracData(r[i])
+
+                    addMarker({lat: r[i].location[0].lat, lng: r[i].location[1].long}, r[i].name, contentString, pracData)
                 }
             }
             // Otherwise we display a message that says there were no search results
@@ -238,13 +253,74 @@ async function sendapt(url = ``, data = {}) {
             }();
             deleteMarkers();
             for(let i=0; i < p.length; i++){
+
+                // Formats a content string for the info window
                 let contentString = formatHTMLString(p[i])
-                addMarker({lat: p[i].location[0].lat, lng: p[i].location[1].long}, p[i].name, contentString)
+
+                // Function call to update the current practitioner for form fill
+                let pracData = getPracData(p[i])
+                
+                addMarker({lat: p[i].location[0].lat, lng: p[i].location[1].long}, p[i].name, contentString, pracData)
             }
         }
         
         event.preventDefault();
-    })
+    });
 
+    // Function sets a listener to a button that will be created dynamically but doesnt exist on dom ready
+    $('body').on('click', '#book-it', function() {
+        var login = function () {
+            var tmp = null;
+            $.ajax({
+                'async': false,
+                'type': "GET",
+                'dataType': 'json',
+                'url': "/map/checklogin",
+                'success': function (data) {
+                    tmp = data;
+                }
+            });
+            return tmp;
+        }();
+
+        // If the user is logged in
+        if(login !== null && login !== undefined){
+            //console.log(currentprac)
+            $("#useremail").val(login.email)
+            $("#userId").val(login._id)
+            $("#practitionerId").val(currentprac.id)
+			$("#pracname").val(currentprac.name)
+			
+			// Removes all optinos from drop down to add new ones
+			$("#procdrop").find('option').remove().end()
+
+			// Adds all the services to the procedure drop down
+			$.each(currentprac.service, function(index, value){
+
+				$("#procdrop").append($('<option/>', {
+					value: index,
+					text: value
+				}))
+			})
+			
+			// Sets initial value for cost based on default selection
+			let pstring = "$" + String(currentprac.price[0])
+			$("#cost").val(pstring)
+
+        }
+        else{
+            // If te user is not logged in, we redirect to the loggin
+            window.location = "/profile/login"
+            return;
+        }
+
+	})
+
+	// Listens for a change to the selector in order to change cost accordingly
+	$('body').on('change', "#procdrop", function(e){
+		let priceindex = this.options[e.target.selectedIndex].value
+		let price = "$" + String(currentprac.price[priceindex])
+		$("#cost").val(price)
+	})
 
 })(jQuery)
