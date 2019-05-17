@@ -3,24 +3,13 @@ const express = require("express")
 const router = express.Router()
 const appointmentsData = require('../data/appointments')
 
-// Route to create an appointment
-// router.get('/create', async (req, res) => {
-// 	try {
-// 		res.render("pages/appointments/createAppointment.hbs");
-// 	} catch (error) {
-// 		res.status(400);
-// 		res.send(error);
-// 	}
-// })
-
+// Create an appointment
 router.post('/create', async (req, res) => {
+	console.log(req.body)
+	return;
+	
 	try {
 		let newApt = {
-			userId: req.body.userId,
-			practitionerId: req.body.practitionerId,
-			procedure: req.body.procedure,
-			cost: req.body.cost,
-			verification: false
 		};
 		let appointment = await appointmentsData.create(newApt);
 		res.json(appointment);
