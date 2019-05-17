@@ -62,9 +62,7 @@
 						<table class="table" id="appointmentsTable">
 							<thead>
 								<tr>
-									<th class="text-center">User Id</th>
 									<th>User Email</th>
-									<th>Practitioner Id</th>
 									<th>Practitioner Name</th>
 									<th>Insurance</th>
 									<th>Procedure</th>
@@ -76,9 +74,7 @@
 							<tbody>
 								{{#each appointments}}
 								<tr id="appointmentRow" name="{{this._id}}">
-									<td class="text-center">{{this.userId}}</td>
 									<td>{{this.useremail}}</td>
-									<td>{{this.practitionerId}}</td>
 									<td>{{this.practitionerName}}</td>
 									<td>{{this.insurance}}</td>
 									<td>{{this.procedureInterest}}</td>

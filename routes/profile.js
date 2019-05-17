@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const data = require('../data');
 const profileData = data.profiles;
+const appointmentData = data.appointments;
 const bcrypt = require("bcrypt");
 
 // New route for profile creation
@@ -107,9 +108,6 @@ router.post('/login', async (req, res) => {
 
 })
 
-
-
-
 router.get('/', async (req, res) => {
 	// When there is no session, redirect to login
 	if (!req.session.userid) {
@@ -118,15 +116,14 @@ router.get('/', async (req, res) => {
 	}
 
 	try {
-		let user;
-		if (req.session.userid) {
-			user = await profileData.get(req.session.userid);
-		}
+		let user = await profileData.get(req.session.userid);
+		let appointments = await appointmentData.getAllWithUserId(req.session.userid);
 		options = {
 			layout: false,
 			title: "User",
 			pageType: "profile-page",
-			user: user
+			user: user,
+			appointments: appointments
 		}
 		res.render("pages/profile", options);
 	} catch (error) {
