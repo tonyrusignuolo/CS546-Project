@@ -78,16 +78,15 @@ router.get('/login', async (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-
 	if (req.body.email === undefined || req.body.email === '' || req.body.password === undefined || req.body.password === '') {
-		res.status(401).render("pages/login.hbs", { error: "Please enter email and password" })
+		res.status(401).render("pages/login.hbs", { layout: false, pageType: "login-page", error: "Please enter email and password" })
 		return;
 	}
 
 	// See if the user email exists in the data base
 	let user = await profileData.getbyEmail(req.body.email)
 	if (user === null || user === undefined) {
-		res.status(401).render("pages/login.hbs", { error: "Invalid email or password" })
+		res.status(401).render("pages/login.hbs", { layout: false, pageType: "login-page", error: "Invalid email or password" })
 		return;
 	}
 
@@ -102,7 +101,7 @@ router.post('/login', async (req, res) => {
 		return;
 	}
 	else {
-		res.status(401).render("pages/login.hbs", { error: "Invalid email or password" });
+		res.status(401).render("pages/login.hbs", { layout: false, pageType: "login-page", error: "Invalid email or password" });
 	}
 	return;
 
