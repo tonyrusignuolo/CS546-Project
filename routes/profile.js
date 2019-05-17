@@ -115,7 +115,7 @@ router.get('/', async (req, res) => {
 		return;
 	}
 
-	console.log(req.params)
+	//console.log(req.params)
 
 
 	try {
@@ -136,36 +136,36 @@ router.get('/', async (req, res) => {
 	}
 })
 
-router.post('/', async (req, res) => {
-	// When there is no session, redirect to login
-	console.log(req.body)
-	if(!req.session.userid) {
-		res.redirect("profile/login")
-		return;
-	}
+// router.post('/', async (req, res) => {
+// 	// When there is no session, redirect to login
 	
-	try {
-		let user;
-		if (req.session.userid) {
-			user = await profileData.get(req.session.userid);
-		}
-		options = {
-			layout: false,
-			title: "User",
-			pageType: "profile-page",
-			user: user,
-			apt: req.body
-		}
-		res.render("pages/profile", options);
-	} catch (error) {
-		res.status(400);
-		res.send(error);
-	}
+// 	if(!req.session.userid) {
+// 		res.redirect("profile/login")
+// 		return;
+// 	}
+
+// 	try {
+// 		let user;
+// 		if (req.session.userid) {
+// 			user = await profileData.get(req.session.userid);
+// 		}
+// 		options = {
+// 			layout: false,
+// 			title: "User",
+// 			pageType: "profile-page",
+// 			user: user,
+// 			apt: req.body
+// 		}
+// 		res.render("pages/profile", options);
+// 	} catch (error) {
+// 		res.status(400);
+// 		res.send(error);
+// 	}
 
 
-	console.log(req.body)
-	return;
-})
+// 	console.log(req.body)
+// 	return;
+// })
 
 // New route for profile creation
 router.get('/logout', async (req, res) => {

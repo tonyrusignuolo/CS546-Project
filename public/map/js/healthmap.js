@@ -293,7 +293,7 @@ function formatHTMLString(prac){
 			
 			// Removes all optinos from drop down to add new ones
 			$("#procdrop").find('option').remove().end()
-
+			$("#insurancedrop").find('option').remove().end()
 			// Adds all the services to the procedure drop down
 			$.each(currentprac.service, function(index, value){
 
@@ -303,6 +303,14 @@ function formatHTMLString(prac){
 				}))
 			})
 			
+			// Populates insurance drop down for current practitioner supported insurance
+			$.each(currentprac.providers, function(index, value){
+				$("#insurancedrop").append($('<option/>', {
+					value: index,
+					text: value
+				}))
+			})
+
 			// Sets initial value for cost based on default selection
 			let pstring = "$" + String(currentprac.price[0])
 			$("#cost").val(pstring)
