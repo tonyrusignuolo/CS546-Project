@@ -58,9 +58,12 @@ $("button.btn-appointment-edit").click(function () {
 	}();
 	let modal = $("#appointmentEdit");
 	modal.find("#userId").val(appointment.userId);
+	modal.find("#userEmail").val(appointment.useremail);
 	modal.find("#practitionerId").val(appointment.practitionerId);
-	modal.find("#procedure").val(appointment.procedure);
-	modal.find("#cost").val(appointment.cost);
+	modal.find("#practitionerName").val(appointment.practitionerName);
+	modal.find("#insurance").val(appointment.insurance);
+	modal.find("#procedureInterest").val(appointment.procedureInterest);
+	modal.find("#costSeen").val(appointment.costSeen);
 	modal.find("#verification").val(appointment.verification.toString());
 	modal.find("#_id").val(appointment._id);
 	modal.modal('show');

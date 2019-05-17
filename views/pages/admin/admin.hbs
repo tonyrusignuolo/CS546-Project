@@ -154,7 +154,6 @@
 									{{/each}}
 								</tbody>
 							</table>
-
 						</div>
 					</div>
 				</div>
@@ -171,9 +170,12 @@
 								<thead>
 									<tr>
 										<th class="text-center">User Id</th>
+										<th>User Email</th>
 										<th>Practitioner Id</th>
+										<th>Practitioner Name</th>
+										<th>Insurance</th>
 										<th>Procedure</th>
-										<th>Cost</th>
+										<th>Cost Seen</th>
 										<th>Verification</th>
 										<th>Actions</th>
 									</tr>
@@ -182,9 +184,12 @@
 									{{#each appointments}}
 									<tr id="appointmentRow" name="{{this._id}}">
 										<td class="text-center">{{this.userId}}</td>
+										<td>{{this.useremail}}</td>
 										<td>{{this.practitionerId}}</td>
-										<td>{{this.procedure}}</td>
-										<td>{{this.cost}}</td>
+										<td>{{this.practitionerName}}</td>
+										<td>{{this.insurance}}</td>
+										<td>{{this.procedureInterest}}</td>
+										<td>{{this.costSeen}}</td>
 										<td>{{this.verification}}</td>
 										<td class="td-actions text-right">
 											<button type="button" rel="tooltip"
