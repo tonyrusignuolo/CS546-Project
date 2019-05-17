@@ -3,8 +3,7 @@ const collections = require("../config/mongoCollections");
 // Gets appoitments collection from db
 const appointments = collections.appointments;
 const helper = require("./helper");
-const profiles = require("./profiles")
-
+const ObjectID = require("mongodb").ObjectID;
 // Exports methods for CRUD
 module.exports = {
 	async create(object) {
@@ -64,11 +63,17 @@ module.exports = {
 		await appointmentsCollection.deleteMany({});
 	},
 
-	async getAllByUserId(id){
+	// Gets all appointments that specific user has made
+	async getAllWithUserId(id){
+
+		if(!id || id === undefined || id === ''){
+			throw "Error: appointments getAllWithUserId no id passed"
+		}
 
 		const appointmentsCollection = await appointments();
-		return;
-
+		let res = await appointmentsCollection.find({userId: id}).toArray();
+		
+		return(res)
 
 	}
 
