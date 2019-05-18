@@ -19,7 +19,7 @@ In order to get the full functionality of the website, a google map API key will
 The map partial script for the Google API should be placed under a folder at ./views/partials/map/apikey.hbs
 Inside of this apikey.hbs at the given file location should contain:
 
-<script src="https://maps.googleapis.com/maps/api/js?key=YOURKEYHERE" type="text/javascript"></script>
+```<script src="https://maps.googleapis.com/maps/api/js?key=YOURKEYHERE" type="text/javascript"></script>```
 
 This was modified slightly from the initial Google Maps API documentation to get rid of the call back causing synchronousy issues with the /public/map/js/healthmap.js client side file. It was resolving the AJAX call to populate the map on document ready prior to the map initialization, hence the slight alteration for the proper functionality. 
 
