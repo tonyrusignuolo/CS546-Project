@@ -2,7 +2,7 @@
 
 ### Overview
 
-When visiting the site, users will be taken to a landing page where they can sign in or sign up. After signing in they will be taken to their profile page where they can access the map page and book new appointments. After booking appointments they can see their appointments on their profile page. Admins can additionally access the admin panel where they can modify profiles, appointments, and practitioners.
+When visiting the site, users will be taken to a landing page where they can sign in or sign up. After signing in they will be taken to their profile page where they can access the map page and book new appointments. After booking appointments they can see their appointments on their profile page. Admins can additionally access the admin panel where they can modify profiles, appointments, and practitioners. Appointments are booked through the map aggregate on the website. If a user is not signed in or signed up and attempts to book an appointment, they will be re-routed to the login page. 
 
 ### Running
 
