@@ -18,8 +18,8 @@ npm start
 
 Here are several profiles included which can be used to test the site:
 
-|email|password|
-|-----|--------|
-|`lieutenant_dan@gmail.com`|`iaintgotnolegs`|
-|`jaime_lannister@yahoo.com`|`lionheart`|
-|`pbaressi@stevens.edu`|`dangernoodle`|
+|email|password|admin|
+|-----|--------|-------|
+|`lieutenant_dan@gmail.com`|`iaintgotnolegs`|`yes`|
+|`jaime_lannister@yahoo.com`|`lionheart`|`no`|
+|`pbaressi@stevens.edu`|`dangernoodle`|`yes`|
