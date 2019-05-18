@@ -4,3 +4,5 @@ package-lock.json
 test.http
 .idea/
 .vscode
+views/partials/map
+test.js

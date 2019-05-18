@@ -1,0 +1,67 @@
+<div class="modal fade" id="profileEdit" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title">Edit Profile</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<i class="material-icons">clear</i>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action="/admin/profile/edit" method="POST">
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="firstName">First Name</label>
+							<input type="text" class="form-control" id="firstName" name="firstName">
+						</div>
+						<div class="form-group col-md-6">
+							<label for="lastName">Last Name</label>
+							<input type="text" class="form-control" id="lastName" name="lastName">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="email">Email Address</label>
+							<input type="email" class="form-control" value="{{user.email}}" id="email" name="email"
+								readonly>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="password" class="bmd-label-floating">Reset Password</label>
+							<input type="password" class="form-control" id="password" name="password">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="insuranceProvider">Insurance Provider</label>
+							<select class="form-control" data-style="btn btn-link" id="insuranceProvider"
+								name="insuranceProvider">
+								<option value="">Select Insurance Provider</option>
+								<option value="Blue Cross">Blue Cross</option>
+								<option value="Cigna">Cigna</option>
+								<option value="Delta">Delta</option>
+								<option value="Horizon">Horizon</option>
+								<option value="United">United</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="isAdmin">Administrator</label>
+							<select class="form-control" data-style="btn btn-link" id="isAdmin" name="isAdmin">
+								<option value=false>False</option>
+								<option value=true>True</option>
+							</select>
+						</div>
+					</div>
+					<input type="hidden" class="form-control" id="_id" name="_id">
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-link">Save</button>
+						<button type="button" class="btn btn-danger btn-link" data-dismiss="modal">Close</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

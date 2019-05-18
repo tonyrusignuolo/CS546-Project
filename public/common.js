@@ -1,5 +1,5 @@
-function postData(url = ``, data = {}) {
-    return fetch(url, {
+async function postData(url = ``, data = {}) {
+    const res = await fetch(url, {
         method: "POST",
         mode: "cors",
         cache: "no-cache",
@@ -10,7 +10,24 @@ function postData(url = ``, data = {}) {
         redirect: "follow",
         referrer: "no-referrer",
         body: JSON.stringify(data),
-    }).then(response => response.json());
+    });
+    return await res.json();
+}
+
+async function getData(url = ``, data = {}) {
+    const res = await fetch(url, {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        redirect: "follow",
+        referrer: "no-referrer",
+        body: JSON.stringify(data),
+    });
+    return await res.json();
 }
 
 function extractModifiedData(outerContainer) {
@@ -21,7 +38,7 @@ function extractModifiedData(outerContainer) {
     values.forEach(function (elem) {
         const dataId = elem.getAttribute('data-id');
         const key = elem.getAttribute('data-value-for');
-        const value = elem.innerHTML;
+        const value = (elem.tagName.toLowerCase() === 'input') ? elem.value : elem.innerHTML;
         if (dataId)
             dictValues[dataId] = value;
         else if (!keys[key])
@@ -45,3 +62,21 @@ function extractModifiedData(outerContainer) {
 
     return keys;
 }
+
+function updateInfoText(elem, text, error = false) {
+    if (text.errmsg) text = text.errmsg;
+    if (error) {
+        elem.classList.remove('good');
+        if (!elem.classList.contains('bad')) elem.classList.add('bad');
+    } else {
+        elem.classList.remove('bad');
+        if (!elem.classList.contains('good')) elem.classList.add('good');
+    }
+    elem.innerText = text;
+}
+
+$("button.btn-profile-edit").click(function () {
+	let modal = $("#profileEdit");
+	modal.find('#insuranceProvider').val(modal.find("#ip").val());
+	modal.modal('show');
+});

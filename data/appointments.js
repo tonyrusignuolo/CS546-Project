@@ -3,7 +3,7 @@ const collections = require("../config/mongoCollections");
 // Gets appoitments collection from db
 const appointments = collections.appointments;
 const helper = require("./helper");
-
+const ObjectID = require("mongodb").ObjectID;
 // Exports methods for CRUD
 module.exports = {
 	async create(object) {
@@ -29,9 +29,19 @@ module.exports = {
 		return appointmentsCollection.find({}).toArray();
 	},
 
-	async update(id) {
-		id = await helper.convertId(id);
+	async update(id, update) {
+		/**
+         * @param {Object|String} id - The document ID to update
+         * @param update - field:value expressions or update operators. See 'create()' for document structure
+         */
+
+		// id = await helper.convertId(id);
+		console.log(id);
 		let appointmentsCollection = await appointments();
+		let res = await appointmentsCollection.updateOne({ '_id': id }, update);
+
+		if (res.matchedCount === 0) throw 'Error: Unable to find practitioner by ID';
+		if (res.matchedCount === 1 && res.modifiedCount === 0) throw 'Warning: New practitioner would be identical';
 	},
 
 	async delete(id) {
@@ -49,7 +59,23 @@ module.exports = {
 	},
 
 	async deleteAll() {
-        const appointmentsCollection = await appointments();
-        await appointmentsCollection.deleteMany({});
-    },
+		const appointmentsCollection = await appointments();
+		await appointmentsCollection.deleteMany({});
+	},
+
+	// Gets all appointments that specific user has made
+	async getAllWithUserId(id){
+
+		if(!id || id === undefined || id === ''){
+			throw "Error: appointments getAllWithUserId no id passed"
+		}
+		
+		const appointmentsCollection = await appointments();
+		let res = await appointmentsCollection.find({userId: id}).toArray();
+		
+		return(res)
+
+	}
+
+
 };

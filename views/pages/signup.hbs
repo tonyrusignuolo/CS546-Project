@@ -1,0 +1,101 @@
+{{#> layouts/main}}
+{{#*inline "main-block"}}
+<div class="page-header header-filter"
+	style="background-image: url('../assets/img/bg7.jpg'); background-size: cover; background-position: top center;">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-8 ml-auto mr-auto">
+				<div class="card card-login">
+					<form class="form" method="POST" action="/profile/signup">
+						<div class="card-header card-header-primary text-center">
+							<h4 class="card-title">Sign Up</h4>
+							<div class="social-line">
+								<a href="#" class="btn btn-just-icon btn-link">
+									<i class="fa fa-facebook-square"></i>
+								</a>
+								<a href="#" class="btn btn-just-icon btn-link">
+									<i class="fa fa-twitter"></i>
+								</a>
+								<a href="#" class="btn btn-just-icon btn-link">
+									<i class="fa fa-google"></i>
+								</a>
+							</div>
+						</div>
+						<p class="description text-center">Or Be Classical</p>
+						<div class="card-body">
+							<div class="form-row input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">
+										<i class="material-icons">face</i>
+									</span>
+								</div>
+								<div class="col">
+									<input type="text" class="form-control" id="firstName" name="firstName"
+										placeholder="First Name...">
+								</div>
+								<div class="col">
+									<input type="text" class="form-control" id="lastName" name="lastName"
+										placeholder="Last Name...">
+								</div>
+							</div>
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">
+										<i class="material-icons">mail</i>
+									</span>
+								</div>
+								<input type="email" class="form-control" id="email" name="email" placeholder="Email...">
+							</div>
+							<div class="form-row input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">
+										<i class="material-icons">lock_outline</i>
+									</span>
+								</div>
+								<div class="col">
+									<input type="password" class="form-control" id="password" name="password"
+										placeholder="Password...">
+								</div>
+								<div class="col">
+									<input type="password" class="form-control" id="passwordconfirm"
+										name="passwordconfirm" placeholder="Confirm Password...">
+								</div>
+							</div>
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">
+										<i class="material-icons">local_hospital</i>
+										{{!-- <i class="material-icons">healing</i> --}}
+									</span>
+								</div>
+								<select class="form-control" data-style="btn btn-link" id="insuranceProvider"
+									name="insuranceProvider">
+									<option value="">Select An Insurance Provider</option>
+									<option value="Blue Cross">Blue Cross</option>
+									<option value="Cigna">Cigna</option>
+									<option value="Delta">Delta</option>
+									<option value="Horizon">Horizon</option>
+									<option value="United">United</option>
+								</select>
+							</div>
+							<div class="error">
+								{{#if error}}
+								<p>{{error}}</p>
+								{{/if}}
+							</div>
+						</div>
+						<div class="card-footer text-center">
+							{{!-- <a href="#" class="btn btn-primary btn-link btn-wd btn-lg">Sign Up</a> --}}
+							<input type="submit" value="Sign Up" class="btn btn-primary btn-link btn-wd btn-lg">
+							<br>
+							<br>
+							<a href="/profile/login">Or Login?</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{/inline}}
+{{/layouts/main}}

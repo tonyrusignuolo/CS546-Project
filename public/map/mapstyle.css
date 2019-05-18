@@ -1,0 +1,40 @@
+/* Quick simple style sheet for the map*/
+/* #map {
+    height: 75%;
+    width: 75%;
+} */
+
+
+#wrapper {
+    width: 100%;
+    overflow: hidden;
+}
+
+#first {
+    background-color: white;
+	width: 45%;
+	height: 88.305vh;
+    float: left;
+}
+
+#second{
+    overflow: hidden;
+}
+
+#errmess{
+    color: red;
+    font-weight: bold;
+}
+
+
+/* 
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+input, label {
+    display: block;
+    padding: 5px;
+} */

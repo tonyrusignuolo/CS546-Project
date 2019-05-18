@@ -41,8 +41,28 @@ document.addEventListener('DOMContentLoaded', function (event) {
         });
     });
 
+    Array.from(document.getElementsByClassName('delete-btn')).forEach(function (elem) {
+        elem.addEventListener('click', async function (e) {
+            e.preventDefault();
+
+            const outerContainer = e.target.parentElement.parentElement.parentElement;
+
+            const msg = outerContainer.getElementsByClassName('msg')[0];
+            const responseData = await postData(`/admin/practitioners/delete`, {_id: e.target.id});
+            if (!responseData.error) {
+                updateInfoText(msg, 'Practitioner was deleted successfully');
+
+            } else {
+                updateInfoText(msg, responseData.error, true);
+
+                console.error(responseData.error);
+            }
+
+        });
+    });
+
     Array.from(document.getElementsByClassName('done-btn')).forEach(function (elem) {
-        elem.addEventListener('click', function (e) {
+        elem.addEventListener('click', async function (e) {
             e.preventDefault();
             /*
              * Note that this "outerContainer" references a different container than the "outerContainer" in the callback above.
@@ -52,12 +72,19 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
             const data = extractModifiedData(outerContainer);
 
-            data.location = {lat: Number(data.lat), long: Number(data.long)};
+            data.location = [{lat: Number(data.lat)}, {long: Number(data.long)}];
             delete data.lat;
             delete data.long;
 
             if (!data.procedures)
-                data.procedures = {};
+                data.procedures = [];
+            else {
+                const newProcedures = [];
+                for (let k in data.procedures) {
+                    newProcedures.push({[k]: data.procedures[k]});
+                }
+                data.procedures = newProcedures;
+            }
 
             if (data.providers) {
                 if (!Array.isArray(data.providers))
@@ -72,24 +99,15 @@ document.addEventListener('DOMContentLoaded', function (event) {
             };
 
             const msg = outerContainer.getElementsByClassName('msg')[0];
+            const responseData = await postData(`/admin/practitioners/update`, updateData);
+            if (!responseData.error) {
+                updateInfoText(msg, 'Practitioner was updated successfully');
 
-            postData(`/admin/practitioners/update`, updateData)
-                .then(data => {
-                    if (data.error) throw Error(data.error);
+            } else {
+                updateInfoText(msg, responseData.error, true);
 
-                    msg.classList.remove('bad');
-                    if (!msg.classList.contains('good')) msg.classList.add('good');
-                    msg.innerText = 'Practitioner was updated successfully.';
-
-                    console.log(JSON.stringify(data));
-                })
-                .catch(error => {
-                    msg.classList.remove('good');
-                    if (!msg.classList.contains('bad')) msg.classList.add('bad');
-                    msg.innerText = error;
-
-                    console.error(error);
-                });
+                console.error(responseData.error);
+            }
         });
     });
 });

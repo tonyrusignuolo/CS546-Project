@@ -4,14 +4,15 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const Handlebars = require('handlebars');
+const profiles = require('./data/profiles');
 
 const configRoutes = require("./routes");
 const exphbs = require("express-handlebars");
-
+const session = require("express-session")
 // Sets up handlebars handling
 const handlebarsInstance = exphbs.create({
 	extname: 'hbs',
-    defaultLayout: "main",
+    defaultLayout: false,
     helpers: {
         // Get amount of keys in an object
         size: (obj) => {
@@ -20,13 +21,15 @@ const handlebarsInstance = exphbs.create({
                 if (obj.hasOwnProperty(key)) size++;
             }
             return size;
-        },
+		},
+		
         asJSON: (obj, spacing) => {
             if (typeof spacing === "number")
                 return new Handlebars.SafeString(JSON.stringify(obj, null, spacing));
 
             return new Handlebars.SafeString(JSON.stringify(obj));
-        },
+		},
+		
         debug: (value) => {
             console.log("Current Context");
             console.log("====================");
@@ -37,24 +40,29 @@ const handlebarsInstance = exphbs.create({
                 console.log("====================");
                 console.log(value);
             }
-        }
+		},
+		
+		not: (option, options) => {
+			return !option;
+		},
+
+		ifEqual: (arg1, arg2, options) => {
+			return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+		},
+
+		ifNotEqual: (arg1, arg2, options) => {
+			console.log(arg1);
+			console.log(arg2);
+			return (arg1 != arg2) ? options.fn(this) : "";
+		},
+
+		ifOr: (arg1, arg2, options) => {
+			return (arg1 || arg2) ? options.fn(this) : options.inverse(this);
+		}
     },
 });
 
-Handlebars.registerHelper('not', function (option, options) {
-	return !option;
-});
 
-Handlebars.registerHelper('ifEqual', function (arg1, arg2, options) {
-	return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
-});
-
-Handlebars.registerHelper('ifOr', function (arg1, arg2, options) {
-    return (arg1 || arg2) ? options.fn(this) : options.inverse(this);
-});
-
-// Gets our CSS and makes it available in express under the directory public
-// Otherwise public is only local to the machine, hence the need for the express.static
 app.use("/public", express.static(__dirname + "/public"));
 app.use("/assets", express.static(__dirname + "/assets"));
 app.use(bodyParser.json());
@@ -65,8 +73,34 @@ app.use(bodyParser.urlencoded({
 app.engine('hbs', handlebarsInstance.engine);
 app.set('view engine', 'hbs');
 
+// session
+app.use(session({
+    name: "AuthCookie",
+    secret: "I am batman",
+    resave: false,
+    saveUninitialized: true
+}));
+
+// session logger
+app.use(async function (req, res, next) {
+	// output the log to the console
+	var date = new Date().toUTCString();
+	var auth = (req.session.userid) ? 'Authenticated' : 'Non-Authenticated';
+	console.log(`[${date}]: ${req.method} ${req.originalUrl} (${auth} User)`);
+
+	next()
+});
+
 configRoutes(app);
 
 app.listen(3000, () => {
 	console.log("Listening on port 3000")
+});
+
+const cfg = async () => {
+    await profiles.configureIndex();
+};
+
+cfg().catch(error => {
+    console.log(error);
 });

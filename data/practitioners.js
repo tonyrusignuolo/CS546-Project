@@ -1,15 +1,58 @@
 const collections = require("../config/mongoCollections");
 const practitioners = collections.practitioners;
+const ObjectID = require("mongodb").ObjectID;
 
 module.exports = {
     async get(id) {
-        if (!id) throw 'Invalid parameter: id';
+		if (!id) throw 'Invalid parameter: id';
+		
+		if(typeof id !== 'string' && typeof id !== 'object'){
+			throw("Error profile.get: Invalid id type passed");
+		}
+
+		let newId;
+		if(typeof(id) !== 'object'){
+			try{
+				newId = new ObjectID(id)
+			}
+			catch(e){
+				throw("Error profiles.get: Invalid ID")
+			}
+		}
+		else{
+			newId = id;
+		}
 
         const practitionerCollection = await practitioners();
-        const practitioner = await practitionerCollection.findOne({'_id': id});
-        if (practitioner === null) throw 'Unable to find a practitioner with the given id: ' + id;
+        const practitioner = await practitionerCollection.findOne({'_id': newId});
+        if (practitioner === null) throw 'Unable to find a practitioner with the given ID';
 
         return practitioner;
+    },
+
+    // Gets fields that will match
+    async getMatch(insurance, procedure){
+        
+        const practitionerCollection = await practitioners();
+        
+        let res;
+        
+        if((procedure === undefined || procedure === '-') && (insurance !== undefined && insurance !== '-')){
+            // Finds if a value exists in the providers array of DB
+            res = await practitionerCollection.find({providers: insurance}).toArray();  
+        }
+
+        if((procedure !== undefined && procedure !== '-') && (insurance === undefined || insurance === '-')){
+            // Checks if the property of an object exists in a nested object array of Mongo
+            res = await practitionerCollection.find({procedures : {$exists: true, $ne: [], $elemMatch: {[procedure]: {$exists: true}}}}).toArray();
+        }
+
+        if(procedure !== undefined && procedure !== '-' && insurance !== undefined && insurance !== '-'){
+            // Checks that both conditions searching for a procedure and an insurance provider are satisfied
+            res = await practitionerCollection.find({$and: [{procedures : {$exists: true, $ne: [], $elemMatch: {[procedure]: {$exists: true}}}}, {providers: insurance}]}).toArray();
+        }
+
+        return(res);
     },
 
     async getAll() {
@@ -23,7 +66,7 @@ module.exports = {
 
         const practitionerCollection = await practitioners();
         const res = await practitionerCollection.findOneAndDelete({'_id': id});
-        if (res === null) throw 'Unable to find a practitioner with the given id: ' + id;
+        if (!res.value) throw 'Unable to find a practitioner with the given ID';
 
         return {deleted: true, data: res.value};
     },
@@ -58,7 +101,7 @@ module.exports = {
         /**
          * @param {Object} data
          * @param {String} data.name - The name of the office
-         * @param {Object} data.location - An object specifying latitude and longitute
+         * @param {Object} data.location - An array of objects specifying latitude and longitute
          * @param {Number} data.location.lat
          * @param {Number} data.location.long
          * @param {Object} data.[procedures] - An optional object mapping procedures to prices
@@ -66,16 +109,17 @@ module.exports = {
          * @param {String[]} data.[providers] - An optional list of accepted insurance providers
          * @returns {ObjectId}
          */
+
         if (!data) throw 'Missing required parameter: data';
         if (!data.name || typeof data.name !== 'string' || data.name === '') throw 'Invalid parameter: data.name';
-        if (!data.location || typeof data.location !== 'object' ||
-            !data.location.lat || typeof data.location.lat !== 'number' ||
-            !data.location.long || typeof data.location.long !== 'number') throw 'Invalid parameter: data.location';
-        if (data.procedures && typeof data.procedures !== 'object') throw 'Invalid parameter: data.procedures';
+        if (!data.location || !Array.isArray(data.location) ||
+            !data.location[0] || typeof data.location[0].lat !== 'number' ||
+            !data.location[1] || typeof data.location[1].long !== 'number') throw 'Invalid parameter: data.location';
+        if (data.procedures && !Array.isArray(data.procedures)) throw 'Invalid parameter: data.procedures';
         if (data.providers && !Array.isArray(data.providers)) throw 'Invalid parameter: data.providers';
 
         // Default value for optional fields
-        data.procedures = (data.procedures) ? data.procedures : {};
+        data.procedures = (data.procedures) ? data.procedures : [];
         data.providers = (data.providers) ? data.providers : [];
 
         const practitionerCollection = await practitioners();

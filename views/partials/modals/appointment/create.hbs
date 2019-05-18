@@ -1,0 +1,75 @@
+<div class="modal fade" id="appointmentCreate" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title">Create Appointment</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<i class="material-icons">clear</i>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action="/appointments/create" method="POST">
+					
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="useremail" class="bmd-label-floating">User Email</label>
+							<input type="text" class="form-control" id="useremail" name="useremail" readonly>
+						</div>
+					</div>
+					
+					{{!-- Hidden aspects of the form submission --}}
+					{{!-- <div class="form-row" style="display:none"> --}}
+					<div class="form-row" style="display: none">
+						<div class="form-group col-md-12">
+							<label for="userId" class="bmd-label-floating">UserId</label>
+							<input type="text" class="form-control" id="userId" name="userId">
+						</div>
+					</div>
+
+					{{!-- Hidden aspects of the form submission --}}
+					<div class="form-row" style="display: none">
+						<div class="form-group col-md-12">
+							<label for="practitionerId" class="bmd-label-floating">Practitioner ID</label>
+							<input type="text" class="form-control" id="practitionerId" name="practitionerId">
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="pracname" class="bmd-label-floating">Practitioner</label>
+							<input type="text" class="form-control" id="pracname" name="pracname" readonly>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="insurancedrop" class="bmd-label-floating">Select Insurance</label>
+							<select class="form-control selectpicker" data-style="btn btn-link" id="insurancedrop" name="insurancedrop">
+							</select>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="procdrop" class="bmd-label-floating">Select Procedure</label>
+							<select class="form-control selectpicker" data-style="btn btn-link" id="procdrop" name="procdrop">
+							</select>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="cost" class="bmd-label-floating">Cost</label>
+							<input type="text" step="0.01" min="0" class="form-control" id="cost" name="cost" readonly>
+						</div>
+					</div>
+
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-link">Book It</button>
+						<button type="button" class="btn btn-danger btn-link" data-dismiss="modal">Close</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

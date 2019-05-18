@@ -1,0 +1,226 @@
+{{#> layouts/main}}
+{{#*inline "page-header"}}
+<div class="page-header header-filter" data-parallax="true" style="background-image: url('../assets/img/bg3.jpg');">
+</div>
+{{/inline}}
+
+{{#*inline "main-block"}}
+<div class="main main-raised">
+	<div class="profile-content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 ml-auto mr-auto">
+					<div class="profile">
+						<div class="avatar">
+							{{#if user.photo }}
+							<img src="{{user.photo}}" alt="Circle Image" class="img-raised rounded-circle img-fluid">
+							{{else}}
+							<img src="../assets/img/Stevens/Attila.png" alt="Circle Image" class="img-fluid">
+							{{/if}}
+						</div>
+
+						<div class="name">
+							<h3 class="title">{{user.firstName}} {{user.lastName}}</h3>
+							<h6>{{user.email}}</h6>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="description text-center">
+				<h2>You are accessing administrator data</h2>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12 ml-auto mr-auto">
+					<div class="profile-tabs">
+						<ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
+
+							<li class="nav-item">
+								<a class="nav-link" href="#profiles" role="tab" data-toggle="tab">
+									<i class="material-icons">people</i> Profiles
+								</a>
+							</li>
+
+							<li class="nav-item">
+								<a class="nav-link active" href="#practitioners" role="tab" data-toggle="tab">
+									<i class="material-icons">local_hospital</i> Practitioners
+								</a>
+							</li>
+
+							<li class="nav-item">
+								<a class="nav-link" href="#appointments" role="tab" data-toggle="tab">
+									<i class="material-icons">schedule</i> Appointments
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			{{!-- Content to show when icons are selected based on id. Made clear seperation --}}
+
+			<div class="tab-content tab-space">
+				<div class="tab-pane text-center gallery" id="profiles">
+					<div class="row">
+						<div class="col-md-12 mr-auto">
+							{{!-- <p>Show profiles here</p> --}}
+							<button class="btn btn-primary btn-fab btn-fab-mini btn-round" data-toggle="modal" data-target="#profileCreate">
+								<i class="material-icons">add</i>
+							</button>
+							<table class="table" id="profilesTable">
+								<thead>
+									<tr>
+										<th class="text-center">Email</th>
+										<th>Name</th>
+										<th>Insurance Provider</th>
+										<th>Administrator</th>
+										<th>Actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									{{#each profiles}}
+									<tr id="profileRow" name="{{this._id}}">
+										<td class="text-center email">{{this.email}}</td>
+										<td>{{this.firstName}} {{this.lastName}}</td>
+										<td>{{this.insuranceProvider}}</td>
+										<td>{{this.isAdmin}}</td>
+										<td class="td-actions text-right">
+											<button type="button" rel="tooltip"
+												class="btn btn-success btn-profile-edit">
+												<i class="material-icons">edit</i>
+											</button>
+											{{#ifNotEqual ../user.email this.email}}
+											<button type="button" rel="tooltip" class="btn btn-danger btn-profile-delete">
+												<i class="material-icons">close</i>
+											</button>
+											{{/ifNotEqual}}
+										</td>
+									</tr>
+									{{/each}}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="tab-pane active text-center gallery" id="practitioners">
+					<div class="row">
+						<div class="col-md-12 ml-auto">
+							{{!-- <p>show practitioners here</p> --}}
+							<button class="btn btn-primary btn-fab btn-fab-mini btn-round" data-toggle="modal" data-target="#practitionerCreate">
+								<i class="material-icons">add</i>
+							</button>
+							<table class="table" id="practitionersTable">
+								<thead>
+									<tr>
+										<th class="text-center">Name</th>
+										<th>Location</th>
+										<th>Procedures</th>
+										<th>Providers</th>
+										<th>Actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									{{#each practitioners}}
+									<tr id="practitionerRow" name="{{this._id}}">
+										<td class="text-center">{{this.name}}</td>
+										<td>Lat: {{this.location.0.lat}} Long:{{this.location.1.long}}</td>
+										<td>
+
+											{{#each procedures}}
+											{{#each this}}
+											{{@key}}: {{this}}
+											<br>
+											{{/each}}
+											{{/each}}
+
+										</td>
+										<td>
+											{{#each providers}}
+											{{this}}
+											<br>
+											{{/each}}
+										</td>
+										<td class="td-actions text-right">
+											<button type="button" rel="tooltip"
+												class="btn btn-success btn-practitioner-edit">
+												<i class="material-icons">edit</i>
+											</button>
+											<button type="button" rel="tooltip" class="btn btn-danger btn-practitioner-delete">
+												<i class="material-icons">close</i>
+											</button>
+										</td>
+									</tr>
+									{{/each}}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="tab-pane text-center gallery" id="appointments">
+					<div class="row">
+						<div class="col-md-12 ml-auto">
+							{{!-- <p>This is where appointments should show up</p> --}}
+							<button class="btn btn-primary btn-fab btn-fab-mini btn-round" data-toggle="modal" data-target="#appointmentCreate">
+								<i class="material-icons">add</i>
+							</button>
+							<table class="table" id="appointmentsTable">
+								<thead>
+									<tr>
+										<th>User Email</th>
+										<th>Practitioner Name</th>
+										<th>Insurance</th>
+										<th>Procedure</th>
+										<th>Cost Seen</th>
+										<th>Verification</th>
+										<th>Actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									{{#each appointments}}
+									<tr id="appointmentRow" name="{{this._id}}">
+										<td>{{this.useremail}}</td>
+										<td>{{this.practitionerName}}</td>
+										<td>{{this.insurance}}</td>
+										<td>{{this.procedureInterest}}</td>
+										<td>{{this.costSeen}}</td>
+										<td>{{this.verification}}</td>
+										<td class="td-actions text-right">
+											<button type="button" rel="tooltip"
+												class="btn btn-success btn-appointment-edit">
+												<i class="material-icons">edit</i>
+											</button>
+											<button type="button" rel="tooltip" class="btn btn-danger btn-appointment-delete">
+												<i class="material-icons">close</i>
+											</button>
+										</td>
+									</tr>
+									{{/each}}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{/inline}}
+
+{{#*inline "modals-block"}}
+{{> modals/admin/profile/create}}
+{{> modals/admin/profile/edit}}
+{{> modals/admin/practitioner/create}}
+{{> modals/admin/practitioner/edit}}
+{{> modals/admin/appointment/create}}
+{{> modals/admin/appointment/edit}}
+{{/inline}}
+
+{{#*inline "scripts-block"}} --}}
+<script src="/public/admin/admin.js" type="text/javascript"></script>
+{{/inline}}
+{{/layouts/main}}

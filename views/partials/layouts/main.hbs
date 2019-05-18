@@ -1,0 +1,33 @@
+<!-- Handlebars for the primary template in rendering the page -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	{{> templates/head}}
+	{{#> style-block}}
+	{{/style-block}}
+</head>
+
+<body class="{{pageType}} sidebar-collapse">
+	{{!-- navbar --}}
+	{{> templates/navbar}}
+	{{!-- main --}}
+	{{#> page-header}}
+	{{/page-header}}
+	<main>
+		{{#> main-block}}
+		{{/main-block}}
+	</main>
+
+	{{!-- modals --}}
+	{{#> modals-block}}
+	{{/modals-block}}
+	{{!-- footer --}}
+	{{> templates/footer}}
+	{{!-- Scripts inclusion --}}
+	{{> templates/scripts}}
+	{{#> scripts-block}}
+	{{/scripts-block}}
+</body>
+
+</html>

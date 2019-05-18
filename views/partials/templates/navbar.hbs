@@ -7,11 +7,7 @@
 			{{#if user}}
 			Welcome back, {{user.firstName}}!
 			{{else}}
-			{{#if userEmail}}
-			Welcome back, {{userEmail}}!
-			{{else}}
 			Welcome!
-			{{/if}}
 			{{/if}}
 			<button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
 				aria-label="Toggle navigation">
@@ -23,69 +19,48 @@
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="navbar-nav ml-auto">
-				<li class="dropdown nav-item">
-					<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-						Random Links
+				<li class="nav-item">
+					<a class="nav-link" href="/map">
+						<i class="material-icons">map</i>
+						Map
+						<div class="ripple-container"></div>
 					</a>
-					<div class="dropdown-menu dropdown-with-icons">
-						<a href="" class="dropdown-item">
-							<i class="material-icons">mic</i> RL1
-						</a>
-						<a href="" class="dropdown-item">
-							<i class="material-icons">attach_money</i> RL2
-						</a>
-					</div>
 				</li>
-				<li class="dropdown nav-item">
-					<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-						About
-					</a>
-					<div class="dropdown-menu dropdown-with-icons">
-						<a href="" class="dropdown-item">
-							<i class="material-icons">info</i> What We're About
-						</a>
-						<a href="" class="dropdown-item">
-							<i class="material-icons">people</i> Who We Are
-						</a>
-						<a href="" class="dropdown-item">
-							<i class="material-icons">library_books</i> Things
-						</a>
-						<a href="" class="dropdown-item">
-							<i class="material-icons">whatshot</i> Stuff
-						</a>
-					</div>
-				</li>
+
 				{{#unless user}}
 				<li class="nav-item">
-					<a class="nav-link btn-info" rel="tooltip" title="" data-placement="bottom" href="/profile/login">
+					<a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="/profile/login">
+						<i class="material-icons">person</i>
 						Login
+						<div class="ripple-container"></div>
 					</a>
 				</li>
 				{{else}}
-				{{#ifOr user userEmail}}
+				{{#if user}}
 				<li class="dropdown nav-item">
 					<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-						{{#if userPhotoURL}}
-						<img src="{{userPhotoURL}}" alt="Circle Image" class="rounded-circle nav-img">
+						{{#if user.photo }}
+						<img src="{{user.photo}}" alt="Circle Image" class="rounded-circle nav-img">
 						{{else}}
-						<img src="/assets/img/account_circle.svg" alt="Circle Image" class="img-raised rounded-circle nav-img">
+						<img src="/assets/img/account_circle.svg" alt="Circle Image"
+							class="img-raised rounded-circle nav-img">
 						{{/if}}
 					</a>
 					<div class="dropdown-menu dropdown-with-icons">
-						<a href="/user" class="dropdown-item">
+						<a href="/profile" class="dropdown-item">
 							<i class="material-icons">account_box</i> My Profile
 						</a>
-						{{#ifEqual user.role 2}}
+						{{#if user.isAdmin}}
 						<a href="/admin/main" class="dropdown-item">
 							<i class="material-icons">supervisor_account</i> Admin
 						</a>
-						{{/ifEqual}}
-						<a href="{{logout_url}}" class="dropdown-item">
+						{{/if}}
+						<a href="/profile/logout" class="dropdown-item">
 							<i class="material-icons">exit_to_app</i> Sign Out
 						</a>
 					</div>
 				</li>
-				{{/ifOr}}
+				{{/if}}
 				{{/unless}}
 			</ul>
 		</div>
