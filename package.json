@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
+    "seed": "node data/seeds/mainseed.js",
     "watch": "nodemon app.js"
   },
   "author": "Anthony Rusignuolo 10374903, Michael Macari 10432224, Michael Manis 10412710",

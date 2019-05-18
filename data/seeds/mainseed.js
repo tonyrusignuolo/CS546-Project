@@ -109,8 +109,19 @@ const main = async () => {
     });
 
     await appointments.deleteAll();
+    const appointment1 = await appointments.create({
+        userId: String(prof3._id),
+        useremail: prof3.email,
+        practitionerId: String(officeD_ID._id),
+        practitionerName: officeD_ID.name,
+        insurance: "Horizon",
+        procedureInterest: "Wart removal",
+        costSeen: "$10",
+        verification: false
+    });
 
-
+    console.log(appointment1);
+    
 
 
 
