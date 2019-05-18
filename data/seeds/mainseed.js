@@ -97,6 +97,8 @@ const main = async () => {
         providers: ['Horizon', 'Delta', 'United', 'Blue Cross'],
     });
 
+    const officeC = await practitioners.get(officeC_ID);
+
     const officeD_ID = await practitioners.create({
         name: "Steve's Skin",
         location: [{lat: 40.741888}, {long: -74.036816}],
@@ -111,22 +113,28 @@ const main = async () => {
     const officeD = await practitioners.get(officeD_ID);
 
     await appointments.deleteAll();
+
     const appointment1 = await appointments.create({
         userId: String(prof3._id),
         useremail: prof3.email,
         practitionerId: String(officeD._id),
         practitionerName: officeD.name,
         insurance: "Horizon",
-        procedureInterest: "Wart removal",
-        costSeen: "$10",
+        procedureInterest: "Spray tan",
+        costSeen: "$99.99",
         verification: false
     });
 
-    console.log(appointment1);
-    
-
-
-
+    const appointment2 = await appointments.create({
+        userId: String(prof3._id),
+        useremail: prof3.email,
+        practitionerId: String(officeC._id),
+        practitionerName: officeC.name,
+        insurance: "Horizon",
+        procedureInterest: "Muscle toning",
+        costSeen: "$499.99",
+        verification: false
+    });
 
     const db = await conn();
     db.serverConfig.close();
