@@ -46,9 +46,9 @@ https://developers.google.com/maps/documentation/javascript/tutorial
 Regarding the design layout, the inspiration came from the following link:
 https://cloudfour.com/thinks/the-hidden-power-of-handlebars-partials/
 
-# General Structure
-## Routes
-The routes folder contains all of the routes that our project uses.
+# General Routing and Web Structure
+***The routes folder contains all of the routes that our project uses.***
+
 ### ./routes/admin.js
 * This route contains the routes for the /admin/ section of our profile
 * A get route at /admin/main for fetching all of the data from the entire data base in /data/practitioners, /data/appointments and /data/profiles folder
