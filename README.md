@@ -6,7 +6,7 @@ When visiting the site, users will be taken to a landing page where they can sig
 
 ### Running
 
-First, start your MongoDB server and ensure that `config/mongoConnection.js` is configured properly. Then run the following commands:
+First, start your MongoDB server and ensure that `config/mongoConnection.js` is configured properly. Ensure that you are in the project directory, then run the following commands:
 
 ```js
 npm install
