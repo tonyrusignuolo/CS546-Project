@@ -113,5 +113,5 @@ https://cloudfour.com/thinks/the-hidden-power-of-handlebars-partials/
 ### ./public/admin.js && ./public/common.js
 * Common is a client side file that is filled with helper functions for the admin.js file. The admin.js file contains the client side processing done for all administrative controls on the website. 
 
-### ./Views
+### ./views
 * This folder contains all of the corresponding documents and handlebars that have to do with the layout of the entire website. These views utilize ./assets from material kit that add the front end aspects that are seen.
