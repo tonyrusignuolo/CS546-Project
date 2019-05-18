@@ -18,11 +18,11 @@ npm start
 
 Here are several profiles included which can be used to test the site:
 
-|email|password|admin|
-|-----|--------|-------|
-|`lieutenant_dan@gmail.com`|`iaintgotnolegs`|`yes`|
-|`jaime_lannister@yahoo.com`|`lionheart`|`no`|
-|`pbaressi@stevens.edu`|`dangernoodle`|`yes`|
+|email						|password			|admin	|
+|---------------------------|-------------------|-------|
+|`lieutenant_dan@gmail.com`	|`iaintgotnolegs`	|`yes`	|
+|`jaime_lannister@yahoo.com`|`lionheart`		|`no`	|
+|`pbaressi@stevens.edu`		|`dangernoodle`		|`yes`	|
 
 ### External Sources
 If you like the design of the project, you can find the material-kit we used for the front end by Creative Tim in the link here:
@@ -32,3 +32,7 @@ This material-kit provides assets that design and style html with some animation
 
 The health map was generated using the google maps javascript API which can be found here:
 https://developers.google.com/maps/documentation/javascript/tutorial
+
+### References
+Regarding the design layout, the inspiration came from the following link:
+https://cloudfour.com/thinks/the-hidden-power-of-handlebars-partials/
