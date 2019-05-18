@@ -50,6 +50,12 @@ const handlebarsInstance = exphbs.create({
 			return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
 		},
 
+		ifNotEqual: (arg1, arg2, options) => {
+			console.log(arg1);
+			console.log(arg2);
+			return (arg1 != arg2) ? options.fn(this) : "";
+		},
+
 		ifOr: (arg1, arg2, options) => {
 			return (arg1 || arg2) ? options.fn(this) : options.inverse(this);
 		}

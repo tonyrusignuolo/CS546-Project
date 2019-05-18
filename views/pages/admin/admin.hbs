@@ -90,9 +90,11 @@
 												class="btn btn-success btn-profile-edit">
 												<i class="material-icons">edit</i>
 											</button>
+											{{#ifNotEqual ../user.email this.email}}
 											<button type="button" rel="tooltip" class="btn btn-danger btn-profile-delete">
 												<i class="material-icons">close</i>
 											</button>
+											{{/ifNotEqual}}
 										</td>
 									</tr>
 									{{/each}}
