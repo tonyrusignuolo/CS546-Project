@@ -14,6 +14,15 @@ npm run seed
 npm start
 ```
 
+## MAP API
+In order to get the full functionality of the website, a google map API key will need to be generated and inserted into a specific file location.
+The map partial script for the Google API should be placed under a folder at ./views/partials/map/apikey.hbs
+Inside of this apikey.hbs at the given file location should contain:
+
+<script src="https://maps.googleapis.com/maps/api/js?key=YOURKEYHERE" type="text/javascript"></script>
+
+This was modified slightly from the initial Google Maps API documentation to get rid of the call back causing synchronousy issues with the /public/map/js/healthmap.js client side file. It was resolving the AJAX call to populate the map on document ready prior to the map initialization, hence the slight alteration for the proper functionality. 
+
 ### Profiles
 
 Here are several profiles included which can be used to test the site:
@@ -62,52 +71,47 @@ The routes folder contains all of the routes that our project uses.
 * Get /admin/profiles to get all profiles from db through /data/profiles.getAll
 * Post /admin/profiles/create to create a profile in DB through /data/profile.create
 * Post /admin/profiles/update to update profile in DB through /data/profile.update
-Post /admin/profiles/delete to delete profile from DB through /data/profile.remove
-Get /admn/appointments which uses /data/appointments.readall to get all appointments from db
-Post /admin/appointments/update to update appointment in db through /data/appoointments.update
-Post /admin/appointments/delete to delete appointment from db through /data/appointments.delete
+* Post /admin/profiles/delete to delete profile from DB through /data/profile.remove
+* Get /admn/appointments which uses /data/appointments.readall to get all appointments from db
+* Post /admin/appointments/update to update appointment in db through /data/appoointments.update
+* Post /admin/appointments/delete to delete appointment from db through /data/appointments.delete
 
 ### ./routes/appointments.js
-Appointment route for non-admin appointment creation
-Post /appointments/create to create an appointment in the db
+* Appointment route for non-admin appointment creation
+* Post /appointments/create to create an appointment in the db
 
 ### ./routes/map.js
-Get /map which is the route to get all practitioners in DB and load the markers onto the map
-Get /map/match which is used by the healthmap.js client side jquery via ajax call to get the matching practitioners for the map marker filtering
-Get /map/all which his used by the healthmap.js client side jquery via ajax call to get all practitoners from the DB for the map markers on the map
-Get /map/checklogin which is used by the healthmap.js client side jquery via ajax call to check the users login state and authentication on the request.session middleware
+* Get /map which is the route to get all practitioners in DB and load the markers onto the map
+* Get /map/match which is used by the healthmap.js client side jquery via ajax call to get the matching practitioners for the map marker filtering
+* Get /map/all which his used by the healthmap.js client side jquery via ajax call to get all practitoners from the DB for the map markers on the map
+* Get /map/checklogin which is used by the healthmap.js client side jquery via ajax call to check the users login state and authentication on the request.session middleware
 
 ### ./routes/profile.js
-Get /profile/signup is the route to get and render the sign up page
-Post /profile/signup which is the route to post to the signup page and create a new profile in the db on success
-Get /profile/login which is the route to get and render the login page
-Post /profile/login which is the route to post to the login page and authenticate the users login
-Get /profile which is the route used to render the profile page 
-Post /profile/edit which is the route used to edit the logged in user profile
-Get /profile/logout logs the user out and destroys the session authentication
+* Get /profile/signup is the route to get and render the sign up page
+* Post /profile/signup which is the route to post to the signup page and create a new profile in the db on success
+* Get /profile/login which is the route to get and render the login page
+* Post /profile/login which is the route to post to the login page and authenticate the users login
+* Get /profile which is the route used to render the profile page 
+* Post /profile/edit which is the route used to edit the logged in user profile
+* Get /profile/logout logs the user out and destroys the session authentication
 
 ### ./routes/index.js
-
-This is used to configure all of the routing for the website
+* This is used to configure all of the routing for the website
 
 ### ./data
-
-This is the folder contatining all of the data operations for each of the collcetion in the data base. Each of the corresponding subfolders contain CRUD operations for each, plus some extra for what was needed.
+* This is the folder contatining all of the data operations for each of the collcetion in the data base. Each of the corresponding subfolders contain CRUD operations for each, plus some extra for what was needed.
 
 ### ./data/seeds
-
-This is the file that contains the seed to seed the data base to demo the website
+* This is the file that contains the seed to seed the data base to demo the website
 
 ### ./public/map/js/healthmap.js
-
-This is the client side script that renders the map and all of its functionality including the dynamic form filling and booking options
+* This is the client side script that renders the map and all of its functionality including the dynamic form filling and booking options with the google map API
 
 ### ./public/map/mapstyle.css
-
-This is a CSS subdocument added to our material kit that allows us to style the map and containerize it in a way that makes it user interface friendly
+* This is a CSS subdocument added to our material kit that allows us to style the map and containerize it in a way that makes it user interface friendly
 
 ### ./public/admin.js && ./public/common.js
-Common is a client side file that is filled with helper functions for the admin.js file. The admin.js file contains the client side processing done for all administrative controls on the website. 
+* Common is a client side file that is filled with helper functions for the admin.js file. The admin.js file contains the client side processing done for all administrative controls on the website. 
 
 ### ./Views
-This folder contains all of the corresponding documents and handlebars that have to do with the layout of the entire website. These views utilize ./assets from material kit that add the front end aspects that are seen.
+* This folder contains all of the corresponding documents and handlebars that have to do with the layout of the entire website. These views utilize ./assets from material kit that add the front end aspects that are seen.
