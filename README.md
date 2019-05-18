@@ -37,10 +37,10 @@ https://developers.google.com/maps/documentation/javascript/tutorial
 Regarding the design layout, the inspiration came from the following link:
 https://cloudfour.com/thinks/the-hidden-power-of-handlebars-partials/
 
-### General Structure
+# General Structure
 ## Routes
 The routes folder contains all of the routes that our project uses.
-# ./routes/admin.js
+### ./routes/admin.js
 This route contains the routes for the /admin/ section of our profile
 
 A get route at /admin/main for fetching all of the data from the entire data base in /data/practitioners, /data/appointments and /data/profiles folder
@@ -91,13 +91,13 @@ Post /admin/appointments/update to update appointment in db through /data/appooi
 
 Post /admin/appointments/delete to delete appointment from db through /data/appointments.delete
 
-# ./routes/appointments.js
+### ./routes/appointments.js
 
 Appointment route for non-admin appointment creation
 
 Post /appointments/create to create an appointment in the db
 
-# ./routes/map.js
+### ./routes/map.js
 
 Get /map which is the route to get all practitioners in DB and load the markers onto the map
 
@@ -107,7 +107,7 @@ Get /map/all which his used by the healthmap.js client side jquery via ajax call
 
 Get /map/checklogin which is used by the healthmap.js client side jquery via ajax call to check the users login state and authentication on the request.session middleware
 
-# ./routes/profile.js
+### ./routes/profile.js
 
 Get /profile/signup is the route to get and render the sign up page
 
@@ -123,3 +123,12 @@ Post /profile/edit which is the route used to edit the logged in user profile
 
 Get /profile/logout logs the user out and destroys the session authentication
 
+### ./routes/index.js
+
+This is used to configure all of the routing for the website
+
+### ./data
+
+This is the folder contatining all of the data operations for each of the collcetion in the data base. Each of the corresponding subfolders contain CRUD operations for each, plus some extra for what was needed.
+
+### ./
