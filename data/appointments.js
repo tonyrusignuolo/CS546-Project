@@ -69,7 +69,7 @@ module.exports = {
 		if(!id || id === undefined || id === ''){
 			throw "Error: appointments getAllWithUserId no id passed"
 		}
-
+		
 		const appointmentsCollection = await appointments();
 		let res = await appointmentsCollection.find({userId: id}).toArray();
 		
