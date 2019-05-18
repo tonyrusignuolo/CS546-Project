@@ -16,7 +16,7 @@ npm start
 
 ## MAP API
 In order to get the full functionality of the website, a google map API key will need to be generated and inserted into a specific file location.
-The map partial script for the Google API should be placed under a folder at ./views/partials/map/apikey.hbs
+The map partial script for the Google API should be placed under a folder at ./views/partials/***map/apikey.hbs***
 Inside of this apikey.hbs at the given file location should contain:
 
 ```<script src="https://maps.googleapis.com/maps/api/js?key=YOURKEYHERE" type="text/javascript"></script>```
